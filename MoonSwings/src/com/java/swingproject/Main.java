@@ -17,7 +17,8 @@ public class Main {
 
 	 
 	 ImageIcon image = new ImageIcon("teammaker.png"); //create an ImageIcon
-	 frame.setIconImage(image.getImage()); //change icon of frame
+//	 frame.setIconImage(image.getImage()); //change icon of frame // IguessNotWorkAtMac Doesn't have iconFrame
 	 frame.getContentPane().setBackground(new Color(2,130,255)); //change color of background
+	 
 	}
 }
