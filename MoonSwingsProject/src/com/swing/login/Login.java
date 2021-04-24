@@ -1,4 +1,4 @@
-package com.test.layout;
+package com.swing.login;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import com.swing.mainpage.MainPage;
+
 import javax.swing.JTextField;
 import java.awt.SystemColor;
 import javax.swing.JButton;
@@ -159,8 +162,8 @@ public class Login {
 			btnSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 		
-					Announcement announcement = new Announcement();
-					announcement.run();
+					MainPage mainPage= new MainPage();
+					mainPage.run();
 					frmteam.setVisible(false);
 		
 				}

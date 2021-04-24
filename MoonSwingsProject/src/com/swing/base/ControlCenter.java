@@ -1,10 +1,12 @@
-package com.test.design;
+package com.swing.base;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
+import com.swing.login.Login;
 
-import com.test.layout.Login;
+
+
+
 
 public class ControlCenter {
 
@@ -15,9 +17,8 @@ public class ControlCenter {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login loginwindow = new Login();
-					loginwindow.run();
-					
+					Login login = new Login();
+					login.run();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
