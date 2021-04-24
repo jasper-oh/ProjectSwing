@@ -153,6 +153,15 @@ public class MainPage {
 	private JTable TRTeammateReviewTable;
 //	*** Panel TeamReview end
 	
+//	Panel for FindTeammate
+	private JPanel panelFindTeammate;
+	private JScrollPane scrollPane_FindTeammate;
+	private JTable TableFindTeammate;
+	private final DefaultTableModel Outer_Table_FindTeammate = new DefaultTableModel();
+	private JLabel lblFindTeammateYouPickedBy;
+	private JScrollPane scrollPane_YouPickedBy;
+	private JTable tableYouPickedBy;
+	private final DefaultTableModel Outer_Table_YouPickedBy = new DefaultTableModel();
 	
 	/**
 	 * Launch the application.
@@ -190,6 +199,7 @@ public class MainPage {
 				panelTeamStatus.setVisible(false);
 				panelTeamReview.setVisible(false);
 				panelCheckProfile.setVisible(false);
+				panelFindTeammate.setVisible(false);
 			}
 		});
 		frame.setBounds(100, 100,790, 570);
@@ -201,6 +211,7 @@ public class MainPage {
 		frame.getContentPane().add(getPanelTeamStatus());
 		frame.getContentPane().add(getPanelCheckProfile());
 		frame.getContentPane().add(getPanelTeamReview());
+		frame.getContentPane().add(getPanel_1());
 	}
 	private JPanel getPanel() {
 		if (fixedpanel== null) {
@@ -404,6 +415,7 @@ public class MainPage {
 		panelTeamStatus.setVisible(false);
 		panelCheckProfile.setVisible(false);
 		panelTeamReview.setVisible(false);
+		panelFindTeammate.setVisible(false);
 
 		
 	}
@@ -416,6 +428,7 @@ public class MainPage {
 		CheckProfileTableProject();
 		CheckProfileTableReview();
 		panelTeamReview.setVisible(false);
+		panelFindTeammate.setVisible(false);
 	}
 	
 	private void checkFindTeammateUIAction() {
@@ -424,6 +437,9 @@ public class MainPage {
 		panelTeamStatus.setVisible(false);
 		panelCheckProfile.setVisible(false);
 		panelTeamReview.setVisible(false);
+		panelFindTeammate.setVisible(true);
+		FindTeammateTableFindTeammate();
+		FindTeammateTableYouPickedBy();
 		
 	}
 	private void checkTeamReviewAction(){
@@ -432,6 +448,7 @@ public class MainPage {
 		panelTeamStatus.setVisible(false);
 		panelCheckProfile.setVisible(false);
 		panelTeamReview.setVisible(true);
+		panelFindTeammate.setVisible(false);
 		
 	}
 	private void checkTeammateStatusAction(){
@@ -440,6 +457,7 @@ public class MainPage {
 		panelTeamStatus.setVisible(true);
 		panelCheckProfile.setVisible(false);
 		panelTeamReview.setVisible(false);
+		panelFindTeammate.setVisible(false);
 		
 	}
 	// 21.04.24 SeongYeon-------------
@@ -743,37 +761,37 @@ public class MainPage {
 	private JLabel getLblAnnoucementTitle() {
 		if (lblAnnoucementTitle == null) {
 			lblAnnoucementTitle = new JLabel("Announcement Title");
-			lblAnnoucementTitle.setForeground(new Color(51, 102, 153));
 			lblAnnoucementTitle.setBounds(30, 266, 295, 38);
+			lblAnnoucementTitle.setForeground(new Color(51, 102, 153));
 		}
 		return lblAnnoucementTitle;
 	}
 	private JLabel getLblAnnoucementDate() {
 		if (lblAnnoucementDate == null) {
 			lblAnnoucementDate = new JLabel("2021-04-23");
+			lblAnnoucementDate.setBounds(350, 266, 110, 38);
 			lblAnnoucementDate.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 			lblAnnoucementDate.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblAnnoucementDate.setForeground(new Color(153, 153, 153));
-			lblAnnoucementDate.setBounds(350, 266, 110, 38);
 		}
 		return lblAnnoucementDate;
 	}
 	private JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
-			separator.setForeground(new Color(204, 204, 204));
 			separator.setBounds(20, 298, 450, 12);
+			separator.setForeground(new Color(204, 204, 204));
 		}
 		return separator;
 	}
 	private JTextArea getTxtrAnnouncementContent() {
 		if (txtrAnnouncementContent == null) {
 			txtrAnnouncementContent = new JTextArea();
+			txtrAnnouncementContent.setBounds(30, 316, 430, 162);
 			txtrAnnouncementContent.setRows(20);
 			txtrAnnouncementContent.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			txtrAnnouncementContent.setForeground(new Color(51, 102, 153));
 			txtrAnnouncementContent.setText("Announcement Content\nhello everyone\ni'm fine thank you and you?");
-			txtrAnnouncementContent.setBounds(30, 316, 430, 162);
 		}
 		return txtrAnnouncementContent;
 	}
@@ -1272,5 +1290,127 @@ public class MainPage {
 		}
 		return tfmate6_5;
 	}
+	
+	/* Panel Find Teammate*/
+	
 
+	private JPanel getPanel_1() {
+		if (panelFindTeammate == null) {
+			panelFindTeammate = new JPanel();
+			panelFindTeammate.setBounds(300, 35, 490, 507);
+			panelFindTeammate.setLayout(null);
+			panelFindTeammate.add(getScrollPane_FindTeammate());
+			panelFindTeammate.add(getLblFindTeammateYouPickedBy());
+			panelFindTeammate.add(getScrollPane_YouPickedBy());
+
+		}
+		return panelFindTeammate;
+	}
+//	Find Teammate Table
+	private JScrollPane getScrollPane_FindTeammate() {
+		if (scrollPane_FindTeammate == null) {
+			scrollPane_FindTeammate = new JScrollPane();
+			scrollPane_FindTeammate.setBounds(6, 6, 478, 225);
+			scrollPane_FindTeammate.setViewportView(getTableFindTeammate());
+		}
+		return scrollPane_FindTeammate;
+	}
+	private JTable getTableFindTeammate() {
+		if (TableFindTeammate == null) {
+			TableFindTeammate = new JTable();
+			TableFindTeammate.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			TableFindTeammate.setModel(Outer_Table_FindTeammate); // <--***************************************************
+			TableFindTeammate.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
+			TableFindTeammate.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
+		}
+		return TableFindTeammate;
+	}
+	
+	private void FindTeammateTableFindTeammate(){
+		int i = Outer_Table_FindTeammate.getRowCount();
+		Outer_Table_FindTeammate.addColumn("Name");
+		Outer_Table_FindTeammate.addColumn("Github");
+		Outer_Table_FindTeammate.addColumn("TeamStatus");
+		Outer_Table_FindTeammate.addColumn("MBTI");
+		Outer_Table_FindTeammate.setColumnCount(4);
+		for(int j = 0 ; j < i ; j++){
+			Outer_Table_YouPickedBy.removeRow(0);
+		}
+		tableYouPickedBy.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
+		int vColIndex = 0;
+		TableColumn col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
+		int width = 120;
+		col.setPreferredWidth(width);
+		vColIndex = 1;
+		col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
+		width = 120;
+		col.setPreferredWidth(width);
+		vColIndex = 2;
+		col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
+		width = 120;
+		col.setPreferredWidth(width);
+		vColIndex = 3;
+		col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
+		width = 120;
+		col.setPreferredWidth(width);
+}
+//	*** End Find Teammate Table
+	
+//	You Picked By Table
+	private JLabel getLblFindTeammateYouPickedBy() {
+		if (lblFindTeammateYouPickedBy == null) {
+			lblFindTeammateYouPickedBy = new JLabel("You Picked By");
+			lblFindTeammateYouPickedBy.setForeground(Color.GRAY);
+			lblFindTeammateYouPickedBy.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblFindTeammateYouPickedBy.setBounds(6, 255, 327, 36);
+		}
+		return lblFindTeammateYouPickedBy;
+	}
+	private JScrollPane getScrollPane_YouPickedBy() {
+		if (scrollPane_YouPickedBy == null) {
+			scrollPane_YouPickedBy = new JScrollPane();
+			scrollPane_YouPickedBy.setBounds(6, 287, 478, 214);
+			scrollPane_YouPickedBy.setViewportView(getTableYouPickedBy());
+		}
+		return scrollPane_YouPickedBy;
+	}
+	private JTable getTableYouPickedBy() {
+		if (tableYouPickedBy == null) {
+			tableYouPickedBy = new JTable();
+			tableYouPickedBy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			tableYouPickedBy.setModel(Outer_Table_YouPickedBy); // <--***************************************************
+			tableYouPickedBy.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
+			tableYouPickedBy.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
+		}
+		return tableYouPickedBy;
+	}
+		private void FindTeammateTableYouPickedBy(){
+			int i = Outer_Table_FindTeammate.getRowCount();
+			Outer_Table_YouPickedBy.addColumn("Name");
+			Outer_Table_YouPickedBy.addColumn("Github");
+			Outer_Table_YouPickedBy.addColumn("TeamStatus");
+			Outer_Table_YouPickedBy.addColumn("MBTI");
+			Outer_Table_YouPickedBy.setColumnCount(4);
+			for(int j = 0 ; j < i ; j++){
+				Outer_Table_YouPickedBy.removeRow(0);
+			}
+			tableYouPickedBy.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
+			int vColIndex = 0;
+			TableColumn col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
+			int width = 120;
+			col.setPreferredWidth(width);
+			vColIndex = 1;
+			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
+			width = 120;
+			col.setPreferredWidth(width);
+			vColIndex = 2;
+			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
+			width = 120;
+			col.setPreferredWidth(width);
+			vColIndex = 3;
+			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
+			width = 120;
+			col.setPreferredWidth(width);
+	}
+//		*** You Picked By Table
 } 
