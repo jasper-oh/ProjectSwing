@@ -28,7 +28,7 @@ import javax.swing.JTextArea;
 public class MainPage {
 
 	private JFrame frame;
-	private JPanel panel;
+	private JPanel fixedpanel;
 	private JLabel lblMake;
 	private JLabel lblTeam3;
 	private JLabel lblBun;
@@ -65,17 +65,21 @@ public class MainPage {
 	private JPanel panelTeamStatus;
 	private JRadioButton rbTeam1;
 	private JRadioButton tbTeam2;
-	private JTextField tfmate2_1;
-	private JTextField tfmate2_2;
-	private JTextField tfmate2_3;
-	private JTextField tfmate2_4;
 	private JRadioButton rbTeam3;
 	private JRadioButton rbTeam4;
 	private JRadioButton rbTeam5;
 	private JRadioButton tbTeam6;
 //	Need to Change
-	private JButton btnNewButton;
-	private JButton btnOut;
+	private JButton btnInTeamStatus;
+	private JButton btnOutTeamStatus;
+	private JTextField tfmate1_1;
+	private JTextField tfmate1_2;
+	private JTextField tfmate1_3;
+	private JTextField tfmate1_4;
+	private JTextField tfmate2_1;
+	private JTextField tfmate2_2;
+	private JTextField tfmate2_3;
+	private JTextField tfmate2_4;
 	private JTextField tfmate3_1;
 	private JTextField tfmate3_2;
 	private JTextField tfmate3_3;
@@ -88,10 +92,6 @@ public class MainPage {
 	private JTextField tfmate5_2;
 	private JTextField tfmate5_3;
 	private JTextField tfmate5_4;
-	private JTextField tfmate1_1;
-	private JTextField tfmate1_2;
-	private JTextField tfmate1_3;
-	private JTextField tfmate1_4;
 	private JTextField tfmate6_1;
 	private JTextField tfmate6_2;
 	private JTextField tfmate6_3;
@@ -99,7 +99,7 @@ public class MainPage {
 	private JTextField tfmate6_5;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblAnnoucementTitle;
-	private JLabel lblAnnoucementTitle_1;
+	private JLabel lblAnnoucementDate;
 	private JSeparator separator;
 	private JTextArea txtrAnnouncementContent;
 //	*** Panel TeamStatus end
@@ -107,48 +107,48 @@ public class MainPage {
 //	Panel for CheckProfile
 	private JPanel panelCheckProfile;
 	private JPanel ImagePanel_1;
-	private JLabel lblId_1;
-	private JLabel lblName_1;
-	private JLabel lblMbti_1;
-	private JLabel lblGithub_1;
-	private JLabel lblGithub_1_1;
-	private JTextField tfId;
-	private JTextField tfName;
-	private JTextField tfAdress;
-	private JTextField tfMbti;
-	private JTextField tfGithub;
-	private JLabel lblStrangth_1;
-	private JTextField tfStrangth;
-	private JLabel lblIntroduce_1;
-	private JTextField tfIntroduce;
+	private JLabel lblCheckProfileId;
+	private JLabel lblCheckProfileName;
+	private JLabel lblCheckProfileMbti;
+	private JLabel lblCheckProfileGithub;
+	private JLabel lblCheckProfileAddress;
+	private JTextField tfCheckProfileId;
+	private JTextField tfCheckProfileName;
+	private JTextField tfCheckProfileAddress;
+	private JTextField tfCheckProfileMbti;
+	private JTextField tfCheckProfileGithub;
+	private JLabel lblCheckProfileStrength;
+	private JTextField tfCheckProfileStrength;
+	private JLabel lblCheckProfileIntroduce;
+	private JTextField tfCheckProfileIntroduse;
 	private JScrollPane scrollPane_Project;
 	private JTable ProjectTable;
 	
 //	outerTable for what??
 	
-	private final DefaultTableModel Outer_Table = new DefaultTableModel();
+	private final DefaultTableModel Outer_Table_ProjectTable = new DefaultTableModel();
 	
 //	outerTable for what??
 	
-	private final DefaultTableModel Outer_Table1 = new DefaultTableModel();
+	private final DefaultTableModel Outer_Table_TeammateReviewTable = new DefaultTableModel();
 	
-	private JLabel lbl_1;
-	private JLabel lbl_2;
+	private JLabel lblCheckProfileProject;
+	private JLabel lblCheckProfileTeammateReview;
 	private JScrollPane scrollPane_TeammateReview;
 	private JButton btnEditinCheckProfile;
 	private JTable TeammateReviewTable;
-	private JLabel lblGithub_1_1_1;
-	private JTextField tfPhoneNo;
+	private JLabel lblCheckProfilePhone;
+	private JTextField tfCheckProfilePhone;
 	
 //	*** Panel CheckProfile end
 	
 //	Panel for TeamReview
 	private JPanel panelTeamReview;
 	private JScrollPane scrollPane_Project_1;
-	private JLabel lbl_1_1;
-	private JLabel lbl_2_1;
+	private JLabel lblTeamReviewProject;
+	private JLabel lblTeamReviewTeammateReview;
 	private JScrollPane scrollPane_TeammateReview_1;
-	private JButton btnOK;
+	private JButton btnTeamReviewSubmit;
 	private JTable TRProjectTable;
 	private JTable TRTeammateReviewTable;
 //	*** Panel TeamReview end
@@ -203,30 +203,30 @@ public class MainPage {
 		frame.getContentPane().add(getPanelTeamReview());
 	}
 	private JPanel getPanel() {
-		if (panel == null) {
-			panel = new JPanel();
-			panel.setBackground(new Color(51, 102, 153));
-			panel.setBounds(0, 0, 300, 542);
-			panel.setLayout(null);
-			panel.add(getLblMake());
-			panel.add(getLblTeam3());
-			panel.add(getLblBun());
-			panel.add(getImagePanel());
-			panel.add(getLblId());
-			panel.add(getLblName());
-			panel.add(getLblMbti());
-			panel.add(getLblGithub());
-			panel.add(getLblShowId());
-			panel.add(getLblShowName());
-			panel.add(getLblShowGithub());
-			panel.add(getLblShowMbti());
-			panel.add(getBtnAnnounce());
-			panel.add(getBtnCheckProfile());
-			panel.add(getBtnFindTeammate());
-			panel.add(getBtnTeamReview());
-			panel.add(getBtnTeammateStatus());
+		if (fixedpanel== null) {
+			fixedpanel= new JPanel();
+			fixedpanel.setBackground(new Color(51, 102, 153));
+			fixedpanel.setBounds(0, 0, 300, 542);
+			fixedpanel.setLayout(null);
+			fixedpanel.add(getLblMake());
+			fixedpanel.add(getLblTeam3());
+			fixedpanel.add(getLblBun());
+			fixedpanel.add(getImagePanel());
+			fixedpanel.add(getLblId());
+			fixedpanel.add(getLblName());
+			fixedpanel.add(getLblMbti());
+			fixedpanel.add(getLblGithub());
+			fixedpanel.add(getLblShowId());
+			fixedpanel.add(getLblShowName());
+			fixedpanel.add(getLblShowGithub());
+			fixedpanel.add(getLblShowMbti());
+			fixedpanel.add(getBtnAnnounce());
+			fixedpanel.add(getBtnCheckProfile());
+			fixedpanel.add(getBtnFindTeammate());
+			fixedpanel.add(getBtnTeamReview());
+			fixedpanel.add(getBtnTeammateStatus());
 		}
-		return panel;
+		return fixedpanel;
 	}
 	private JLabel getLblMake() {
 		if (lblMake == null) {
@@ -453,27 +453,27 @@ public class MainPage {
 			panelCheckProfile.setBounds(300, 35, 470, 479);
 			panelCheckProfile.setLayout(null);
 			panelCheckProfile.add(getImagePanel_1());
-			panelCheckProfile.add(getLblId_1());
-			panelCheckProfile.add(getLblName_1());
-			panelCheckProfile.add(getLblMbti_1());
-			panelCheckProfile.add(getLblGithub_1());
-			panelCheckProfile.add(getLblGithub_1_1());
-			panelCheckProfile.add(getTfId());
-			panelCheckProfile.add(getTfName());
-			panelCheckProfile.add(getTfAdress());
-			panelCheckProfile.add(getTfMbti());
-			panelCheckProfile.add(getTfGithub());
-			panelCheckProfile.add(getLblStrangth_1());
+			panelCheckProfile.add(getLblCheckProfileId());
+			panelCheckProfile.add(getLblCheckProfileName());
+			panelCheckProfile.add(getLblCheckProfileMbti());
+			panelCheckProfile.add(getLblCheckProfileGithub());
+			panelCheckProfile.add(getLblCheckProfileAddress());
+			panelCheckProfile.add(getTfCheckProfileId());
+			panelCheckProfile.add(getTfCheckProfileName());
+			panelCheckProfile.add(getTfCheckProfileAddress());
+			panelCheckProfile.add(getTfCheckProfileMbti());
+			panelCheckProfile.add(getTfCheckProfileGithub());
+			panelCheckProfile.add(getLblCheckProfileStrength());
 			panelCheckProfile.add(getTextField_4());
-			panelCheckProfile.add(getLblIntroduce_1());
+			panelCheckProfile.add(getLblCheckProfileIntroduce());
 			panelCheckProfile.add(getTextField_5());
 			panelCheckProfile.add(getScrollPane_Project());
-			panelCheckProfile.add(getLbl_1());
-			panelCheckProfile.add(getLbl_2());
+			panelCheckProfile.add(getLblCheckProfileProject());
+			panelCheckProfile.add(getLblCheckProfileTeammateReview());
 			panelCheckProfile.add(getScrollPane_TeammateReview());
 			panelCheckProfile.add(getBtnEditinCheckProfile());
-			panelCheckProfile.add(getLblGithub_1_1_1());
-			panelCheckProfile.add(getTfPhoneNo());
+			panelCheckProfile.add(getLblCheckProfilePhone());
+			panelCheckProfile.add(getTfCheckProfilePhone());
 		}
 		return panelCheckProfile;
 	}
@@ -486,111 +486,111 @@ public class MainPage {
 		}
 		return ImagePanel_1;
 	}
-	private JLabel getLblId_1() {
-		if (lblId_1 == null) {
-			lblId_1 = new JLabel("ID :");
-			lblId_1.setBounds(180, 30, 61, 16);
+	private JLabel getLblCheckProfileId() {
+		if (lblCheckProfileId == null) {
+			lblCheckProfileId = new JLabel("ID :");
+			lblCheckProfileId.setBounds(180, 30, 61, 16);
 		}
-		return lblId_1;
+		return lblCheckProfileId;
 	}
-	private JLabel getLblName_1() {
-		if (lblName_1 == null) {
-			lblName_1 = new JLabel("Name :");
-			lblName_1.setBounds(180, 55, 61, 16);
+	private JLabel getLblCheckProfileName() {
+		if (lblCheckProfileName == null) {
+			lblCheckProfileName = new JLabel("Name :");
+			lblCheckProfileName.setBounds(180, 55, 61, 16);
 		}
-		return lblName_1;
+		return lblCheckProfileName;
 	}
-	private JLabel getLblMbti_1() {
-		if (lblMbti_1 == null) {
-			lblMbti_1 = new JLabel("MBTI :");
-			lblMbti_1.setBounds(180, 80, 47, 16);
+	private JLabel getLblCheckProfileMbti() {
+		if (lblCheckProfileMbti == null) {
+			lblCheckProfileMbti = new JLabel("MBTI :");
+			lblCheckProfileMbti.setBounds(180, 80, 47, 16);
 		}
-		return lblMbti_1;
+		return lblCheckProfileMbti;
 	}
-	private JLabel getLblGithub_1() {
-		if (lblGithub_1 == null) {
-			lblGithub_1 = new JLabel("Github :");
-			lblGithub_1.setBounds(180, 105, 61, 16);
+	private JLabel getLblCheckProfileGithub() {
+		if (lblCheckProfileGithub == null) {
+			lblCheckProfileGithub = new JLabel("Github :");
+			lblCheckProfileGithub.setBounds(180, 105, 61, 16);
 		}
-		return lblGithub_1;
+		return lblCheckProfileGithub;
 	}
 	
-	private JLabel getLblGithub_1_1() {
-		if (lblGithub_1_1 == null) {
-			lblGithub_1_1 = new JLabel("Adress :");
-			lblGithub_1_1.setBounds(180, 130, 61, 16);
+	private JLabel getLblCheckProfileAddress() {
+		if (lblCheckProfileAddress == null) {
+			lblCheckProfileAddress = new JLabel("Address :");
+			lblCheckProfileAddress.setBounds(180, 130, 61, 16);
 		}
-		return lblGithub_1_1;
+		return lblCheckProfileAddress;
 	}
-	private JTextField getTfId() {
-		if (tfId == null) {
-			tfId = new JTextField();
-			tfId.setBounds(253, 25, 116, 21);
-			tfId.setColumns(10);
+	private JTextField getTfCheckProfileId() {
+		if (tfCheckProfileId == null) {
+			tfCheckProfileId = new JTextField();
+			tfCheckProfileId.setBounds(253, 25, 116, 21);
+			tfCheckProfileId.setColumns(10);
 		}
-		return tfId;
+		return tfCheckProfileId;
 	}
-	private JTextField getTfName() {
-		if (tfName == null) {
-			tfName = new JTextField();
-			tfName.setColumns(10);
-			tfName.setBounds(253, 50, 116, 21);
+	private JTextField getTfCheckProfileName() {
+		if (tfCheckProfileName == null) {
+			tfCheckProfileName = new JTextField();
+			tfCheckProfileName.setColumns(10);
+			tfCheckProfileName.setBounds(253, 50, 116, 21);
 		}
-		return tfName;
+		return tfCheckProfileName;
 	}
-	private JTextField getTfAdress() {
-		if (tfAdress == null) {
-			tfAdress = new JTextField();
-			tfAdress.setColumns(10);
-			tfAdress.setBounds(253, 125, 184, 21);
+	private JTextField getTfCheckProfileAddress() {
+		if (tfCheckProfileAddress == null) {
+			tfCheckProfileAddress = new JTextField();
+			tfCheckProfileAddress.setColumns(10);
+			tfCheckProfileAddress.setBounds(253, 125, 184, 21);
 		}
-		return tfAdress;
+		return tfCheckProfileAddress;
 	}
-	private JTextField getTfMbti() {
-		if (tfMbti == null) {
-			tfMbti = new JTextField();
-			tfMbti.setColumns(10);
-			tfMbti.setBounds(253, 75, 116, 21);
+	private JTextField getTfCheckProfileMbti() {
+		if (tfCheckProfileMbti == null) {
+			tfCheckProfileMbti = new JTextField();
+			tfCheckProfileMbti.setColumns(10);
+			tfCheckProfileMbti.setBounds(253, 75, 116, 21);
 		}
-		return tfMbti;
+		return tfCheckProfileMbti;
 	}
-	private JTextField getTfGithub() {
-		if (tfGithub == null) {
-			tfGithub = new JTextField();
-			tfGithub.setColumns(10);
-			tfGithub.setBounds(253, 100, 184, 21);
+	private JTextField getTfCheckProfileGithub() {
+		if (tfCheckProfileGithub == null) {
+			tfCheckProfileGithub = new JTextField();
+			tfCheckProfileGithub.setColumns(10);
+			tfCheckProfileGithub.setBounds(253, 100, 184, 21);
 		}
-		return tfGithub;
+		return tfCheckProfileGithub;
 	}
-	private JLabel getLblStrangth_1() {
-		if (lblStrangth_1 == null) {
-			lblStrangth_1 = new JLabel("Strangth(사용가능언어) :");
-			lblStrangth_1.setBounds(36, 193, 143, 15);
+	private JLabel getLblCheckProfileStrength() {
+		if (lblCheckProfileStrength == null) {
+			lblCheckProfileStrength = new JLabel("Strength(사용가능언어) :");
+			lblCheckProfileStrength.setBounds(36, 193, 143, 15);
 		}
-		return lblStrangth_1;
+		return lblCheckProfileStrength;
 	}
 	private JTextField getTextField_4() {
-		if (tfStrangth == null) {
-			tfStrangth = new JTextField();
-			tfStrangth.setBounds(180, 190, 257, 21);
-			tfStrangth.setColumns(10);
+		if (tfCheckProfileStrength == null) {
+			tfCheckProfileStrength = new JTextField();
+			tfCheckProfileStrength.setBounds(180, 190, 257, 21);
+			tfCheckProfileStrength.setColumns(10);
 		}
-		return tfStrangth;
+		return tfCheckProfileStrength;
 	}
-	private JLabel getLblIntroduce_1() {
-		if (lblIntroduce_1 == null) {
-			lblIntroduce_1 = new JLabel("한줄 자기소개 :");
-			lblIntroduce_1.setBounds(36, 223, 91, 15);
+	private JLabel getLblCheckProfileIntroduce() {
+		if (lblCheckProfileIntroduce == null) {
+			lblCheckProfileIntroduce = new JLabel("한줄 자기소개 :");
+			lblCheckProfileIntroduce.setBounds(36, 223, 91, 15);
 		}
-		return lblIntroduce_1;
+		return lblCheckProfileIntroduce;
 	}
 	private JTextField getTextField_5() {
-		if (tfIntroduce == null) {
-			tfIntroduce = new JTextField();
-			tfIntroduce.setColumns(10);
-			tfIntroduce.setBounds(126, 218, 311, 21);
+		if (tfCheckProfileIntroduse == null) {
+			tfCheckProfileIntroduse = new JTextField();
+			tfCheckProfileIntroduse.setColumns(10);
+			tfCheckProfileIntroduse.setBounds(126, 218, 311, 21);
 		}
-		return tfIntroduce;
+		return tfCheckProfileIntroduse;
 	}
 	private JScrollPane getScrollPane_Project() {
 		if (scrollPane_Project == null) {
@@ -604,28 +604,28 @@ public class MainPage {
 		if (ProjectTable == null) {
 			ProjectTable = new JTable();
 			ProjectTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			ProjectTable.setModel(Outer_Table); // <--***************************************************
+			ProjectTable.setModel(Outer_Table_ProjectTable); // <--***************************************************
 			ProjectTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
 			ProjectTable.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
 			
 		}
 		return ProjectTable;
 	}
-	private JLabel getLbl_1() {
-		if (lbl_1 == null) {
-			lbl_1 = new JLabel("Project");
-			lbl_1.setFont(new Font("굴림", Font.BOLD, 18));
-			lbl_1.setBounds(36, 249, 67, 21);
+	private JLabel getLblCheckProfileProject() {
+		if (lblCheckProfileProject == null) {
+			lblCheckProfileProject = new JLabel("Project");
+			lblCheckProfileProject.setFont(new Font("굴림", Font.BOLD, 18));
+			lblCheckProfileProject.setBounds(36, 249, 67, 21);
 		}
-		return lbl_1;
+		return lblCheckProfileProject;
 	}
-	private JLabel getLbl_2() {
-		if (lbl_2 == null) {
-			lbl_2 = new JLabel("Teammate Review");
-			lbl_2.setFont(new Font("굴림", Font.BOLD, 18));
-			lbl_2.setBounds(36, 349, 170, 21);
+	private JLabel getLblCheckProfileTeammateReview() {
+		if (lblCheckProfileTeammateReview == null) {
+			lblCheckProfileTeammateReview = new JLabel("Teammate Review");
+			lblCheckProfileTeammateReview.setFont(new Font("굴림", Font.BOLD, 18));
+			lblCheckProfileTeammateReview.setBounds(36, 349, 170, 21);
 		}
-		return lbl_2;
+		return lblCheckProfileTeammateReview;
 	}
 	private JScrollPane getScrollPane_TeammateReview() {
 		if (scrollPane_TeammateReview == null) {
@@ -637,7 +637,7 @@ public class MainPage {
 	}
 	private JButton getBtnEditinCheckProfile() {
 		if (btnEditinCheckProfile == null) {
-			btnEditinCheckProfile = new JButton("수정하기");
+			btnEditinCheckProfile = new JButton("Edit");
 			btnEditinCheckProfile.setBounds(180, 450, 97, 23);
 		}
 		return btnEditinCheckProfile;
@@ -647,26 +647,26 @@ public class MainPage {
 		if (TeammateReviewTable == null) {
 			TeammateReviewTable = new JTable();
 			TeammateReviewTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			TeammateReviewTable.setModel(Outer_Table1); // <--***************************************************
+			TeammateReviewTable.setModel(Outer_Table_TeammateReviewTable); // <--***************************************************
 			TeammateReviewTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
 			TeammateReviewTable.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
 		}
 		return TeammateReviewTable;
 	}
-	private JLabel getLblGithub_1_1_1() {
-		if (lblGithub_1_1_1 == null) {
-			lblGithub_1_1_1 = new JLabel("PhoneNo :");
-			lblGithub_1_1_1.setBounds(180, 155, 61, 16);
+	private JLabel getLblCheckProfilePhone() {
+		if (lblCheckProfilePhone == null) {
+			lblCheckProfilePhone = new JLabel("Phone :");
+			lblCheckProfilePhone.setBounds(180, 155, 61, 16);
 		}
-		return lblGithub_1_1_1;
+		return lblCheckProfilePhone;
 	}
-	private JTextField getTfPhoneNo() {
-		if (tfPhoneNo == null) {
-			tfPhoneNo = new JTextField();
-			tfPhoneNo.setColumns(10);
-			tfPhoneNo.setBounds(253, 150, 184, 21);
+	private JTextField getTfCheckProfilePhone() {
+		if (tfCheckProfilePhone == null) {
+			tfCheckProfilePhone = new JTextField();
+			tfCheckProfilePhone.setColumns(10);
+			tfCheckProfilePhone.setBounds(253, 150, 184, 21);
 		}
-		return tfPhoneNo;
+		return tfCheckProfilePhone;
 	}
 	
 
@@ -683,7 +683,7 @@ public class MainPage {
 			panelAnnouncement.setLayout(null);
 			panelAnnouncement.add(getScrollPane());
 			panelAnnouncement.add(getLblAnnoucementTitle());
-			panelAnnouncement.add(getLblAnnoucementTitle_1());
+			panelAnnouncement.add(getLblAnnoucementDate());
 			panelAnnouncement.add(getSeparator());
 			panelAnnouncement.add(getTxtrAnnouncementContent());
 		}
@@ -703,7 +703,7 @@ public class MainPage {
 			tableAnnoucement = new JTable();
 			tableAnnoucement.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tableAnnoucement.getTableHeader().setReorderingAllowed(false);
-			tableAnnoucement.setModel(Outer_Table_Announcement); // <--***************************************************
+			tableAnnoucement.setModel(Outer_Table_Announcement); 
 		}
 		return tableAnnoucement;
 	}
@@ -748,15 +748,15 @@ public class MainPage {
 		}
 		return lblAnnoucementTitle;
 	}
-	private JLabel getLblAnnoucementTitle_1() {
-		if (lblAnnoucementTitle_1 == null) {
-			lblAnnoucementTitle_1 = new JLabel("2021-04-23");
-			lblAnnoucementTitle_1.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-			lblAnnoucementTitle_1.setHorizontalAlignment(SwingConstants.RIGHT);
-			lblAnnoucementTitle_1.setForeground(new Color(153, 153, 153));
-			lblAnnoucementTitle_1.setBounds(350, 266, 110, 38);
+	private JLabel getLblAnnoucementDate() {
+		if (lblAnnoucementDate == null) {
+			lblAnnoucementDate = new JLabel("2021-04-23");
+			lblAnnoucementDate.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+			lblAnnoucementDate.setHorizontalAlignment(SwingConstants.RIGHT);
+			lblAnnoucementDate.setForeground(new Color(153, 153, 153));
+			lblAnnoucementDate.setBounds(350, 266, 110, 38);
 		}
-		return lblAnnoucementTitle_1;
+		return lblAnnoucementDate;
 	}
 	private JSeparator getSeparator() {
 		if (separator == null) {
@@ -780,13 +780,13 @@ public class MainPage {
 	
 //	CheckProfile Table
 	private void CheckProfileTableProject(){
-	    int i = Outer_Table.getRowCount();
-	    Outer_Table.addColumn("Project Name");
-	    Outer_Table.addColumn("TeaName");
-	    Outer_Table.addColumn("결과물-Git Address");
-	    Outer_Table.setColumnCount(3);
+	    int i = Outer_Table_ProjectTable.getRowCount();
+	    Outer_Table_ProjectTable.addColumn("Project Name");
+	    Outer_Table_ProjectTable.addColumn("TeaName");
+	    Outer_Table_ProjectTable.addColumn("결과물-Git Address");
+	    Outer_Table_ProjectTable.setColumnCount(3);
 	    for(int j = 0 ; j < i ; j++){
-	      Outer_Table.removeRow(0);
+	    	Outer_Table_ProjectTable.removeRow(0);
 	    }
 	    ProjectTable.setAutoResizeMode(ProjectTable.AUTO_RESIZE_OFF);
 	    int vColIndex = 0;
@@ -805,13 +805,13 @@ public class MainPage {
 	}
 	@SuppressWarnings("static-access")
 	private void CheckProfileTableReview(){
-	    int i = Outer_Table1.getRowCount();
-	    Outer_Table1.addColumn("Signal Name");
-	    Outer_Table1.addColumn("Project Name");
-	    Outer_Table1.addColumn("Review");
-	    Outer_Table1.setColumnCount(3);
+	    int i = Outer_Table_TeammateReviewTable.getRowCount();
+	    Outer_Table_TeammateReviewTable.addColumn("Signal Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Project Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Review");
+	    Outer_Table_TeammateReviewTable.setColumnCount(3);
 	    for(int j = 0 ; j < i ; j++){
-	      Outer_Table1.removeRow(0);
+	    	Outer_Table_TeammateReviewTable.removeRow(0);
 	    }
 	    TeammateReviewTable.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
 	    int vColIndex = 0;
@@ -838,10 +838,10 @@ public class MainPage {
 			panelTeamReview.setBounds(300, 35, 470, 479);
 			panelTeamReview.setLayout(null);
 			panelTeamReview.add(getScrollPane_Project_1());
-			panelTeamReview.add(getLbl_1_1());
-			panelTeamReview.add(getLbl_2_1());
+			panelTeamReview.add(getLblTeamReviewProject());
+			panelTeamReview.add(getLblTeamReviewTeammateReview());
 			panelTeamReview.add(getScrollPane_TeammateReview_1());
-			panelTeamReview.add(getBtnOK());
+			panelTeamReview.add(getBtnTeamReviewSubmit());
 		}
 		return panelTeamReview;
 	}
@@ -853,21 +853,21 @@ public class MainPage {
 		}
 		return scrollPane_Project_1;
 	}
-	private JLabel getLbl_1_1() {
-		if (lbl_1_1 == null) {
-			lbl_1_1 = new JLabel("Project");
-			lbl_1_1.setFont(new Font("굴림", Font.BOLD, 18));
-			lbl_1_1.setBounds(33, 45, 67, 21);
+	private JLabel getLblTeamReviewProject() {
+		if (lblTeamReviewProject == null) {
+			lblTeamReviewProject = new JLabel("Project");
+			lblTeamReviewProject.setFont(new Font("굴림", Font.BOLD, 18));
+			lblTeamReviewProject.setBounds(33, 45, 67, 21);
 		}
-		return lbl_1_1;
+		return lblTeamReviewProject;
 	}
-	private JLabel getLbl_2_1() {
-		if (lbl_2_1 == null) {
-			lbl_2_1 = new JLabel("Teammate Review");
-			lbl_2_1.setFont(new Font("굴림", Font.BOLD, 18));
-			lbl_2_1.setBounds(33, 201, 170, 21);
+	private JLabel getLblTeamReviewTeammateReview() {
+		if (lblTeamReviewTeammateReview == null) {
+			lblTeamReviewTeammateReview = new JLabel("Teammate Review");
+			lblTeamReviewTeammateReview.setFont(new Font("굴림", Font.BOLD, 18));
+			lblTeamReviewTeammateReview.setBounds(33, 201, 170, 21);
 		}
-		return lbl_2_1;
+		return lblTeamReviewTeammateReview;
 	}
 	private JScrollPane getScrollPane_TeammateReview_1() {
 		if (scrollPane_TeammateReview_1 == null) {
@@ -877,18 +877,18 @@ public class MainPage {
 		}
 		return scrollPane_TeammateReview_1;
 	}
-	private JButton getBtnOK() {
-		if (btnOK == null) {
-			btnOK = new JButton("등록하기");
-			btnOK.setBounds(337, 400, 97, 23);
+	private JButton getBtnTeamReviewSubmit() {
+		if (btnTeamReviewSubmit == null) {
+			btnTeamReviewSubmit = new JButton("Submit");
+			btnTeamReviewSubmit.setBounds(337, 400, 97, 23);
 		}
-		return btnOK;
+		return btnTeamReviewSubmit;
 	}
 	private JTable getTRProjectTable() {
 		if (TRProjectTable == null) {
 			TRProjectTable = new JTable();
 			TRProjectTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			TRProjectTable.setModel(Outer_Table); // <--***************************************************
+			TRProjectTable.setModel(Outer_Table_ProjectTable); // <--***************************************************
 			TRProjectTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
 			TRProjectTable.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
 		}
@@ -898,7 +898,7 @@ public class MainPage {
 		if (TRTeammateReviewTable == null) {
 			TRTeammateReviewTable = new JTable();
 			TRTeammateReviewTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			TRTeammateReviewTable.setModel(Outer_Table1); // <--***************************************************
+			TRTeammateReviewTable.setModel(Outer_Table_TeammateReviewTable); // <--***************************************************
 			TRTeammateReviewTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
 			TRTeammateReviewTable.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
 		}
@@ -925,8 +925,8 @@ public class MainPage {
 			panelTeamStatus.add(getRbTeam4());
 			panelTeamStatus.add(getRbTeam5());
 			panelTeamStatus.add(getTbTeam6());
-			panelTeamStatus.add(getBtnNewButton());
-			panelTeamStatus.add(getBtnOut());
+			panelTeamStatus.add(getBtnInTeamStatus());
+			panelTeamStatus.add(getBtnOutTeamStatus());
 			panelTeamStatus.add(getTextField_8_1());
 			panelTeamStatus.add(getTextField_9_1());
 			panelTeamStatus.add(getTextField_10_1());
@@ -1045,22 +1045,22 @@ public class MainPage {
 		}
 		return tbTeam6;
 	}
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("IN");
-			btnNewButton.setForeground(new Color(51, 102, 153));
-			btnNewButton.setBounds(20, 455, 220, 40);
+	private JButton getBtnInTeamStatus() {
+		if (btnInTeamStatus == null) {
+			btnInTeamStatus = new JButton("IN");
+			btnInTeamStatus.setForeground(new Color(51, 102, 153));
+			btnInTeamStatus.setBounds(20, 455, 220, 40);
 		}
-		return btnNewButton;
+		return btnInTeamStatus;
 	}
-	private JButton getBtnOut() {
-		if (btnOut == null) {
-			btnOut = new JButton("OUT");
-			btnOut.setBackground(new Color(255, 255, 255));
-			btnOut.setForeground(new Color(51, 102, 153));
-			btnOut.setBounds(240, 455, 220, 40);
+	private JButton getBtnOutTeamStatus() {
+		if (btnOutTeamStatus == null) {
+			btnOutTeamStatus = new JButton("OUT");
+			btnOutTeamStatus.setBackground(new Color(255, 255, 255));
+			btnOutTeamStatus.setForeground(new Color(51, 102, 153));
+			btnOutTeamStatus.setBounds(240, 455, 220, 40);
 		}
-		return btnOut;
+		return btnOutTeamStatus;
 	}
 	private JTextField getTextField_8_1() {
 		if (tfmate3_1 == null) {

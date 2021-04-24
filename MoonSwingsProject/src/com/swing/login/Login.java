@@ -24,14 +24,14 @@ public class Login {
 	private JLabel lblMake;
 	private JLabel lblNewLabel;
 	private JLabel lblBun;
-	private JLabel lblNewLabel_1;
-	private JLabel lblUserId;
-	private JTextField tfUserId;
-	private JLabel lblPassword;
-	private JTextField tfPassword;
-	private JButton btnSignIn;
-	private JButton btnSignUp;
-	private JButton btnFindIdPw;
+	private JLabel lblSignIn;
+	private JLabel lblLoginUserId;
+	private JTextField tfLoginUserId;
+	private JLabel lblLoginPassword;
+	private JTextField tfLoginPassword;
+	private JButton btnLoginSignIn;
+	private JButton btnLoginSignUp;
+	private JButton btnLoginFindIdPw;
 	
 
 	/**
@@ -68,14 +68,14 @@ public class Login {
 		frmteam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmteam.getContentPane().setLayout(null);
 		frmteam.getContentPane().add(getPanel());
-		frmteam.getContentPane().add(getLblNewLabel_1());
-		frmteam.getContentPane().add(getLblUserId());
-		frmteam.getContentPane().add(getTfUserId());
-		frmteam.getContentPane().add(getLblPassword());
-		frmteam.getContentPane().add(getTfPassword());
-		frmteam.getContentPane().add(getBtnSignIn());
-		frmteam.getContentPane().add(getBtnSignUp());
-		frmteam.getContentPane().add(getBtnFindIdPw());
+		frmteam.getContentPane().add(getLblSignIn());
+		frmteam.getContentPane().add(getLblLoginUserId());
+		frmteam.getContentPane().add(getTfLoginUserId());
+		frmteam.getContentPane().add(getLblLoginPassword());
+		frmteam.getContentPane().add(getTfLoginPassword());
+		frmteam.getContentPane().add(getBtnLoginSignIn());
+		frmteam.getContentPane().add(getBtnLoginSignUp());
+		frmteam.getContentPane().add(getBtnLoginFindIdPw());
 	}
 
 	private JPanel getPanel() {
@@ -114,52 +114,52 @@ public class Login {
 		}
 		return lblBun;
 	}
-	private JLabel getLblNewLabel_1() {
-		if (lblNewLabel_1 == null) {
-			lblNewLabel_1 = new JLabel("SIGN IN");
-			lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblNewLabel_1.setBounds(434, 50, 83, 31);
+	private JLabel getLblSignIn() {
+		if (lblSignIn == null) {
+			lblSignIn = new JLabel("SIGN IN");
+			lblSignIn.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			lblSignIn.setBounds(434, 50, 83, 31);
 		}
-		return lblNewLabel_1;
+		return lblSignIn;
 	}
-	private JLabel getLblUserId() {
-		if (lblUserId == null) {
-			lblUserId = new JLabel("User ID");
-			lblUserId.setForeground(new Color(0, 51, 102));
-			lblUserId.setBounds(434, 146, 61, 16);
+	private JLabel getLblLoginUserId() {
+		if (lblLoginUserId == null) {
+			lblLoginUserId = new JLabel("User ID");
+			lblLoginUserId.setForeground(new Color(0, 51, 102));
+			lblLoginUserId.setBounds(434, 146, 61, 16);
 		}
-		return lblUserId;
+		return lblLoginUserId;
 	}
-	private JTextField getTfUserId() {
-		if (tfUserId == null) {
-			tfUserId = new JTextField();
-			tfUserId.setBackground(SystemColor.window);
-			tfUserId.setBounds(434, 174, 319, 52);
-			tfUserId.setColumns(10);
+	private JTextField getTfLoginUserId() {
+		if (tfLoginUserId == null) {
+			tfLoginUserId = new JTextField();
+			tfLoginUserId.setBackground(SystemColor.window);
+			tfLoginUserId.setBounds(434, 174, 319, 52);
+			tfLoginUserId.setColumns(10);
 		}
-		return tfUserId;
+		return tfLoginUserId;
 	}
-	private JLabel getLblPassword() {
-		if (lblPassword == null) {
-			lblPassword = new JLabel("Password");
-			lblPassword.setForeground(new Color(0, 51, 102));
-			lblPassword.setBounds(434, 258, 61, 16);
+	private JLabel getLblLoginPassword() {
+		if (lblLoginPassword == null) {
+			lblLoginPassword = new JLabel("Password");
+			lblLoginPassword.setForeground(new Color(0, 51, 102));
+			lblLoginPassword.setBounds(434, 258, 61, 16);
 		}
-		return lblPassword;
+		return lblLoginPassword;
 	}
-	private JTextField getTfPassword() {
-		if (tfPassword == null) {
-			tfPassword = new JTextField();
-			tfPassword.setBackground(SystemColor.window);
-			tfPassword.setColumns(10);
-			tfPassword.setBounds(434, 286, 319, 52);
+	private JTextField getTfLoginPassword() {
+		if (tfLoginPassword == null) {
+			tfLoginPassword = new JTextField();
+			tfLoginPassword.setBackground(SystemColor.window);
+			tfLoginPassword.setColumns(10);
+			tfLoginPassword.setBounds(434, 286, 319, 52);
 		}
-		return tfPassword;
+		return tfLoginPassword;
 	}
-	private JButton getBtnSignIn() {
-		if (btnSignIn == null) {
-			btnSignIn = new JButton("Sign In");
-			btnSignIn.addActionListener(new ActionListener() {
+	private JButton getBtnLoginSignIn() {
+		if (btnLoginSignIn == null) {
+			btnLoginSignIn = new JButton("Sign In");
+			btnLoginSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 		
 					MainPage mainPage= new MainPage();
@@ -168,27 +168,39 @@ public class Login {
 		
 				}
 			});
-			btnSignIn.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-			btnSignIn.setBounds(434, 399, 319, 43);
-			btnSignIn.setForeground(new Color(0, 51, 102));
-			btnSignIn.setBackground(new Color(51, 102, 153));
+			btnLoginSignIn.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+			btnLoginSignIn.setBounds(434, 399, 319, 43);
+			btnLoginSignIn.setForeground(new Color(0, 51, 102));
+			btnLoginSignIn.setBackground(new Color(51, 102, 153));
 		}
-		return btnSignIn;
+		return btnLoginSignIn;
 	}
-	private JButton getBtnSignUp() {
-		if (btnSignUp == null) {
-			btnSignUp = new JButton("Sign Up");
-			btnSignUp.setForeground(new Color(0, 51, 102));
-			btnSignUp.setBackground(new Color(51, 102, 153));
-			btnSignUp.setBounds(434, 454, 159, 43);
+	private JButton getBtnLoginSignUp() {
+		if (btnLoginSignUp == null) {
+			btnLoginSignUp = new JButton("Sign Up");
+			btnLoginSignUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					SignUp signUp = new SignUp();
+					signUp.run();
+				}
+			});
+			btnLoginSignUp.setForeground(new Color(0, 51, 102));
+			btnLoginSignUp.setBackground(new Color(51, 102, 153));
+			btnLoginSignUp.setBounds(434, 454, 159, 43);
 		}
-		return btnSignUp;
+		return btnLoginSignUp;
 	}
-	private JButton getBtnFindIdPw() {
-		if (btnFindIdPw == null) {
-			btnFindIdPw = new JButton("Find ID / PW");
-			btnFindIdPw.setBounds(594, 454, 159, 43);
+	private JButton getBtnLoginFindIdPw() {
+		if (btnLoginFindIdPw == null) {
+			btnLoginFindIdPw = new JButton("Find ID / PW");
+			btnLoginFindIdPw.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					FindIdPw findIdPw = new FindIdPw();
+					findIdPw.run();
+				}
+			});
+			btnLoginFindIdPw.setBounds(594, 454, 159, 43);
 		}
-		return btnFindIdPw;
+		return btnLoginFindIdPw;
 	}
 }
