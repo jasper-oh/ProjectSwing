@@ -48,7 +48,7 @@ public class CheckProfile extends JPanel {
 	private JTextField tfCheckProfilePhone;
 	private JButton btnImportImage;
 	private JButton btnCancel;
-	private JButton btnSaveinCheckProfile;
+	
 	
 	/**
 	 * Create the panel.
@@ -84,7 +84,7 @@ public class CheckProfile extends JPanel {
 			panelCheckProfile.add(getTfCheckProfilePhone());
 			panelCheckProfile.add(getBtnImportImage());
 			panelCheckProfile.add(getBtnCancel());
-			panelCheckProfile.add(getBtnSaveinCheckProfile());
+			
 		}
 		return panelCheckProfile;
 	}
@@ -307,6 +307,12 @@ public class CheckProfile extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					
 					editButtonAction();
+					
+					if(btnEditinCheckProfile.getText().equals("save")) {
+						saveAction();
+						return;
+					}
+					btnEditinCheckProfile.setText("save");
 				}
 			});
 			btnEditinCheckProfile.setBackground(Color.WHITE);
@@ -316,6 +322,7 @@ public class CheckProfile extends JPanel {
 		}
 		return btnEditinCheckProfile;
 	}
+
 
 	private JTable getTeammateReviewTable() {
 		if (TeammateReviewTable == null) {
@@ -415,43 +422,30 @@ public class CheckProfile extends JPanel {
 		}
 		return btnCancel;
 	}
-	private JButton getBtnSaveinCheckProfile() {
-		if (btnSaveinCheckProfile == null) {
-			btnSaveinCheckProfile = new JButton("Edit");
-			btnSaveinCheckProfile.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					saveButtonAction();
-				}
-			});
-			btnSaveinCheckProfile.setBackground(Color.WHITE);
-			btnSaveinCheckProfile.setForeground(new Color(0, 102, 204));
-			btnSaveinCheckProfile.setOpaque(true);
-			btnSaveinCheckProfile.setBounds(335, 214, 102, 33);
-		}
-		return btnSaveinCheckProfile;
-	}
+
 	
 	private void editButtonAction() {
+		
 		btnCancel.setVisible(true);
 		btnImportImage.setVisible(true);
-		btnSaveinCheckProfile.setVisible(true);
-		btnEditinCheckProfile.setVisible(false);
+		
 		
 		
 	}
+	
+	
 	private void cancelButtonAction() {
 		btnCancel.setVisible(false);
 		btnImportImage.setVisible(false);
 		btnEditinCheckProfile.setVisible(true);
-		btnSaveinCheckProfile.setVisible(false);
 		
 	}
-	private void saveButtonAction() {
+	private void saveAction() {
+		btnEditinCheckProfile.setText("Edit");
 		btnCancel.setVisible(false);
 		btnImportImage.setVisible(false);
-		btnEditinCheckProfile.setVisible(true);
-		btnSaveinCheckProfile.setVisible(false);
+		
 	}
+	
 
 }
