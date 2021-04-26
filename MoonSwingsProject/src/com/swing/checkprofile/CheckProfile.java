@@ -2,6 +2,8 @@ package com.swing.checkprofile;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,6 +16,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 public class CheckProfile extends JPanel {
+	public CheckProfile() {
+	}
+
 	private JPanel panelCheckProfile;
 	private JPanel ImagePanel_1;
 	private JLabel lblCheckProfileId;
@@ -29,7 +34,7 @@ public class CheckProfile extends JPanel {
 	private JLabel lblCheckProfileStrength;
 	private JTextField tfCheckProfileStrength;
 	private JLabel lblCheckProfileIntroduce;
-	private JTextField tfCheckProfileIntroduse;
+	private JTextField tfCheckProfileIntroduce;
 	private JScrollPane scrollPane_Project;
 	private JTable ProjectTable;
 	private JLabel lblCheckProfileProject;
@@ -41,6 +46,9 @@ public class CheckProfile extends JPanel {
 	private JTable TeammateReviewTable;
 	private JLabel lblCheckProfilePhone;
 	private JTextField tfCheckProfilePhone;
+	private JButton btnImportImage;
+	private JButton btnCancel;
+	
 	
 	/**
 	 * Create the panel.
@@ -48,9 +56,9 @@ public class CheckProfile extends JPanel {
 	public JPanel getCheckProfile() {
 		if (panelCheckProfile == null) {
 			panelCheckProfile = new JPanel();
-			panelCheckProfile.setBackground(new Color(255, 255, 255));
+			panelCheckProfile.setBackground(Color.WHITE);
 			panelCheckProfile.setForeground(Color.BLACK);
-			panelCheckProfile.setBounds(300, 35, 490, 507);
+			panelCheckProfile.setBounds(300, 45, 490, 497);
 			panelCheckProfile.setLayout(null);
 			panelCheckProfile.add(getImagePanel_1());
 			panelCheckProfile.add(getLblCheckProfileId());
@@ -74,43 +82,68 @@ public class CheckProfile extends JPanel {
 			panelCheckProfile.add(getBtnEditinCheckProfile());
 			panelCheckProfile.add(getLblCheckProfilePhone());
 			panelCheckProfile.add(getTfCheckProfilePhone());
+			panelCheckProfile.add(getBtnImportImage());
+			panelCheckProfile.add(getBtnCancel());
+			
 		}
 		return panelCheckProfile;
+	}
+	
+	private JButton getBtnImportImage() {
+		if (btnImportImage == null) {
+			btnImportImage = new JButton("Import Image");
+			btnImportImage.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
+			btnImportImage.setForeground(new Color(0, 102, 204));
+			btnImportImage.setBounds(30, 152, 102, 29);
+			btnImportImage.setVisible(false);
+		}
+		return btnImportImage;
 	}
 	
 	private JPanel getImagePanel_1() {
 		if (ImagePanel_1 == null) {
 			ImagePanel_1 = new JPanel();
+			ImagePanel_1.setBackground(new Color(245, 245, 245));
 			ImagePanel_1.setLayout(null);
-			ImagePanel_1.setBounds(36, 25, 132, 158);
+			ImagePanel_1.setBounds(30, 10, 102, 136);
 		}
 		return ImagePanel_1;
 	}
 	private JLabel getLblCheckProfileId() {
 		if (lblCheckProfileId == null) {
 			lblCheckProfileId = new JLabel("ID :");
-			lblCheckProfileId.setBounds(180, 30, 61, 16);
+			lblCheckProfileId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileId.setForeground(Color.GRAY);
+			lblCheckProfileId.setBounds(144, 10, 61, 16);
 		}
 		return lblCheckProfileId;
 	}
+	
 	private JLabel getLblCheckProfileName() {
 		if (lblCheckProfileName == null) {
 			lblCheckProfileName = new JLabel("Name :");
-			lblCheckProfileName.setBounds(180, 55, 61, 16);
+			lblCheckProfileName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileName.setForeground(Color.GRAY);
+			lblCheckProfileName.setBounds(144, 35, 61, 16);
 		}
 		return lblCheckProfileName;
 	}
 	private JLabel getLblCheckProfileMbti() {
 		if (lblCheckProfileMbti == null) {
 			lblCheckProfileMbti = new JLabel("MBTI :");
-			lblCheckProfileMbti.setBounds(180, 80, 47, 16);
+			lblCheckProfileMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileMbti.setForeground(Color.GRAY);
+			lblCheckProfileMbti.setBounds(144, 60, 47, 16);
+			
 		}
 		return lblCheckProfileMbti;
 	}
 	private JLabel getLblCheckProfileGithub() {
 		if (lblCheckProfileGithub == null) {
 			lblCheckProfileGithub = new JLabel("Github :");
-			lblCheckProfileGithub.setBounds(180, 105, 61, 16);
+			lblCheckProfileGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileGithub.setForeground(Color.GRAY);
+			lblCheckProfileGithub.setBounds(144, 85, 61, 16);
 		}
 		return lblCheckProfileGithub;
 	}
@@ -118,84 +151,111 @@ public class CheckProfile extends JPanel {
 	private JLabel getLblCheckProfileAddress() {
 		if (lblCheckProfileAddress == null) {
 			lblCheckProfileAddress = new JLabel("Address :");
-			lblCheckProfileAddress.setBounds(180, 130, 61, 16);
+			lblCheckProfileAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileAddress.setForeground(Color.GRAY);
+			lblCheckProfileAddress.setBounds(144, 110, 61, 16);
 		}
 		return lblCheckProfileAddress;
 	}
 	private JTextField getTfCheckProfileId() {
 		if (tfCheckProfileId == null) {
 			tfCheckProfileId = new JTextField();
-			tfCheckProfileId.setBounds(253, 25, 116, 21);
+			tfCheckProfileId.setForeground(new Color(0, 102, 204));
+			tfCheckProfileId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfCheckProfileId.setBounds(207, 10, 230, 21);
 			tfCheckProfileId.setColumns(10);
+			tfCheckProfileId.setEditable(false);
 		}
 		return tfCheckProfileId;
 	}
 	private JTextField getTfCheckProfileName() {
 		if (tfCheckProfileName == null) {
 			tfCheckProfileName = new JTextField();
+			tfCheckProfileName.setForeground(new Color(0, 102, 204));
+			tfCheckProfileName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileName.setColumns(10);
-			tfCheckProfileName.setBounds(253, 50, 116, 21);
+			tfCheckProfileName.setBounds(207, 35, 230, 21);
+			tfCheckProfileName.setEditable(false);
 		}
 		return tfCheckProfileName;
 	}
 	private JTextField getTfCheckProfileAddress() {
 		if (tfCheckProfileAddress == null) {
 			tfCheckProfileAddress = new JTextField();
+			tfCheckProfileAddress.setForeground(new Color(0, 102, 204));
+			tfCheckProfileAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileAddress.setColumns(10);
-			tfCheckProfileAddress.setBounds(253, 125, 184, 21);
+			tfCheckProfileAddress.setBounds(207, 110, 230, 21);
+			tfCheckProfileAddress.setEditable(false);
 		}
 		return tfCheckProfileAddress;
 	}
 	private JTextField getTfCheckProfileMbti() {
 		if (tfCheckProfileMbti == null) {
 			tfCheckProfileMbti = new JTextField();
+			tfCheckProfileMbti.setForeground(new Color(0, 102, 204));
+			tfCheckProfileMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileMbti.setColumns(10);
-			tfCheckProfileMbti.setBounds(253, 75, 116, 21);
+			tfCheckProfileMbti.setBounds(207, 60, 230, 21);
+			tfCheckProfileMbti.setEditable(false);
 		}
 		return tfCheckProfileMbti;
 	}
 	private JTextField getTfCheckProfileGithub() {
 		if (tfCheckProfileGithub == null) {
 			tfCheckProfileGithub = new JTextField();
+			tfCheckProfileGithub.setForeground(new Color(0, 102, 204));
+			tfCheckProfileGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileGithub.setColumns(10);
-			tfCheckProfileGithub.setBounds(253, 100, 184, 21);
+			tfCheckProfileGithub.setBounds(207, 85, 230, 21);
+			tfCheckProfileGithub.setEditable(false);
 		}
 		return tfCheckProfileGithub;
 	}
 	private JLabel getLblCheckProfileStrength() {
 		if (lblCheckProfileStrength == null) {
-			lblCheckProfileStrength = new JLabel("Strength(사용가능언어) :");
-			lblCheckProfileStrength.setBounds(36, 193, 143, 15);
+			lblCheckProfileStrength = new JLabel("Strength :");
+			lblCheckProfileStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileStrength.setForeground(Color.GRAY);
+			lblCheckProfileStrength.setBounds(144, 157, 74, 15);
 		}
 		return lblCheckProfileStrength;
 	}
 	private JTextField getTextField_4() {
 		if (tfCheckProfileStrength == null) {
 			tfCheckProfileStrength = new JTextField();
-			tfCheckProfileStrength.setBounds(180, 190, 257, 21);
+			tfCheckProfileStrength.setForeground(new Color(0, 102, 204));
+			tfCheckProfileStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfCheckProfileStrength.setBounds(207, 158, 230, 21);
 			tfCheckProfileStrength.setColumns(10);
+			tfCheckProfileStrength.setEditable(false);
 		}
 		return tfCheckProfileStrength;
 	}
 	private JLabel getLblCheckProfileIntroduce() {
 		if (lblCheckProfileIntroduce == null) {
 			lblCheckProfileIntroduce = new JLabel("한줄 자기소개 :");
-			lblCheckProfileIntroduce.setBounds(36, 223, 91, 15);
+			lblCheckProfileIntroduce.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileIntroduce.setForeground(Color.GRAY);
+			lblCheckProfileIntroduce.setBounds(36, 189, 91, 15);
 		}
 		return lblCheckProfileIntroduce;
 	}
 	private JTextField getTextField_5() {
-		if (tfCheckProfileIntroduse == null) {
-			tfCheckProfileIntroduse = new JTextField();
-			tfCheckProfileIntroduse.setColumns(10);
-			tfCheckProfileIntroduse.setBounds(126, 218, 311, 21);
+		if (tfCheckProfileIntroduce == null) {
+			tfCheckProfileIntroduce = new JTextField();
+			tfCheckProfileIntroduce.setForeground(new Color(0, 102, 204));
+			tfCheckProfileIntroduce.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfCheckProfileIntroduce.setColumns(10);
+			tfCheckProfileIntroduce.setBounds(126, 184, 311, 21);
+			tfCheckProfileIntroduce.setEditable(false);
 		}
-		return tfCheckProfileIntroduse;
+		return tfCheckProfileIntroduce;
 	}
 	private JScrollPane getScrollPane_Project() {
 		if (scrollPane_Project == null) {
 			scrollPane_Project = new JScrollPane();
-			scrollPane_Project.setBounds(36, 271, 401, 74);
+			scrollPane_Project.setBounds(36, 277, 401, 74);
 			scrollPane_Project.setViewportView(getProjectTable());
 		}
 		return scrollPane_Project;
@@ -203,6 +263,8 @@ public class CheckProfile extends JPanel {
 	private JTable getProjectTable() {
 		if (ProjectTable == null) {
 			ProjectTable = new JTable();
+			ProjectTable.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+			ProjectTable.setForeground(new Color(0, 102, 204));
 			ProjectTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			ProjectTable.setModel(Outer_Table_ProjectTable); // <--***************************************************
 			ProjectTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
@@ -211,26 +273,29 @@ public class CheckProfile extends JPanel {
 		}
 		return ProjectTable;
 	}
+
 	private JLabel getLblCheckProfileProject() {
 		if (lblCheckProfileProject == null) {
 			lblCheckProfileProject = new JLabel("Project");
-			lblCheckProfileProject.setFont(new Font("굴림", Font.BOLD, 18));
-			lblCheckProfileProject.setBounds(36, 249, 67, 21);
+			lblCheckProfileProject.setForeground(Color.GRAY);
+			lblCheckProfileProject.setFont(new Font("Dialog", Font.BOLD, 13));
+			lblCheckProfileProject.setBounds(36, 255, 67, 21);
 		}
 		return lblCheckProfileProject;
 	}
 	private JLabel getLblCheckProfileTeammateReview() {
 		if (lblCheckProfileTeammateReview == null) {
 			lblCheckProfileTeammateReview = new JLabel("Teammate Review");
-			lblCheckProfileTeammateReview.setFont(new Font("굴림", Font.BOLD, 18));
-			lblCheckProfileTeammateReview.setBounds(36, 349, 170, 21);
+			lblCheckProfileTeammateReview.setForeground(Color.GRAY);
+			lblCheckProfileTeammateReview.setFont(new Font("Dialog", Font.BOLD, 13));
+			lblCheckProfileTeammateReview.setBounds(36, 363, 170, 21);
 		}
 		return lblCheckProfileTeammateReview;
 	}
 	private JScrollPane getScrollPane_TeammateReview() {
 		if (scrollPane_TeammateReview == null) {
 			scrollPane_TeammateReview = new JScrollPane();
-			scrollPane_TeammateReview.setBounds(36, 369, 401, 74);
+			scrollPane_TeammateReview.setBounds(36, 383, 401, 93);
 			scrollPane_TeammateReview.setViewportView(getTeammateReviewTable());
 		}
 		return scrollPane_TeammateReview;
@@ -238,14 +303,32 @@ public class CheckProfile extends JPanel {
 	private JButton getBtnEditinCheckProfile() {
 		if (btnEditinCheckProfile == null) {
 			btnEditinCheckProfile = new JButton("Edit");
-			btnEditinCheckProfile.setBounds(180, 450, 97, 23);
+			btnEditinCheckProfile.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					editButtonAction();
+					
+					if(btnEditinCheckProfile.getText().equals("save")) {
+						saveAction();
+						return;
+					}
+					btnEditinCheckProfile.setText("save");
+				}
+			});
+			btnEditinCheckProfile.setBackground(Color.WHITE);
+			btnEditinCheckProfile.setForeground(new Color(0, 102, 204));
+			btnEditinCheckProfile.setOpaque(true);
+			btnEditinCheckProfile.setBounds(335, 214, 102, 33);
 		}
 		return btnEditinCheckProfile;
 	}
 
+
 	private JTable getTeammateReviewTable() {
 		if (TeammateReviewTable == null) {
 			TeammateReviewTable = new JTable();
+			TeammateReviewTable.setForeground(new Color(0, 102, 204));
+			TeammateReviewTable.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 			TeammateReviewTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			TeammateReviewTable.setModel(Outer_Table_TeammateReviewTable); // <--***************************************************
 			TeammateReviewTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
@@ -256,15 +339,20 @@ public class CheckProfile extends JPanel {
 	private JLabel getLblCheckProfilePhone() {
 		if (lblCheckProfilePhone == null) {
 			lblCheckProfilePhone = new JLabel("Phone :");
-			lblCheckProfilePhone.setBounds(180, 155, 61, 16);
+			lblCheckProfilePhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfilePhone.setForeground(Color.GRAY);
+			lblCheckProfilePhone.setBounds(144, 135, 61, 16);
 		}
 		return lblCheckProfilePhone;
 	}
 	private JTextField getTfCheckProfilePhone() {
 		if (tfCheckProfilePhone == null) {
 			tfCheckProfilePhone = new JTextField();
+			tfCheckProfilePhone.setForeground(new Color(0, 102, 204));
+			tfCheckProfilePhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfilePhone.setColumns(10);
-			tfCheckProfilePhone.setBounds(253, 150, 184, 21);
+			tfCheckProfilePhone.setBounds(207, 135, 230, 21);
+			tfCheckProfilePhone.setEditable(false);
 		}
 		return tfCheckProfilePhone;
 	}
@@ -318,5 +406,46 @@ public class CheckProfile extends JPanel {
 	    col.setPreferredWidth(width);
 
 	}
+	private JButton getBtnCancel() {
+		if (btnCancel == null) {
+			btnCancel = new JButton("Cancel");	
+			btnCancel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cancelButtonAction();
+				}
+			});
+			btnCancel.setOpaque(true);
+			btnCancel.setForeground(new Color(0, 102, 204));
+			btnCancel.setBackground(Color.WHITE);
+			btnCancel.setBounds(221, 214, 102, 33);
+			btnCancel.setVisible(false);
+		}
+		return btnCancel;
+	}
+
+	
+	private void editButtonAction() {
+		
+		btnCancel.setVisible(true);
+		btnImportImage.setVisible(true);
+		
+		
+		
+	}
+	
+	
+	private void cancelButtonAction() {
+		btnCancel.setVisible(false);
+		btnImportImage.setVisible(false);
+		btnEditinCheckProfile.setVisible(true);
+		
+	}
+	private void saveAction() {
+		btnEditinCheckProfile.setText("Edit");
+		btnCancel.setVisible(false);
+		btnImportImage.setVisible(false);
+		
+	}
+	
 
 }

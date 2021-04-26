@@ -3,16 +3,20 @@ package com.swing.findteammate;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 public class FindTeammate extends JPanel {
-	
+
 	private JPanel panelFindTeammate;
 	private JScrollPane scrollPane_FindTeammate;
 	private JTable TableFindTeammate;
@@ -22,8 +26,9 @@ public class FindTeammate extends JPanel {
 	private JTable tableYouPickedBy;
 	private JTable TeammateReviewTable;
 	private final DefaultTableModel Outer_Table_YouPickedBy = new DefaultTableModel();
-	
-	
+	private JButton btnSearch;
+	private JTextField textFieldSearch;
+	private JComboBox searchComboBox;
 	
 	/**
 	 * Create the panel.
@@ -31,11 +36,15 @@ public class FindTeammate extends JPanel {
 	public JPanel getFindTeammate() {
 		if (panelFindTeammate == null) {
 			panelFindTeammate = new JPanel();
+			panelFindTeammate.setBackground(Color.WHITE);
 			panelFindTeammate.setBounds(300, 35, 490, 507);
 			panelFindTeammate.setLayout(null);
 			panelFindTeammate.add(getScrollPane_FindTeammate());
 			panelFindTeammate.add(getLblFindTeammateYouPickedBy());
 			panelFindTeammate.add(getScrollPane_YouPickedBy());
+			panelFindTeammate.add(getSearchComboBox());
+			panelFindTeammate.add(getTextFieldSearch());
+			panelFindTeammate.add(getBtnSearch());
 
 		}
 		return panelFindTeammate;
@@ -45,7 +54,7 @@ public class FindTeammate extends JPanel {
 	private JScrollPane getScrollPane_FindTeammate() {
 		if (scrollPane_FindTeammate == null) {
 			scrollPane_FindTeammate = new JScrollPane();
-			scrollPane_FindTeammate.setBounds(6, 6, 478, 225);
+			scrollPane_FindTeammate.setBounds(25, 55, 430, 200);
 			scrollPane_FindTeammate.setViewportView(getTableFindTeammate());
 		}
 		return scrollPane_FindTeammate;
@@ -96,15 +105,15 @@ public class FindTeammate extends JPanel {
 		if (lblFindTeammateYouPickedBy == null) {
 			lblFindTeammateYouPickedBy = new JLabel("You Picked By");
 			lblFindTeammateYouPickedBy.setForeground(Color.GRAY);
-			lblFindTeammateYouPickedBy.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblFindTeammateYouPickedBy.setBounds(6, 255, 327, 36);
+			lblFindTeammateYouPickedBy.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+			lblFindTeammateYouPickedBy.setBounds(25, 295, 308, 36);
 		}
 		return lblFindTeammateYouPickedBy;
 	}
 	private JScrollPane getScrollPane_YouPickedBy() {
 		if (scrollPane_YouPickedBy == null) {
 			scrollPane_YouPickedBy = new JScrollPane();
-			scrollPane_YouPickedBy.setBounds(6, 287, 478, 214);
+			scrollPane_YouPickedBy.setBounds(25, 340, 430, 120);
 			scrollPane_YouPickedBy.setViewportView(getTableYouPickedBy());
 		}
 		return scrollPane_YouPickedBy;
@@ -147,6 +156,35 @@ public class FindTeammate extends JPanel {
 			width = 120;
 			col.setPreferredWidth(width);
 	}
-//		*** You Picked By Table
+	
+	private JComboBox getSearchComboBox() {
+		if (searchComboBox == null) {
+			searchComboBox = new JComboBox();
+			searchComboBox.setModel(new DefaultComboBoxModel(new String[] {"Name", "GitHub Id", "MBTI", "Team Status"}));
+			searchComboBox.setForeground(Color.GRAY);
+			searchComboBox.setBounds(25, 21, 107, 27);
+		}
+		return searchComboBox;
+	}
+	
+	private JTextField getTextFieldSearch() {
+		if (textFieldSearch == null) {
+			textFieldSearch = new JTextField();
+			textFieldSearch.setForeground(new Color(0, 102, 204));
+			textFieldSearch.setBounds(138, 20, 238, 30);
+			textFieldSearch.setColumns(10);
+		}
+		return textFieldSearch;
+	}
+	
+	private JButton getBtnSearch() {
+		if (btnSearch == null) {
+			btnSearch= new JButton("Search");
+			btnSearch.setForeground(new Color(0, 102, 204));
+			btnSearch.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+			btnSearch.setBounds(378, 20, 77, 29);
+		}
+		return btnSearch;
+	}
 
 }
