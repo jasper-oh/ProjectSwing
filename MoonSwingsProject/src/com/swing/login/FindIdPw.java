@@ -62,7 +62,10 @@ public class FindIdPw {
 		frmFindId = new JFrame();
 		frmFindId.setTitle("Find ID / PW");
 		frmFindId.setBounds(100, 100, 700, 526);
-		frmFindId.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+//		TODO 현재만 꺼질수 있게끔 해야함 
+//		frmFindId.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frmFindId.getContentPane().setLayout(null);
 		frmFindId.getContentPane().add(getLblFIndIdPwFindId());
 		frmFindId.getContentPane().add(getLblFindIdPwFindPw());

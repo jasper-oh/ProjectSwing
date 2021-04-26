@@ -85,7 +85,9 @@ public class SignUp {
 		frmSignUp = new JFrame();
 		frmSignUp.setTitle("Sign Up");
 		frmSignUp.setBounds(100, 100, 687, 541);
-		frmSignUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		TODO 현재만 꺼질수 있게끔 해야함 
+		
+//		frmSignUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSignUp.getContentPane().setLayout(null);
 		frmSignUp.getContentPane().add(getPanelSignUpImage());
 		frmSignUp.getContentPane().add(getBtnNewButton());
