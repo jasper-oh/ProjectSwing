@@ -158,7 +158,8 @@ public class Login {
 					
 					AdminMainPage adminmainPage = new AdminMainPage();
 					adminmainPage.run();
-					frmteam.setVisible(false);
+//					frmteam.setVisible(false);
+					
 				}
 			});
 			btnLoginSignIn.setForeground(Color.WHITE);
