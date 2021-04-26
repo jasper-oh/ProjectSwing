@@ -30,7 +30,7 @@ public class Announcement extends JPanel {
 		if (panelAnnouncement == null) {
 			panelAnnouncement = new JPanel();
 			panelAnnouncement.setBackground(new Color(255, 255, 255));
-			panelAnnouncement.setBounds(300, 35, 490, 507);
+			panelAnnouncement.setBounds(300, 45, 490, 479);
 			panelAnnouncement.setLayout(null);
 			panelAnnouncement.add(getScrollPane());
 			panelAnnouncement.add(getLblAnnoucementTitle());
@@ -44,7 +44,7 @@ public class Announcement extends JPanel {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 10, 470, 230);
+			scrollPane.setBounds(20, 6, 450, 200);
 			scrollPane.setViewportView(gettableAnnoucement());
 		}
 		return scrollPane;

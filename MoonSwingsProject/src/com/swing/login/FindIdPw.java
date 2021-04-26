@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class FindIdPw {
 
@@ -31,6 +32,7 @@ public class FindIdPw {
 	private JButton btnNewButton;
 	private JButton btnFindPassword;
 	private JButton btnCanel;
+	private JSeparator separator;
 
 	/**
 	 * Launch the application.
@@ -60,13 +62,13 @@ public class FindIdPw {
 	 */
 	private void initialize() {
 		frmFindId = new JFrame();
+		frmFindId.getContentPane().setBackground(new Color(255, 255, 255));
+		frmFindId.getContentPane().setForeground(Color.GRAY);
 		frmFindId.setTitle("Find ID / PW");
-		frmFindId.setBounds(100, 100, 700, 526);
-		
-//		TODO 현재만 꺼질수 있게끔 해야함 
+		frmFindId.setBounds(100, 100, 640, 360);
 //		frmFindId.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		frmFindId.getContentPane().setLayout(null);
+		frmFindId.setResizable(false);
 		frmFindId.getContentPane().add(getLblFIndIdPwFindId());
 		frmFindId.getContentPane().add(getLblFindIdPwFindPw());
 		frmFindId.getContentPane().add(getLblFIndIdPwName());
@@ -82,48 +84,54 @@ public class FindIdPw {
 		frmFindId.getContentPane().add(getBtnNewButton());
 		frmFindId.getContentPane().add(getBtnFindPassword());
 		frmFindId.getContentPane().add(getBtnCanel());
+		frmFindId.getContentPane().add(getSeparator());
 	}
 	private JLabel getLblFIndIdPwFindId() {
 		if (lblFIndIdPwFindId == null) {
 			lblFIndIdPwFindId = new JLabel("Find ID");
-			lblFIndIdPwFindId.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblFIndIdPwFindId.setBounds(103, 32, 85, 26);
+			lblFIndIdPwFindId.setForeground(Color.GRAY);
+			lblFIndIdPwFindId.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			lblFIndIdPwFindId.setBounds(35, 20, 85, 26);
 		}
 		return lblFIndIdPwFindId;
 	}
 	private JLabel getLblFindIdPwFindPw() {
 		if (lblFindIdPwFindPw == null) {
 			lblFindIdPwFindPw = new JLabel("FInd Password");
-			lblFindIdPwFindPw.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblFindIdPwFindPw.setBounds(423, 32, 146, 26);
+			lblFindIdPwFindPw.setForeground(Color.GRAY);
+			lblFindIdPwFindPw.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			lblFindIdPwFindPw.setBounds(349, 20, 146, 26);
 		}
 		return lblFindIdPwFindPw;
 	}
 	private JLabel getLblFIndIdPwName() {
 		if (lblFIndIdPwName == null) {
 			lblFIndIdPwName = new JLabel("Enter Your Name");
-			lblFIndIdPwName.setBounds(20, 98, 117, 16);
+			lblFIndIdPwName.setForeground(Color.GRAY);
+			lblFIndIdPwName.setBounds(35, 80, 117, 16);
 		}
 		return lblFIndIdPwName;
 	}
 	private JLabel getLblFindIdPwPhone() {
 		if (lblFindIdPwPhone == null) {
 			lblFindIdPwPhone = new JLabel("Enter your Phone Number");
-			lblFindIdPwPhone.setBounds(20, 178, 177, 16);
+			lblFindIdPwPhone.setForeground(Color.GRAY);
+			lblFindIdPwPhone.setBounds(35, 173, 177, 16);
 		}
 		return lblFindIdPwPhone;
 	}
 	private JLabel getLblFindIdPwId() {
 		if (lblFindIdPwId == null) {
 			lblFindIdPwId = new JLabel("Enter Your ID");
-			lblFindIdPwId.setBounds(373, 92, 105, 29);
+			lblFindIdPwId.setForeground(Color.GRAY);
+			lblFindIdPwId.setBounds(349, 58, 105, 29);
 		}
 		return lblFindIdPwId;
 	}
 	private JTextField getTextField() {
 		if (textField == null) {
 			textField = new JTextField();
-			textField.setBounds(92, 126, 197, 26);
+			textField.setBounds(35, 108, 252, 30);
 			textField.setColumns(10);
 		}
 		return textField;
@@ -132,7 +140,7 @@ public class FindIdPw {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();
 			textField_1.setColumns(10);
-			textField_1.setBounds(92, 206, 204, 26);
+			textField_1.setBounds(35, 198, 252, 30);
 		}
 		return textField_1;
 	}
@@ -140,7 +148,7 @@ public class FindIdPw {
 		if (textField_2 == null) {
 			textField_2 = new JTextField();
 			textField_2.setColumns(10);
-			textField_2.setBounds(383, 126, 252, 26);
+			textField_2.setBounds(349, 80, 254, 30);
 		}
 		return textField_2;
 	}
@@ -148,7 +156,7 @@ public class FindIdPw {
 		if (textField_3 == null) {
 			textField_3 = new JTextField();
 			textField_3.setColumns(10);
-			textField_3.setBounds(395, 206, 240, 26);
+			textField_3.setBounds(349, 148, 254, 30);
 		}
 		return textField_3;
 	}
@@ -156,35 +164,45 @@ public class FindIdPw {
 		if (textField_4 == null) {
 			textField_4 = new JTextField();
 			textField_4.setColumns(10);
-			textField_4.setBounds(395, 285, 240, 26);
+			textField_4.setBounds(349, 214, 254, 30);
 		}
 		return textField_4;
 	}
 	private JLabel getLblFIndIdPwName_1() {
 		if (lblFIndIdPwName_1 == null) {
 			lblFIndIdPwName_1 = new JLabel("Enter Your Name");
-			lblFIndIdPwName_1.setBounds(373, 178, 117, 16);
+			lblFIndIdPwName_1.setForeground(Color.GRAY);
+			lblFIndIdPwName_1.setBounds(351, 131, 117, 16);
 		}
 		return lblFIndIdPwName_1;
 	}
 	private JLabel getLblFindIdPwPhone_1() {
 		if (lblFindIdPwPhone_1 == null) {
 			lblFindIdPwPhone_1 = new JLabel("Enter your Phone Number");
-			lblFindIdPwPhone_1.setBounds(373, 256, 177, 16);
+			lblFindIdPwPhone_1.setForeground(Color.GRAY);
+			lblFindIdPwPhone_1.setBounds(349, 198, 177, 16);
 		}
 		return lblFindIdPwPhone_1;
 	}
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Find ID");
-			btnNewButton.setBounds(81, 344, 117, 29);
+			btnNewButton.setBackground(new Color(0, 102, 204));
+			btnNewButton.setForeground(Color.WHITE);
+			btnNewButton.setOpaque(true);
+			btnNewButton.setBorderPainted(false);
+			btnNewButton.setBounds(35, 263, 252, 40);
 		}
 		return btnNewButton;
 	}
 	private JButton getBtnFindPassword() {
 		if (btnFindPassword == null) {
 			btnFindPassword = new JButton("Find Password");
-			btnFindPassword.setBounds(472, 344, 117, 29);
+			btnFindPassword.setBackground(new Color(0, 102, 204));
+			btnFindPassword.setForeground(Color.WHITE);
+			btnFindPassword.setOpaque(true);
+			btnFindPassword.setBorderPainted(false);
+			btnFindPassword.setBounds(349, 263, 252, 40);
 		}
 		return btnFindPassword;
 	}
@@ -200,5 +218,15 @@ public class FindIdPw {
 			btnCanel.setBounds(577, 463, 117, 29);
 		}
 		return btnCanel;
+	}
+	private JSeparator getSeparator() {
+		if (separator == null) {
+			separator = new JSeparator();
+			separator.setOrientation(SwingConstants.VERTICAL);
+			separator.setBackground(new Color(245, 245, 245));
+			separator.setForeground(new Color(245, 245, 245));
+			separator.setBounds(313, 20, 30, 287);
+		}
+		return separator;
 	}
 }

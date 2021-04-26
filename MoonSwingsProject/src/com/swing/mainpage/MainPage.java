@@ -15,7 +15,7 @@ import com.swing.announcement.Announcement;
 import com.swing.checkprofile.CheckProfile;
 import com.swing.findteammate.FindTeammate;
 import com.swing.teammatereview.TeammateReview;
-import com.swing.teamstatus.Teamstatus;
+import com.swing.teamstatus.TeamStatus;
 
 import java.awt.Font;
 import javax.swing.JTable;
@@ -28,6 +28,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 
@@ -35,9 +36,6 @@ public class MainPage {
 
 	private JFrame frame;
 	private JPanel fixedpanel;
-	private JLabel lblMake;
-	private JLabel lblTeam3;
-	private JLabel lblBun;
 	private JPanel ImagePanel;
 	private JLabel lblId;
 	private JLabel lblName;
@@ -54,16 +52,19 @@ public class MainPage {
 	private JButton btnTeammateStatus;
 	private JLabel lblImageDefaultLabel;
 	private JLabel lblTitle;
+	private JLabel lblBgLeftPanel;
 
 
-	Teamstatus teamStatus = new Teamstatus();
+	TeamStatus teamStatus = new TeamStatus();
 	TeammateReview teammateReview = new TeammateReview();	
 	FindTeammate findTeammate = new FindTeammate();
 	CheckProfile checkProfile = new CheckProfile();
 	Announcement announcement = new Announcement();
+	
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void run() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -95,6 +96,7 @@ public class MainPage {
 			public void windowActivated(WindowEvent e) {
 				
 				announcement.AnnouncementTable();
+				announcement.setVisible(true);
 				teamStatus.setVisible(false);
 				teammateReview.setVisible(false);
 				checkProfile.setVisible(false);
@@ -107,20 +109,15 @@ public class MainPage {
 		frame.getContentPane().add(fixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(announcement.getAnnouncement());
-		frame.getContentPane().add(teamStatus.getTeamstatus());
-		frame.getContentPane().add(checkProfile.getCheckProfile());
-		frame.getContentPane().add(teammateReview.getTeamReview());
-		frame.getContentPane().add(findTeammate.getFindTeammate());
+
 	}
+	
 	private JPanel fixedPanel() {
 		if (fixedpanel== null) {
 			fixedpanel= new JPanel();
 			fixedpanel.setBackground(new Color(51, 102, 153));
 			fixedpanel.setBounds(0, 0, 300, 542);
 			fixedpanel.setLayout(null);
-			fixedpanel.add(getLblMake());
-			fixedpanel.add(getLblTeam3());
-			fixedpanel.add(getLblBun());
 			fixedpanel.add(getImagePanel());
 			fixedpanel.add(getLblId());
 			fixedpanel.add(getLblName());
@@ -135,98 +132,100 @@ public class MainPage {
 			fixedpanel.add(getBtnFindTeammate());
 			fixedpanel.add(getBtnTeamReview());
 			fixedpanel.add(getBtnTeammateStatus());
+			fixedpanel.add(getLblBgLeftPanel());
 		}
 		return fixedpanel;
 	}
-	private JLabel getLblMake() {
-		if (lblMake == null) {
-			lblMake = new JLabel("作");
-			lblMake.setBounds(6, 6, 16, 16);
+	private JLabel getLblBgLeftPanel() {
+		if (lblBgLeftPanel == null) {
+			lblBgLeftPanel = new JLabel("");
+			lblBgLeftPanel.setForeground(Color.WHITE);
+			lblBgLeftPanel.setBounds(0, 0, 300, 542);
+			lblBgLeftPanel.setIcon(new ImageIcon(MainPage.class.getResource("/images/leftPanel_Main.png")));
 		}
-		return lblMake;
+		return lblBgLeftPanel;
 	}
-	private JLabel getLblTeam3() {
-		if (lblTeam3 == null) {
-			lblTeam3 = new JLabel("Team3");
-			lblTeam3.setBounds(23, 6, 47, 16);
-		}
-		return lblTeam3;
-	}
-	private JLabel getLblBun() {
-		if (lblBun == null) {
-			lblBun = new JLabel("BUN");
-			lblBun.setBounds(68, 6, 26, 16);
-		}
-		return lblBun;
-	}
+
 	private JPanel getImagePanel() {
 		if (ImagePanel == null) {
 			ImagePanel = new JPanel();
-			ImagePanel.setBounds(23, 54, 87, 108);
+			ImagePanel.setBackground(new Color(245, 245, 245));
+			ImagePanel.setBounds(23, 54, 99, 132);
 			ImagePanel.setLayout(null);
 			ImagePanel.add(getLblImageDefaultLabel());
 		}
 		return ImagePanel;
 	}
+	
 	private JLabel getLblId() {
 		if (lblId == null) {
 			lblId = new JLabel("ID");
-			lblId.setBounds(133, 54, 61, 16);
+			lblId.setForeground(Color.WHITE);
+			lblId.setBounds(137, 70, 61, 16);
 		}
 		return lblId;
 	}
+	
 	private JLabel getLblName() {
 		if (lblName == null) {
 			lblName = new JLabel("Name");
-			lblName.setBounds(133, 82, 61, 16);
+			lblName.setForeground(Color.WHITE);
+			lblName.setBounds(134, 98, 61, 16);
 		}
 		return lblName;
 	}
 	private JLabel getLblMbti() {
 		if (lblMbti == null) {
 			lblMbti = new JLabel("MBTI");
-			lblMbti.setBounds(133, 110, 37, 16);
+			lblMbti.setForeground(Color.WHITE);
+			lblMbti.setBounds(134, 126, 37, 16);
 		}
 		return lblMbti;
 	}
 	private JLabel getLblGithub() {
 		if (lblGithub == null) {
 			lblGithub = new JLabel("Github");
-			lblGithub.setBounds(133, 138, 47, 16);
+			lblGithub.setForeground(Color.WHITE);
+			lblGithub.setBounds(134, 154, 47, 16);
 		}
 		return lblGithub;
 	}
 	private JLabel getLblShowGithub() {
 		if (lblShowGithub == null) {
 			lblShowGithub = new JLabel("jasper-oh");
-			lblShowGithub.setBounds(193, 138, 101, 16);
+			lblShowGithub.setForeground(Color.WHITE);
+			lblShowGithub.setBounds(194, 154, 101, 16);
 		}
 		return lblShowGithub;
 	}
 	private JLabel getLblShowName() {
 		if (lblShowName == null) {
 			lblShowName = new JLabel("오영준");
-			lblShowName.setBounds(193, 82, 61, 16);
+			lblShowName.setForeground(Color.WHITE);
+			lblShowName.setBounds(194, 98, 61, 16);
 		}
 		return lblShowName;
 	}
 	private JLabel getLblShowMbti() {
 		if (lblShowMbti == null) {
 			lblShowMbti = new JLabel("ENFJ");
-			lblShowMbti.setBounds(193, 110, 61, 16);
+			lblShowMbti.setForeground(Color.WHITE);
+			lblShowMbti.setBounds(194, 126, 61, 16);
 		}
 		return lblShowMbti;
 	}
 	private JLabel getLblShowId() {
 		if (lblShowId == null) {
 			lblShowId = new JLabel("Jasper");
-			lblShowId.setBounds(193, 54, 61, 16);
+			lblShowId.setForeground(Color.WHITE);
+			lblShowId.setBounds(197, 70, 61, 16);
 		}
 		return lblShowId;
 	}
 	private JButton getBtnAnnounce() {
 		if (btnAnnounce == null) {
 			btnAnnounce = new JButton("Announcement");
+			btnAnnounce.setForeground(new Color(0, 102, 204));
 			btnAnnounce.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -240,6 +239,7 @@ public class MainPage {
 	private JButton getBtnCheckProfile() {
 		if (btnCheckProfile == null) {
 			btnCheckProfile = new JButton("Check Profile");
+			btnCheckProfile.setForeground(new Color(0, 102, 204));
 			btnCheckProfile.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -253,6 +253,7 @@ public class MainPage {
 	private JButton getBtnFindTeammate() {
 		if (btnFindTeammate == null) {
 			btnFindTeammate = new JButton("Find Teammate");
+			btnFindTeammate.setForeground(new Color(0, 102, 204));
 			btnFindTeammate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					checkFindTeammateUIAction();
@@ -265,6 +266,7 @@ public class MainPage {
 	private JButton getBtnTeamReview() {
 		if (btnTeamReview == null) {
 			btnTeamReview = new JButton("Team Review");
+			btnTeamReview.setForeground(new Color(0, 102, 204));
 			btnTeamReview.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					checkTeamReviewAction();
@@ -277,6 +279,7 @@ public class MainPage {
 	private JButton getBtnTeammateStatus() {
 		if (btnTeammateStatus == null) {
 			btnTeammateStatus = new JButton("Teammate Status");
+			btnTeammateStatus.setForeground(new Color(0, 102, 204));
 			btnTeammateStatus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					checkTeammateStatusAction();
@@ -290,7 +293,7 @@ public class MainPage {
 		if (lblImageDefaultLabel == null) {
 			lblImageDefaultLabel = new JLabel("Image");
 			lblImageDefaultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblImageDefaultLabel.setBounds(6, 44, 75, 16);
+			lblImageDefaultLabel.setBounds(6, 64, 75, 16);
 		}
 		return lblImageDefaultLabel;
 	}
@@ -298,8 +301,8 @@ public class MainPage {
 		if (lblTitle == null) {
 			lblTitle = new JLabel("Announcement");
 			lblTitle.setForeground(new Color(128, 128, 128));
-			lblTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblTitle.setBounds(309, 0, 327, 36);
+			lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+			lblTitle.setBounds(325, 10, 327, 36);
 		}
 		return lblTitle;
 	}
@@ -311,7 +314,7 @@ public class MainPage {
 	private void CheckAnnouncementUIAction(){
 		lblTitle.setText("Announcement");
 		announcement.getAnnouncement().setVisible(true);
-		teamStatus.getTeamstatus().setVisible(false);
+		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
 		teammateReview.getTeamReview().setVisible(false);
 		findTeammate.getFindTeammate().setVisible(false);
@@ -320,9 +323,10 @@ public class MainPage {
 	}
 	
 	private void CheckProfileUIAction() {
+		frame.getContentPane().add(checkProfile.getCheckProfile());
 		lblTitle.setText("Check Profile");
 		announcement.getAnnouncement().setVisible(false);
-		teamStatus.getTeamstatus().setVisible(false);
+		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(true);
 		checkProfile.CheckProfileTableProject();
 		checkProfile.CheckProfileTableReview();
@@ -331,9 +335,13 @@ public class MainPage {
 	}
 	
 	private void checkFindTeammateUIAction() {
+		frame.getContentPane().add(teamStatus.getTeamStatus());
+		frame.getContentPane().add(checkProfile.getCheckProfile());
+		frame.getContentPane().add(teammateReview.getTeamReview());
+		frame.getContentPane().add(findTeammate.getFindTeammate());
 		lblTitle.setText("Find Teammate");
 		announcement.getAnnouncement().setVisible(false);
-		teamStatus.getTeamstatus().setVisible(false);
+		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
 		teammateReview.getTeamReview().setVisible(false);
 		findTeammate.getFindTeammate().setVisible(true);
@@ -342,18 +350,22 @@ public class MainPage {
 		
 	}
 	private void checkTeamReviewAction(){
+		frame.getContentPane().add(findTeammate.getFindTeammate());
 		lblTitle.setText("Team Review");
 		announcement.getAnnouncement().setVisible(false);
-		teamStatus.getTeamstatus().setVisible(false);
+		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
 		teammateReview.getTeamReview().setVisible(true);
+		teammateReview.teammateReviewTableProject();
+		teammateReview.teammateReviewTableReview();
 		findTeammate.getFindTeammate().setVisible(false);
-		
+
 	}
 	private void checkTeammateStatusAction(){
+		frame.getContentPane().add(teamStatus.getTeamStatus());
 		lblTitle.setText("Teammate Status");
 		announcement.getAnnouncement().setVisible(false);
-		teamStatus.getTeamstatus().setVisible(true);
+		teamStatus.getTeamStatus().setVisible(true);
 		checkProfile.getCheckProfile().setVisible(false);
 		teammateReview.getTeamReview().setVisible(false);
 		findTeammate.getFindTeammate().setVisible(false);
