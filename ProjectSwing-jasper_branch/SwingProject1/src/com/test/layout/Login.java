@@ -7,9 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
+
+import com.sun.tools.javac.Main;
+
 import javax.swing.JTextField;
 import java.awt.SystemColor;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,9 +25,6 @@ public class Login {
 
 	private JFrame frmteam;
 	private JPanel panel;
-	private JLabel lblMake;
-	private JLabel lblNewLabel;
-	private JLabel lblBun;
 	private JLabel lblNewLabel_1;
 	private JLabel lblUserId;
 	private JTextField tfUserId;
@@ -29,6 +33,7 @@ public class Login {
 	private JButton btnSignIn;
 	private JButton btnSignUp;
 	private JButton btnFindIdPw;
+	private JLabel lblNewLabel;
 	
 
 	/**
@@ -60,6 +65,7 @@ public class Login {
 	 */
 	private void initialize() {
 		frmteam = new JFrame();
+		frmteam.getContentPane().setBackground(new Color(255, 255, 255));
 		frmteam.setTitle("작TEAM3분");
 		frmteam.setBounds(100, 100, 790, 570);
 		frmteam.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,38 +84,13 @@ public class Login {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setBackground(new Color(51, 102, 153));
+			panel.setBackground(Color.WHITE);
 			panel.setBounds(0, 0, 365, 542);
 			panel.setLayout(null);
-			panel.add(getLblMake());
 			panel.add(getLblNewLabel());
-			panel.add(getLblBun());
+			
 		}
 		return panel;
-	}
-	private JLabel getLblMake() {
-		if (lblMake == null) {
-			lblMake = new JLabel("作");
-			lblMake.setFont(new Font("Lucida Grande", Font.PLAIN, 45));
-			lblMake.setBounds(71, 118, 45, 44);
-		}
-		return lblMake;
-	}
-	private JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("TEAM3");
-			lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 33));
-			lblNewLabel.setBounds(90, 192, 156, 44);
-		}
-		return lblNewLabel;
-	}
-	private JLabel getLblBun() {
-		if (lblBun == null) {
-			lblBun = new JLabel("BUN");
-			lblBun.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
-			lblBun.setBounds(185, 274, 61, 29);
-		}
-		return lblBun;
 	}
 	private JLabel getLblNewLabel_1() {
 		if (lblNewLabel_1 == null) {
@@ -187,5 +168,13 @@ public class Login {
 			btnFindIdPw.setBounds(594, 454, 159, 43);
 		}
 		return btnFindIdPw;
+	}
+	private JLabel getLblNewLabel() {
+		if (lblNewLabel == null) {
+			lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/image/leftPanel_login.png")));
+			lblNewLabel.setBounds(0, 0, 365, 542);
+		}
+		return lblNewLabel;
 	}
 }

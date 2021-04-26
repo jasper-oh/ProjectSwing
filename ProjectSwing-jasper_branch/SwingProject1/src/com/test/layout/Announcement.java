@@ -24,14 +24,12 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class Announcement {
 
 	private JFrame frame;
 	private JPanel panel;
-	private JLabel lblMake;
-	private JLabel lblTeam3;
-	private JLabel lblBun;
 	private JPanel ImagePanel;
 	private JLabel lblId;
 	private JLabel lblName;
@@ -97,6 +95,7 @@ public class Announcement {
 	private JLabel lblAnnoucementTitle_1;
 	private JSeparator separator;
 	private JTextArea txtrAnnouncementContent;
+	private JLabel lblNewLabel_1;
 	//
 	
 	/**
@@ -149,9 +148,6 @@ public class Announcement {
 			panel.setBackground(new Color(51, 102, 153));
 			panel.setBounds(0, 0, 300, 542);
 			panel.setLayout(null);
-			panel.add(getLblMake());
-			panel.add(getLblTeam3());
-			panel.add(getLblBun());
 			panel.add(getImagePanel());
 			panel.add(getLblId());
 			panel.add(getLblName());
@@ -166,29 +162,9 @@ public class Announcement {
 			panel.add(getBtnFindTeammate());
 			panel.add(getBtnTeamReview());
 			panel.add(getBtnTeammateStatus());
+			panel.add(getLblNewLabel_1());
 		}
 		return panel;
-	}
-	private JLabel getLblMake() {
-		if (lblMake == null) {
-			lblMake = new JLabel("作");
-			lblMake.setBounds(6, 6, 16, 16);
-		}
-		return lblMake;
-	}
-	private JLabel getLblTeam3() {
-		if (lblTeam3 == null) {
-			lblTeam3 = new JLabel("Team3");
-			lblTeam3.setBounds(23, 6, 47, 16);
-		}
-		return lblTeam3;
-	}
-	private JLabel getLblBun() {
-		if (lblBun == null) {
-			lblBun = new JLabel("BUN");
-			lblBun.setBounds(68, 6, 26, 16);
-		}
-		return lblBun;
 	}
 	private JPanel getImagePanel() {
 		if (ImagePanel == null) {
@@ -850,5 +826,12 @@ public class Announcement {
 		}
 		return tfmate6_5;
 	}
-
+	private JLabel getLblNewLabel_1() {
+		if (lblNewLabel_1 == null) {
+			lblNewLabel_1 = new JLabel("");
+			lblNewLabel_1.setBounds(0, 0, 300, 542);
+			lblNewLabel_1.setIcon(new ImageIcon(Announcement.class.getResource("/image/leftPanel_Main.png")));
+		}
+		return lblNewLabel_1;
+	}
 } // end line

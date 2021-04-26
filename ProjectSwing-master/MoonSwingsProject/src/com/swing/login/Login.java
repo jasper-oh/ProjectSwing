@@ -190,7 +190,8 @@ public class Login {
 			btnLoginFindIdPw.setForeground(new Color(0, 102, 204));
 			btnLoginFindIdPw.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					FindIdPw findIdPw = new FindIdPw();
+//					FindIdPw findIdPw = new FindIdPw();
+					TestFindIdPw findIdPw = new TestFindIdPw();
 					findIdPw.run();
 				}
 			});

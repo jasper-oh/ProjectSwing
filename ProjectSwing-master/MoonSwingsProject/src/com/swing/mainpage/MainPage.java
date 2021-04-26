@@ -25,6 +25,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MainPage {
 
@@ -161,6 +163,10 @@ public class MainPage {
 	private JScrollPane scrollPane_YouPickedBy;
 	private JTable tableYouPickedBy;
 	private final DefaultTableModel Outer_Table_YouPickedBy = new DefaultTableModel();
+	private JButton btnNewButton;
+	private JComboBox comboBox;
+	private JTextField textField;
+	private JButton btnNewButton_1;
 	
 	/**
 	 * Launch the application.
@@ -207,11 +213,11 @@ public class MainPage {
 		frame.setResizable(false);
 		frame.getContentPane().add(getPanel());
 		frame.getContentPane().add(getLblTitle());
-		frame.getContentPane().add(getPanelAnnouncement());
+		frame.getContentPane().add(getPanel_1());
 		frame.getContentPane().add(getPanelTeamStatus());
 		frame.getContentPane().add(getPanelCheckProfile());
 		frame.getContentPane().add(getPanelTeamReview());
-		frame.getContentPane().add(getPanel_1());
+		frame.getContentPane().add(getPanelAnnouncement());
 	}
 	private JPanel getPanel() {
 		if (fixedpanel== null) {
@@ -249,7 +255,8 @@ public class MainPage {
 	private JPanel getImagePanel() {
 		if (ImagePanel == null) {
 			ImagePanel = new JPanel();
-			ImagePanel.setBounds(23, 54, 87, 108);
+			ImagePanel.setBackground(new Color(245, 245, 245));
+			ImagePanel.setBounds(23, 54, 99, 132);
 			ImagePanel.setLayout(null);
 			ImagePanel.add(getLblImageDefaultLabel());
 		}
@@ -259,7 +266,7 @@ public class MainPage {
 		if (lblId == null) {
 			lblId = new JLabel("ID");
 			lblId.setForeground(Color.WHITE);
-			lblId.setBounds(133, 54, 61, 16);
+			lblId.setBounds(137, 70, 61, 16);
 		}
 		return lblId;
 	}
@@ -267,7 +274,7 @@ public class MainPage {
 		if (lblName == null) {
 			lblName = new JLabel("Name");
 			lblName.setForeground(Color.WHITE);
-			lblName.setBounds(133, 82, 61, 16);
+			lblName.setBounds(134, 98, 61, 16);
 		}
 		return lblName;
 	}
@@ -275,7 +282,7 @@ public class MainPage {
 		if (lblMbti == null) {
 			lblMbti = new JLabel("MBTI");
 			lblMbti.setForeground(Color.WHITE);
-			lblMbti.setBounds(133, 110, 37, 16);
+			lblMbti.setBounds(134, 126, 37, 16);
 		}
 		return lblMbti;
 	}
@@ -283,7 +290,7 @@ public class MainPage {
 		if (lblGithub == null) {
 			lblGithub = new JLabel("Github");
 			lblGithub.setForeground(Color.WHITE);
-			lblGithub.setBounds(133, 138, 47, 16);
+			lblGithub.setBounds(134, 154, 47, 16);
 		}
 		return lblGithub;
 	}
@@ -291,7 +298,7 @@ public class MainPage {
 		if (lblShowGithub == null) {
 			lblShowGithub = new JLabel("jasper-oh");
 			lblShowGithub.setForeground(Color.WHITE);
-			lblShowGithub.setBounds(193, 138, 101, 16);
+			lblShowGithub.setBounds(194, 154, 101, 16);
 		}
 		return lblShowGithub;
 	}
@@ -299,7 +306,7 @@ public class MainPage {
 		if (lblShowName == null) {
 			lblShowName = new JLabel("오영준");
 			lblShowName.setForeground(Color.WHITE);
-			lblShowName.setBounds(193, 82, 61, 16);
+			lblShowName.setBounds(194, 98, 61, 16);
 		}
 		return lblShowName;
 	}
@@ -307,7 +314,7 @@ public class MainPage {
 		if (lblShowMbti == null) {
 			lblShowMbti = new JLabel("ENFJ");
 			lblShowMbti.setForeground(Color.WHITE);
-			lblShowMbti.setBounds(193, 110, 61, 16);
+			lblShowMbti.setBounds(194, 126, 61, 16);
 		}
 		return lblShowMbti;
 	}
@@ -315,7 +322,7 @@ public class MainPage {
 		if (lblShowId == null) {
 			lblShowId = new JLabel("Jasper");
 			lblShowId.setForeground(Color.WHITE);
-			lblShowId.setBounds(193, 54, 61, 16);
+			lblShowId.setBounds(197, 70, 61, 16);
 		}
 		return lblShowId;
 	}
@@ -390,7 +397,7 @@ public class MainPage {
 		if (lblImageDefaultLabel == null) {
 			lblImageDefaultLabel = new JLabel("Image");
 			lblImageDefaultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblImageDefaultLabel.setBounds(6, 44, 75, 16);
+			lblImageDefaultLabel.setBounds(6, 64, 75, 16);
 		}
 		return lblImageDefaultLabel;
 	}
@@ -399,7 +406,7 @@ public class MainPage {
 			lblTitle = new JLabel("Announcement");
 			lblTitle.setForeground(new Color(128, 128, 128));
 			lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-			lblTitle.setBounds(325, 30, 327, 36);
+			lblTitle.setBounds(325, 10, 327, 36);
 		}
 		return lblTitle;
 	}
@@ -465,9 +472,9 @@ public class MainPage {
 	private JPanel getPanelCheckProfile() {
 		if (panelCheckProfile == null) {
 			panelCheckProfile = new JPanel();
-			panelCheckProfile.setBackground(new Color(255, 255, 255));
+			panelCheckProfile.setBackground(Color.WHITE);
 			panelCheckProfile.setForeground(Color.BLACK);
-			panelCheckProfile.setBounds(300, 35, 470, 479);
+			panelCheckProfile.setBounds(300, 45, 490, 497);
 			panelCheckProfile.setLayout(null);
 			panelCheckProfile.add(getImagePanel_1());
 			panelCheckProfile.add(getLblCheckProfileId());
@@ -491,6 +498,7 @@ public class MainPage {
 			panelCheckProfile.add(getBtnEditinCheckProfile());
 			panelCheckProfile.add(getLblCheckProfilePhone());
 			panelCheckProfile.add(getTfCheckProfilePhone());
+			panelCheckProfile.add(getBtnNewButton());
 		}
 		return panelCheckProfile;
 	}
@@ -498,36 +506,45 @@ public class MainPage {
 	private JPanel getImagePanel_1() {
 		if (ImagePanel_1 == null) {
 			ImagePanel_1 = new JPanel();
+			ImagePanel_1.setBackground(new Color(245, 245, 245));
 			ImagePanel_1.setLayout(null);
-			ImagePanel_1.setBounds(36, 25, 132, 158);
+			ImagePanel_1.setBounds(30, 10, 102, 136);
 		}
 		return ImagePanel_1;
 	}
 	private JLabel getLblCheckProfileId() {
 		if (lblCheckProfileId == null) {
 			lblCheckProfileId = new JLabel("ID :");
-			lblCheckProfileId.setBounds(180, 30, 61, 16);
+			lblCheckProfileId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileId.setForeground(Color.GRAY);
+			lblCheckProfileId.setBounds(144, 10, 61, 16);
 		}
 		return lblCheckProfileId;
 	}
 	private JLabel getLblCheckProfileName() {
 		if (lblCheckProfileName == null) {
 			lblCheckProfileName = new JLabel("Name :");
-			lblCheckProfileName.setBounds(180, 55, 61, 16);
+			lblCheckProfileName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileName.setForeground(Color.GRAY);
+			lblCheckProfileName.setBounds(144, 35, 61, 16);
 		}
 		return lblCheckProfileName;
 	}
 	private JLabel getLblCheckProfileMbti() {
 		if (lblCheckProfileMbti == null) {
 			lblCheckProfileMbti = new JLabel("MBTI :");
-			lblCheckProfileMbti.setBounds(180, 80, 47, 16);
+			lblCheckProfileMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileMbti.setForeground(Color.GRAY);
+			lblCheckProfileMbti.setBounds(144, 60, 47, 16);
 		}
 		return lblCheckProfileMbti;
 	}
 	private JLabel getLblCheckProfileGithub() {
 		if (lblCheckProfileGithub == null) {
 			lblCheckProfileGithub = new JLabel("Github :");
-			lblCheckProfileGithub.setBounds(180, 105, 61, 16);
+			lblCheckProfileGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileGithub.setForeground(Color.GRAY);
+			lblCheckProfileGithub.setBounds(144, 85, 61, 16);
 		}
 		return lblCheckProfileGithub;
 	}
@@ -535,14 +552,18 @@ public class MainPage {
 	private JLabel getLblCheckProfileAddress() {
 		if (lblCheckProfileAddress == null) {
 			lblCheckProfileAddress = new JLabel("Address :");
-			lblCheckProfileAddress.setBounds(180, 130, 61, 16);
+			lblCheckProfileAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileAddress.setForeground(Color.GRAY);
+			lblCheckProfileAddress.setBounds(144, 110, 61, 16);
 		}
 		return lblCheckProfileAddress;
 	}
 	private JTextField getTfCheckProfileId() {
 		if (tfCheckProfileId == null) {
 			tfCheckProfileId = new JTextField();
-			tfCheckProfileId.setBounds(253, 25, 116, 21);
+			tfCheckProfileId.setForeground(new Color(0, 102, 204));
+			tfCheckProfileId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfCheckProfileId.setBounds(207, 10, 230, 21);
 			tfCheckProfileId.setColumns(10);
 		}
 		return tfCheckProfileId;
@@ -550,46 +571,58 @@ public class MainPage {
 	private JTextField getTfCheckProfileName() {
 		if (tfCheckProfileName == null) {
 			tfCheckProfileName = new JTextField();
+			tfCheckProfileName.setForeground(new Color(0, 102, 204));
+			tfCheckProfileName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileName.setColumns(10);
-			tfCheckProfileName.setBounds(253, 50, 116, 21);
+			tfCheckProfileName.setBounds(207, 35, 230, 21);
 		}
 		return tfCheckProfileName;
 	}
 	private JTextField getTfCheckProfileAddress() {
 		if (tfCheckProfileAddress == null) {
 			tfCheckProfileAddress = new JTextField();
+			tfCheckProfileAddress.setForeground(new Color(0, 102, 204));
+			tfCheckProfileAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileAddress.setColumns(10);
-			tfCheckProfileAddress.setBounds(253, 125, 184, 21);
+			tfCheckProfileAddress.setBounds(207, 110, 230, 21);
 		}
 		return tfCheckProfileAddress;
 	}
 	private JTextField getTfCheckProfileMbti() {
 		if (tfCheckProfileMbti == null) {
 			tfCheckProfileMbti = new JTextField();
+			tfCheckProfileMbti.setForeground(new Color(0, 102, 204));
+			tfCheckProfileMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileMbti.setColumns(10);
-			tfCheckProfileMbti.setBounds(253, 75, 116, 21);
+			tfCheckProfileMbti.setBounds(207, 60, 230, 21);
 		}
 		return tfCheckProfileMbti;
 	}
 	private JTextField getTfCheckProfileGithub() {
 		if (tfCheckProfileGithub == null) {
 			tfCheckProfileGithub = new JTextField();
+			tfCheckProfileGithub.setForeground(new Color(0, 102, 204));
+			tfCheckProfileGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileGithub.setColumns(10);
-			tfCheckProfileGithub.setBounds(253, 100, 184, 21);
+			tfCheckProfileGithub.setBounds(207, 85, 230, 21);
 		}
 		return tfCheckProfileGithub;
 	}
 	private JLabel getLblCheckProfileStrength() {
 		if (lblCheckProfileStrength == null) {
-			lblCheckProfileStrength = new JLabel("Strength(사용가능언어) :");
-			lblCheckProfileStrength.setBounds(36, 193, 143, 15);
+			lblCheckProfileStrength = new JLabel("Strength :");
+			lblCheckProfileStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileStrength.setForeground(Color.GRAY);
+			lblCheckProfileStrength.setBounds(144, 157, 74, 15);
 		}
 		return lblCheckProfileStrength;
 	}
 	private JTextField getTextField_4() {
 		if (tfCheckProfileStrength == null) {
 			tfCheckProfileStrength = new JTextField();
-			tfCheckProfileStrength.setBounds(180, 190, 257, 21);
+			tfCheckProfileStrength.setForeground(new Color(0, 102, 204));
+			tfCheckProfileStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfCheckProfileStrength.setBounds(207, 158, 230, 21);
 			tfCheckProfileStrength.setColumns(10);
 		}
 		return tfCheckProfileStrength;
@@ -597,22 +630,26 @@ public class MainPage {
 	private JLabel getLblCheckProfileIntroduce() {
 		if (lblCheckProfileIntroduce == null) {
 			lblCheckProfileIntroduce = new JLabel("한줄 자기소개 :");
-			lblCheckProfileIntroduce.setBounds(36, 223, 91, 15);
+			lblCheckProfileIntroduce.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfileIntroduce.setForeground(Color.GRAY);
+			lblCheckProfileIntroduce.setBounds(36, 189, 91, 15);
 		}
 		return lblCheckProfileIntroduce;
 	}
 	private JTextField getTextField_5() {
 		if (tfCheckProfileIntroduse == null) {
 			tfCheckProfileIntroduse = new JTextField();
+			tfCheckProfileIntroduse.setForeground(new Color(0, 102, 204));
+			tfCheckProfileIntroduse.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfileIntroduse.setColumns(10);
-			tfCheckProfileIntroduse.setBounds(126, 218, 311, 21);
+			tfCheckProfileIntroduse.setBounds(126, 184, 311, 21);
 		}
 		return tfCheckProfileIntroduse;
 	}
 	private JScrollPane getScrollPane_Project() {
 		if (scrollPane_Project == null) {
 			scrollPane_Project = new JScrollPane();
-			scrollPane_Project.setBounds(36, 271, 401, 74);
+			scrollPane_Project.setBounds(36, 238, 401, 74);
 			scrollPane_Project.setViewportView(getProjectTable());
 		}
 		return scrollPane_Project;
@@ -620,6 +657,8 @@ public class MainPage {
 	private JTable getProjectTable() {
 		if (ProjectTable == null) {
 			ProjectTable = new JTable();
+			ProjectTable.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+			ProjectTable.setForeground(new Color(0, 102, 204));
 			ProjectTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			ProjectTable.setModel(Outer_Table_ProjectTable); // <--***************************************************
 			ProjectTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
@@ -631,23 +670,25 @@ public class MainPage {
 	private JLabel getLblCheckProfileProject() {
 		if (lblCheckProfileProject == null) {
 			lblCheckProfileProject = new JLabel("Project");
-			lblCheckProfileProject.setFont(new Font("굴림", Font.BOLD, 18));
-			lblCheckProfileProject.setBounds(36, 249, 67, 21);
+			lblCheckProfileProject.setForeground(Color.GRAY);
+			lblCheckProfileProject.setFont(new Font("Dialog", Font.BOLD, 13));
+			lblCheckProfileProject.setBounds(36, 216, 67, 21);
 		}
 		return lblCheckProfileProject;
 	}
 	private JLabel getLblCheckProfileTeammateReview() {
 		if (lblCheckProfileTeammateReview == null) {
 			lblCheckProfileTeammateReview = new JLabel("Teammate Review");
-			lblCheckProfileTeammateReview.setFont(new Font("굴림", Font.BOLD, 18));
-			lblCheckProfileTeammateReview.setBounds(36, 349, 170, 21);
+			lblCheckProfileTeammateReview.setForeground(Color.GRAY);
+			lblCheckProfileTeammateReview.setFont(new Font("Dialog", Font.BOLD, 13));
+			lblCheckProfileTeammateReview.setBounds(36, 324, 170, 21);
 		}
 		return lblCheckProfileTeammateReview;
 	}
 	private JScrollPane getScrollPane_TeammateReview() {
 		if (scrollPane_TeammateReview == null) {
 			scrollPane_TeammateReview = new JScrollPane();
-			scrollPane_TeammateReview.setBounds(36, 369, 401, 74);
+			scrollPane_TeammateReview.setBounds(36, 344, 401, 93);
 			scrollPane_TeammateReview.setViewportView(getTeammateReviewTable());
 		}
 		return scrollPane_TeammateReview;
@@ -655,7 +696,10 @@ public class MainPage {
 	private JButton getBtnEditinCheckProfile() {
 		if (btnEditinCheckProfile == null) {
 			btnEditinCheckProfile = new JButton("Edit");
-			btnEditinCheckProfile.setBounds(180, 450, 97, 23);
+			btnEditinCheckProfile.setBackground(Color.WHITE);
+			btnEditinCheckProfile.setForeground(new Color(0, 102, 204));
+			btnEditinCheckProfile.setOpaque(true);
+			btnEditinCheckProfile.setBounds(162, 445, 150, 33);
 		}
 		return btnEditinCheckProfile;
 	}
@@ -663,6 +707,8 @@ public class MainPage {
 	private JTable getTeammateReviewTable() {
 		if (TeammateReviewTable == null) {
 			TeammateReviewTable = new JTable();
+			TeammateReviewTable.setForeground(new Color(0, 102, 204));
+			TeammateReviewTable.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 			TeammateReviewTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			TeammateReviewTable.setModel(Outer_Table_TeammateReviewTable); // <--***************************************************
 			TeammateReviewTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
@@ -673,15 +719,19 @@ public class MainPage {
 	private JLabel getLblCheckProfilePhone() {
 		if (lblCheckProfilePhone == null) {
 			lblCheckProfilePhone = new JLabel("Phone :");
-			lblCheckProfilePhone.setBounds(180, 155, 61, 16);
+			lblCheckProfilePhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			lblCheckProfilePhone.setForeground(Color.GRAY);
+			lblCheckProfilePhone.setBounds(144, 135, 61, 16);
 		}
 		return lblCheckProfilePhone;
 	}
 	private JTextField getTfCheckProfilePhone() {
 		if (tfCheckProfilePhone == null) {
 			tfCheckProfilePhone = new JTextField();
+			tfCheckProfilePhone.setForeground(new Color(0, 102, 204));
+			tfCheckProfilePhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			tfCheckProfilePhone.setColumns(10);
-			tfCheckProfilePhone.setBounds(253, 150, 184, 21);
+			tfCheckProfilePhone.setBounds(207, 135, 230, 21);
 		}
 		return tfCheckProfilePhone;
 	}
@@ -696,7 +746,7 @@ public class MainPage {
 		if (panelAnnouncement == null) {
 			panelAnnouncement = new JPanel();
 			panelAnnouncement.setBackground(new Color(255, 255, 255));
-			panelAnnouncement.setBounds(300, 63, 490, 479);
+			panelAnnouncement.setBounds(300, 45, 490, 479);
 			panelAnnouncement.setLayout(null);
 			panelAnnouncement.add(getScrollPane());
 			panelAnnouncement.add(getLblAnnoucementTitle());
@@ -710,7 +760,7 @@ public class MainPage {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(20, 16, 450, 180);
+			scrollPane.setBounds(20, 6, 450, 200);
 			scrollPane.setViewportView(gettableAnnoucement());
 		}
 		return scrollPane;
@@ -853,7 +903,8 @@ public class MainPage {
 	private JPanel getPanelTeamReview() {
 		if (panelTeamReview == null) {
 			panelTeamReview = new JPanel();
-			panelTeamReview.setBounds(300, 35, 470, 479);
+			panelTeamReview.setBackground(Color.WHITE);
+			panelTeamReview.setBounds(300, 45, 490, 497);
 			panelTeamReview.setLayout(null);
 			panelTeamReview.add(getScrollPane_Project_1());
 			panelTeamReview.add(getLblTeamReviewProject());
@@ -866,7 +917,7 @@ public class MainPage {
 	private JScrollPane getScrollPane_Project_1() {
 		if (scrollPane_Project_1 == null) {
 			scrollPane_Project_1 = new JScrollPane();
-			scrollPane_Project_1.setBounds(33, 67, 401, 116);
+			scrollPane_Project_1.setBounds(33, 53, 415, 150);
 			scrollPane_Project_1.setViewportView(getTRProjectTable());
 		}
 		return scrollPane_Project_1;
@@ -874,23 +925,25 @@ public class MainPage {
 	private JLabel getLblTeamReviewProject() {
 		if (lblTeamReviewProject == null) {
 			lblTeamReviewProject = new JLabel("Project");
+			lblTeamReviewProject.setForeground(Color.GRAY);
 			lblTeamReviewProject.setFont(new Font("굴림", Font.BOLD, 18));
-			lblTeamReviewProject.setBounds(33, 45, 67, 21);
+			lblTeamReviewProject.setBounds(33, 20, 67, 21);
 		}
 		return lblTeamReviewProject;
 	}
 	private JLabel getLblTeamReviewTeammateReview() {
 		if (lblTeamReviewTeammateReview == null) {
 			lblTeamReviewTeammateReview = new JLabel("Teammate Review");
+			lblTeamReviewTeammateReview.setForeground(Color.GRAY);
 			lblTeamReviewTeammateReview.setFont(new Font("굴림", Font.BOLD, 18));
-			lblTeamReviewTeammateReview.setBounds(33, 201, 170, 21);
+			lblTeamReviewTeammateReview.setBounds(33, 232, 170, 21);
 		}
 		return lblTeamReviewTeammateReview;
 	}
 	private JScrollPane getScrollPane_TeammateReview_1() {
 		if (scrollPane_TeammateReview_1 == null) {
 			scrollPane_TeammateReview_1 = new JScrollPane();
-			scrollPane_TeammateReview_1.setBounds(33, 221, 401, 156);
+			scrollPane_TeammateReview_1.setBounds(33, 265, 415, 160);
 			scrollPane_TeammateReview_1.setViewportView(getTRTeammateReviewTable());
 		}
 		return scrollPane_TeammateReview_1;
@@ -898,13 +951,15 @@ public class MainPage {
 	private JButton getBtnTeamReviewSubmit() {
 		if (btnTeamReviewSubmit == null) {
 			btnTeamReviewSubmit = new JButton("Submit");
-			btnTeamReviewSubmit.setBounds(337, 400, 97, 23);
+			btnTeamReviewSubmit.setForeground(new Color(0, 102, 204));
+			btnTeamReviewSubmit.setBounds(351, 451, 97, 23);
 		}
 		return btnTeamReviewSubmit;
 	}
 	private JTable getTRProjectTable() {
 		if (TRProjectTable == null) {
 			TRProjectTable = new JTable();
+			TRProjectTable.setForeground(new Color(0, 102, 204));
 			TRProjectTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			TRProjectTable.setModel(Outer_Table_ProjectTable); // <--***************************************************
 			TRProjectTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
@@ -915,6 +970,7 @@ public class MainPage {
 	private JTable getTRTeammateReviewTable() {
 		if (TRTeammateReviewTable == null) {
 			TRTeammateReviewTable = new JTable();
+			TRTeammateReviewTable.setForeground(new Color(0, 102, 204));
 			TRTeammateReviewTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			TRTeammateReviewTable.setModel(Outer_Table_TeammateReviewTable); // <--***************************************************
 			TRTeammateReviewTable.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
@@ -973,8 +1029,8 @@ public class MainPage {
 		if (rbTeam1 == null) {
 			rbTeam1 = new JRadioButton("Team 1");
 			buttonGroup.add(rbTeam1);
-			rbTeam1.setForeground(new Color(0, 51, 102));
-			rbTeam1.setBounds(20, 22, 107, 23);
+			rbTeam1.setForeground(Color.GRAY);
+			rbTeam1.setBounds(20, 29, 107, 23);
 		}
 		return rbTeam1;
 	}
@@ -982,8 +1038,8 @@ public class MainPage {
 		if (tbTeam2 == null) {
 			tbTeam2 = new JRadioButton("Team 2");
 			buttonGroup.add(tbTeam2);
-			tbTeam2.setForeground(new Color(0, 51, 102));
-			tbTeam2.setBounds(20, 86, 107, 23);
+			tbTeam2.setForeground(Color.GRAY);
+			tbTeam2.setBounds(20, 93, 107, 23);
 		}
 		return tbTeam2;
 	}
@@ -991,9 +1047,9 @@ public class MainPage {
 		if (tfmate2_1 == null) {
 			tfmate2_1 = new JTextField();
 			tfmate2_1.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate2_1.setForeground(new Color(0, 51, 102));
+			tfmate2_1.setForeground(new Color(0, 102, 204));
 			tfmate2_1.setColumns(10);
-			tfmate2_1.setBounds(20, 111, 110, 30);
+			tfmate2_1.setBounds(20, 118, 110, 30);
 		}
 		return tfmate2_1;
 	}
@@ -1001,9 +1057,9 @@ public class MainPage {
 		if (tfmate2_2 == null) {
 			tfmate2_2 = new JTextField();
 			tfmate2_2.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate2_2.setForeground(new Color(0, 51, 102));
+			tfmate2_2.setForeground(new Color(0, 102, 204));
 			tfmate2_2.setColumns(10);
-			tfmate2_2.setBounds(130, 111, 110, 30);
+			tfmate2_2.setBounds(130, 118, 110, 30);
 		}
 		return tfmate2_2;
 	}
@@ -1011,9 +1067,9 @@ public class MainPage {
 		if (tfmate2_3 == null) {
 			tfmate2_3 = new JTextField();
 			tfmate2_3.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate2_3.setForeground(new Color(0, 51, 102));
+			tfmate2_3.setForeground(new Color(0, 102, 204));
 			tfmate2_3.setColumns(10);
-			tfmate2_3.setBounds(240, 111, 110, 30);
+			tfmate2_3.setBounds(240, 118, 110, 30);
 		}
 		return tfmate2_3;
 	}
@@ -1021,9 +1077,9 @@ public class MainPage {
 		if (tfmate2_4 == null) {
 			tfmate2_4 = new JTextField();
 			tfmate2_4.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate2_4.setForeground(new Color(0, 51, 102));
+			tfmate2_4.setForeground(new Color(0, 102, 204));
 			tfmate2_4.setColumns(10);
-			tfmate2_4.setBounds(350, 111, 110, 30);
+			tfmate2_4.setBounds(350, 118, 110, 30);
 		}
 		return tfmate2_4;
 	}
@@ -1031,8 +1087,8 @@ public class MainPage {
 		if (rbTeam3 == null) {
 			rbTeam3 = new JRadioButton("Team 3");
 			buttonGroup.add(rbTeam3);
-			rbTeam3.setForeground(new Color(0, 51, 102));
-			rbTeam3.setBounds(20, 149, 107, 23);
+			rbTeam3.setForeground(Color.GRAY);
+			rbTeam3.setBounds(20, 156, 107, 23);
 		}
 		return rbTeam3;
 	}
@@ -1040,8 +1096,8 @@ public class MainPage {
 		if (rbTeam4 == null) {
 			rbTeam4 = new JRadioButton("Team 4");
 			buttonGroup.add(rbTeam4);
-			rbTeam4.setForeground(new Color(0, 51, 102));
-			rbTeam4.setBounds(20, 212, 107, 23);
+			rbTeam4.setForeground(Color.GRAY);
+			rbTeam4.setBounds(20, 219, 107, 23);
 		}
 		return rbTeam4;
 	}
@@ -1049,8 +1105,8 @@ public class MainPage {
 		if (rbTeam5 == null) {
 			rbTeam5 = new JRadioButton("Team 5");
 			buttonGroup.add(rbTeam5);
-			rbTeam5.setForeground(new Color(0, 51, 102));
-			rbTeam5.setBounds(20, 275, 107, 23);
+			rbTeam5.setForeground(Color.GRAY);
+			rbTeam5.setBounds(20, 282, 107, 23);
 		}
 		return rbTeam5;
 	}
@@ -1058,25 +1114,26 @@ public class MainPage {
 		if (tbTeam6 == null) {
 			tbTeam6 = new JRadioButton("Team 6");
 			buttonGroup.add(tbTeam6);
-			tbTeam6.setForeground(new Color(0, 51, 102));
-			tbTeam6.setBounds(20, 345, 107, 23);
+			tbTeam6.setForeground(Color.GRAY);
+			tbTeam6.setBounds(20, 352, 107, 23);
 		}
 		return tbTeam6;
 	}
 	private JButton getBtnInTeamStatus() {
 		if (btnInTeamStatus == null) {
 			btnInTeamStatus = new JButton("IN");
-			btnInTeamStatus.setForeground(new Color(51, 102, 153));
-			btnInTeamStatus.setBounds(20, 455, 220, 40);
+			btnInTeamStatus.setBackground(Color.WHITE);
+			btnInTeamStatus.setForeground(new Color(0, 102, 204));
+			btnInTeamStatus.setBounds(70, 455, 150, 35);
 		}
 		return btnInTeamStatus;
 	}
 	private JButton getBtnOutTeamStatus() {
 		if (btnOutTeamStatus == null) {
 			btnOutTeamStatus = new JButton("OUT");
-			btnOutTeamStatus.setBackground(new Color(255, 255, 255));
-			btnOutTeamStatus.setForeground(new Color(51, 102, 153));
-			btnOutTeamStatus.setBounds(240, 455, 220, 40);
+			btnOutTeamStatus.setBackground(Color.WHITE);
+			btnOutTeamStatus.setForeground(new Color(0, 102, 204));
+			btnOutTeamStatus.setBounds(270, 455, 150, 35);
 		}
 		return btnOutTeamStatus;
 	}
@@ -1084,9 +1141,9 @@ public class MainPage {
 		if (tfmate3_1 == null) {
 			tfmate3_1 = new JTextField();
 			tfmate3_1.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate3_1.setForeground(new Color(0, 51, 102));
+			tfmate3_1.setForeground(new Color(0, 102, 204));
 			tfmate3_1.setColumns(10);
-			tfmate3_1.setBounds(20, 170, 110, 30);
+			tfmate3_1.setBounds(20, 177, 110, 30);
 		}
 		return tfmate3_1;
 	}
@@ -1094,9 +1151,9 @@ public class MainPage {
 		if (tfmate3_2 == null) {
 			tfmate3_2 = new JTextField();
 			tfmate3_2.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate3_2.setForeground(new Color(0, 51, 102));
+			tfmate3_2.setForeground(new Color(0, 102, 204));
 			tfmate3_2.setColumns(10);
-			tfmate3_2.setBounds(130, 170, 110, 30);
+			tfmate3_2.setBounds(130, 177, 110, 30);
 		}
 		return tfmate3_2;
 	}
@@ -1104,9 +1161,9 @@ public class MainPage {
 		if (tfmate3_3 == null) {
 			tfmate3_3 = new JTextField();
 			tfmate3_3.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate3_3.setForeground(new Color(0, 51, 102));
+			tfmate3_3.setForeground(new Color(0, 102, 204));
 			tfmate3_3.setColumns(10);
-			tfmate3_3.setBounds(240, 170, 110, 30);
+			tfmate3_3.setBounds(240, 177, 110, 30);
 		}
 		return tfmate3_3;
 	}
@@ -1114,9 +1171,9 @@ public class MainPage {
 		if (tfmate3_4 == null) {
 			tfmate3_4 = new JTextField();
 			tfmate3_4.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate3_4.setForeground(new Color(0, 51, 102));
+			tfmate3_4.setForeground(new Color(0, 102, 204));
 			tfmate3_4.setColumns(10);
-			tfmate3_4.setBounds(350, 170, 110, 30);
+			tfmate3_4.setBounds(350, 177, 110, 30);
 		}
 		return tfmate3_4;
 	}
@@ -1124,9 +1181,9 @@ public class MainPage {
 		if (tfmate4_1 == null) {
 			tfmate4_1 = new JTextField();
 			tfmate4_1.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate4_1.setForeground(new Color(0, 51, 102));
+			tfmate4_1.setForeground(new Color(0, 102, 204));
 			tfmate4_1.setColumns(10);
-			tfmate4_1.setBounds(20, 233, 110, 30);
+			tfmate4_1.setBounds(20, 240, 110, 30);
 		}
 		return tfmate4_1;
 	}
@@ -1134,9 +1191,9 @@ public class MainPage {
 		if (tfmate4_2 == null) {
 			tfmate4_2 = new JTextField();
 			tfmate4_2.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate4_2.setForeground(new Color(0, 51, 102));
+			tfmate4_2.setForeground(new Color(0, 102, 204));
 			tfmate4_2.setColumns(10);
-			tfmate4_2.setBounds(130, 233, 110, 30);
+			tfmate4_2.setBounds(130, 240, 110, 30);
 		}
 		return tfmate4_2;
 	}
@@ -1144,9 +1201,9 @@ public class MainPage {
 		if (tfmate4_3 == null) {
 			tfmate4_3 = new JTextField();
 			tfmate4_3.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate4_3.setForeground(new Color(0, 51, 102));
+			tfmate4_3.setForeground(new Color(0, 102, 204));
 			tfmate4_3.setColumns(10);
-			tfmate4_3.setBounds(240, 233, 110, 30);
+			tfmate4_3.setBounds(240, 240, 110, 30);
 		}
 		return tfmate4_3;
 	}
@@ -1154,9 +1211,9 @@ public class MainPage {
 		if (tfmate4_4 == null) {
 			tfmate4_4 = new JTextField();
 			tfmate4_4.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate4_4.setForeground(new Color(0, 51, 102));
+			tfmate4_4.setForeground(new Color(0, 102, 204));
 			tfmate4_4.setColumns(10);
-			tfmate4_4.setBounds(350, 233, 110, 30);
+			tfmate4_4.setBounds(350, 240, 110, 30);
 		}
 		return tfmate4_4;
 	}
@@ -1164,9 +1221,9 @@ public class MainPage {
 		if (tfmate5_1 == null) {
 			tfmate5_1 = new JTextField();
 			tfmate5_1.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate5_1.setForeground(new Color(0, 51, 102));
+			tfmate5_1.setForeground(new Color(0, 102, 204));
 			tfmate5_1.setColumns(10);
-			tfmate5_1.setBounds(20, 303, 110, 30);
+			tfmate5_1.setBounds(20, 310, 110, 30);
 		}
 		return tfmate5_1;
 	}
@@ -1174,9 +1231,9 @@ public class MainPage {
 		if (tfmate5_2 == null) {
 			tfmate5_2 = new JTextField();
 			tfmate5_2.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate5_2.setForeground(new Color(0, 51, 102));
+			tfmate5_2.setForeground(new Color(0, 102, 204));
 			tfmate5_2.setColumns(10);
-			tfmate5_2.setBounds(130, 303, 110, 30);
+			tfmate5_2.setBounds(130, 310, 110, 30);
 		}
 		return tfmate5_2;
 	}
@@ -1184,9 +1241,9 @@ public class MainPage {
 		if (tfmate5_3 == null) {
 			tfmate5_3 = new JTextField();
 			tfmate5_3.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate5_3.setForeground(new Color(0, 51, 102));
+			tfmate5_3.setForeground(new Color(0, 102, 204));
 			tfmate5_3.setColumns(10);
-			tfmate5_3.setBounds(240, 303, 110, 30);
+			tfmate5_3.setBounds(240, 310, 110, 30);
 		}
 		return tfmate5_3;
 	}
@@ -1194,9 +1251,9 @@ public class MainPage {
 		if (tfmate5_4 == null) {
 			tfmate5_4 = new JTextField();
 			tfmate5_4.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate5_4.setForeground(new Color(0, 51, 102));
+			tfmate5_4.setForeground(new Color(0, 102, 204));
 			tfmate5_4.setColumns(10);
-			tfmate5_4.setBounds(350, 303, 110, 30);
+			tfmate5_4.setBounds(350, 310, 110, 30);
 		}
 		return tfmate5_4;
 	}
@@ -1204,9 +1261,9 @@ public class MainPage {
 		if (tfmate1_1 == null) {
 			tfmate1_1 = new JTextField();
 			tfmate1_1.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate1_1.setForeground(new Color(0, 51, 102));
+			tfmate1_1.setForeground(new Color(0, 102, 204));
 			tfmate1_1.setColumns(10);
-			tfmate1_1.setBounds(20, 44, 110, 30);
+			tfmate1_1.setBounds(20, 51, 110, 30);
 		}
 		return tfmate1_1;
 	}
@@ -1214,9 +1271,9 @@ public class MainPage {
 		if (tfmate1_2 == null) {
 			tfmate1_2 = new JTextField();
 			tfmate1_2.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate1_2.setForeground(new Color(0, 51, 102));
+			tfmate1_2.setForeground(new Color(0, 102, 204));
 			tfmate1_2.setColumns(10);
-			tfmate1_2.setBounds(130, 44, 110, 30);
+			tfmate1_2.setBounds(130, 51, 110, 30);
 		}
 		return tfmate1_2;
 	}
@@ -1224,9 +1281,9 @@ public class MainPage {
 		if (tfmate1_3 == null) {
 			tfmate1_3 = new JTextField();
 			tfmate1_3.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate1_3.setForeground(new Color(0, 51, 102));
+			tfmate1_3.setForeground(new Color(0, 102, 204));
 			tfmate1_3.setColumns(10);
-			tfmate1_3.setBounds(240, 44, 110, 30);
+			tfmate1_3.setBounds(240, 51, 110, 30);
 		}
 		return tfmate1_3;
 	}
@@ -1234,9 +1291,9 @@ public class MainPage {
 		if (tfmate1_4 == null) {
 			tfmate1_4 = new JTextField();
 			tfmate1_4.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate1_4.setForeground(new Color(0, 51, 102));
+			tfmate1_4.setForeground(new Color(0, 102, 204));
 			tfmate1_4.setColumns(10);
-			tfmate1_4.setBounds(350, 44, 110, 30);
+			tfmate1_4.setBounds(350, 51, 110, 30);
 		}
 		return tfmate1_4;
 	}
@@ -1244,9 +1301,9 @@ public class MainPage {
 		if (tfmate6_1 == null) {
 			tfmate6_1 = new JTextField();
 			tfmate6_1.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate6_1.setForeground(new Color(0, 51, 102));
+			tfmate6_1.setForeground(new Color(0, 102, 204));
 			tfmate6_1.setColumns(10);
-			tfmate6_1.setBounds(20, 370, 110, 30);
+			tfmate6_1.setBounds(20, 377, 110, 30);
 		}
 		return tfmate6_1;
 	}
@@ -1254,9 +1311,9 @@ public class MainPage {
 		if (tfmate6_2 == null) {
 			tfmate6_2 = new JTextField();
 			tfmate6_2.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate6_2.setForeground(new Color(0, 51, 102));
+			tfmate6_2.setForeground(new Color(0, 102, 204));
 			tfmate6_2.setColumns(10);
-			tfmate6_2.setBounds(130, 370, 110, 30);
+			tfmate6_2.setBounds(130, 377, 110, 30);
 		}
 		return tfmate6_2;
 	}
@@ -1264,9 +1321,9 @@ public class MainPage {
 		if (tfmate6_3 == null) {
 			tfmate6_3 = new JTextField();
 			tfmate6_3.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate6_3.setForeground(new Color(0, 51, 102));
+			tfmate6_3.setForeground(new Color(0, 102, 204));
 			tfmate6_3.setColumns(10);
-			tfmate6_3.setBounds(240, 370, 110, 30);
+			tfmate6_3.setBounds(240, 377, 110, 30);
 		}
 		return tfmate6_3;
 	}
@@ -1274,9 +1331,9 @@ public class MainPage {
 		if (tfmate6_4 == null) {
 			tfmate6_4 = new JTextField();
 			tfmate6_4.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate6_4.setForeground(new Color(0, 51, 102));
+			tfmate6_4.setForeground(new Color(0, 102, 204));
 			tfmate6_4.setColumns(10);
-			tfmate6_4.setBounds(350, 370, 110, 30);
+			tfmate6_4.setBounds(350, 377, 110, 30);
 		}
 		return tfmate6_4;
 	}
@@ -1284,9 +1341,9 @@ public class MainPage {
 		if (tfmate6_5 == null) {
 			tfmate6_5 = new JTextField();
 			tfmate6_5.setHorizontalAlignment(SwingConstants.CENTER);
-			tfmate6_5.setForeground(new Color(0, 51, 102));
+			tfmate6_5.setForeground(new Color(0, 102, 204));
 			tfmate6_5.setColumns(10);
-			tfmate6_5.setBounds(20, 399, 110, 30);
+			tfmate6_5.setBounds(20, 406, 110, 30);
 		}
 		return tfmate6_5;
 	}
@@ -1297,11 +1354,15 @@ public class MainPage {
 	private JPanel getPanel_1() {
 		if (panelFindTeammate == null) {
 			panelFindTeammate = new JPanel();
+			panelFindTeammate.setBackground(Color.WHITE);
 			panelFindTeammate.setBounds(300, 35, 490, 507);
 			panelFindTeammate.setLayout(null);
 			panelFindTeammate.add(getScrollPane_FindTeammate());
 			panelFindTeammate.add(getLblFindTeammateYouPickedBy());
 			panelFindTeammate.add(getScrollPane_YouPickedBy());
+			panelFindTeammate.add(getComboBox());
+			panelFindTeammate.add(getTextField());
+			panelFindTeammate.add(getBtnNewButton_1());
 
 		}
 		return panelFindTeammate;
@@ -1310,7 +1371,7 @@ public class MainPage {
 	private JScrollPane getScrollPane_FindTeammate() {
 		if (scrollPane_FindTeammate == null) {
 			scrollPane_FindTeammate = new JScrollPane();
-			scrollPane_FindTeammate.setBounds(6, 6, 478, 225);
+			scrollPane_FindTeammate.setBounds(25, 55, 430, 200);
 			scrollPane_FindTeammate.setViewportView(getTableFindTeammate());
 		}
 		return scrollPane_FindTeammate;
@@ -1318,6 +1379,7 @@ public class MainPage {
 	private JTable getTableFindTeammate() {
 		if (TableFindTeammate == null) {
 			TableFindTeammate = new JTable();
+			TableFindTeammate.setForeground(new Color(0, 102, 204));
 			TableFindTeammate.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			TableFindTeammate.setModel(Outer_Table_FindTeammate); // <--***************************************************
 			TableFindTeammate.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
@@ -1361,15 +1423,15 @@ public class MainPage {
 		if (lblFindTeammateYouPickedBy == null) {
 			lblFindTeammateYouPickedBy = new JLabel("You Picked By");
 			lblFindTeammateYouPickedBy.setForeground(Color.GRAY);
-			lblFindTeammateYouPickedBy.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblFindTeammateYouPickedBy.setBounds(6, 255, 327, 36);
+			lblFindTeammateYouPickedBy.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+			lblFindTeammateYouPickedBy.setBounds(25, 295, 308, 36);
 		}
 		return lblFindTeammateYouPickedBy;
 	}
 	private JScrollPane getScrollPane_YouPickedBy() {
 		if (scrollPane_YouPickedBy == null) {
 			scrollPane_YouPickedBy = new JScrollPane();
-			scrollPane_YouPickedBy.setBounds(6, 287, 478, 214);
+			scrollPane_YouPickedBy.setBounds(25, 340, 430, 120);
 			scrollPane_YouPickedBy.setViewportView(getTableYouPickedBy());
 		}
 		return scrollPane_YouPickedBy;
@@ -1377,6 +1439,7 @@ public class MainPage {
 	private JTable getTableYouPickedBy() {
 		if (tableYouPickedBy == null) {
 			tableYouPickedBy = new JTable();
+			tableYouPickedBy.setForeground(new Color(0, 102, 204));
 			tableYouPickedBy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tableYouPickedBy.setModel(Outer_Table_YouPickedBy); // <--***************************************************
 			tableYouPickedBy.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
@@ -1412,5 +1475,40 @@ public class MainPage {
 			width = 120;
 			col.setPreferredWidth(width);
 	}
-//		*** You Picked By Table
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("Import Image");
+			btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
+			btnNewButton.setForeground(new Color(0, 102, 204));
+			btnNewButton.setBounds(30, 152, 102, 29);
+		}
+		return btnNewButton;
+	}
+	private JComboBox getComboBox() {
+		if (comboBox == null) {
+			comboBox = new JComboBox();
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"Name", "GitHub Id", "MBTI", "Team Status"}));
+			comboBox.setForeground(Color.GRAY);
+			comboBox.setBounds(25, 21, 107, 27);
+		}
+		return comboBox;
+	}
+	private JTextField getTextField() {
+		if (textField == null) {
+			textField = new JTextField();
+			textField.setForeground(new Color(0, 102, 204));
+			textField.setBounds(138, 20, 238, 30);
+			textField.setColumns(10);
+		}
+		return textField;
+	}
+	private JButton getBtnNewButton_1() {
+		if (btnNewButton_1 == null) {
+			btnNewButton_1 = new JButton("Search");
+			btnNewButton_1.setForeground(new Color(0, 102, 204));
+			btnNewButton_1.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+			btnNewButton_1.setBounds(378, 20, 77, 29);
+		}
+		return btnNewButton_1;
+	}
 } 
