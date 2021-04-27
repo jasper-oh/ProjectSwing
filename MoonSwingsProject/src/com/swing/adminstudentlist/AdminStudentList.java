@@ -1,12 +1,20 @@
 package com.swing.adminstudentlist;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Rectangle;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.Scrollable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+
+//Need To Change 
 
 public class AdminStudentList extends JPanel {
 	
@@ -18,12 +26,13 @@ public class AdminStudentList extends JPanel {
 	private JPanel panelStudentList;
 	private JScrollPane scrollPane_StudentList;
 	private JTable tableStudentList;
-	private final DefaultTableModel Outer_Table_StrudentList = new DefaultTableModel();
+	private final DefaultTableModel Outer_Table_StudentList = new DefaultTableModel();
 	
 	public JPanel getStudentList() {
 		if (panelStudentList == null) {
 			panelStudentList = new JPanel();
-			panelStudentList.setBounds(300, 35, 490, 507);
+			panelStudentList.setBackground(Color.white);
+			panelStudentList.setBounds(300, 45, 490, 497);
 			panelStudentList.setLayout(null);
 			panelStudentList.add(getScrollPane_StudentList());
 
@@ -34,7 +43,7 @@ public class AdminStudentList extends JPanel {
 	private JScrollPane getScrollPane_StudentList() {
 		if (scrollPane_StudentList == null) {
 			scrollPane_StudentList = new JScrollPane();
-			scrollPane_StudentList.setBounds(12, 10, 452, 487);
+			scrollPane_StudentList.setBounds(25, 20, 440, 450);
 			scrollPane_StudentList.setViewportView(getTableStudentList());
 		}
 		return scrollPane_StudentList;
@@ -43,7 +52,9 @@ public class AdminStudentList extends JPanel {
 		if (tableStudentList == null) {
 			tableStudentList = new JTable();
 			tableStudentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			tableStudentList.setModel(Outer_Table_StrudentList); // <--***************************************************
+			tableStudentList.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tableStudentList.setForeground(new Color(0, 102, 204));
+			tableStudentList.setModel(Outer_Table_StudentList); // <--***************************************************
 			tableStudentList.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
 			tableStudentList.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
 		}
@@ -52,15 +63,17 @@ public class AdminStudentList extends JPanel {
 	
 	@SuppressWarnings("static-access")
 	public void SLStudentListTable(){
-		int i = Outer_Table_StrudentList.getRowCount();
-		Outer_Table_StrudentList.addColumn("Name");
-		Outer_Table_StrudentList.addColumn("Github");
-		Outer_Table_StrudentList.addColumn("TeamStatus");
-		Outer_Table_StrudentList.addColumn("MBTI");
-		Outer_Table_StrudentList.addColumn("Signal");
-		Outer_Table_StrudentList.setColumnCount(5);
+		int i = Outer_Table_StudentList.getRowCount();
+		Outer_Table_StudentList.addColumn("Name");
+		Outer_Table_StudentList.addColumn("Github");
+		Outer_Table_StudentList.addColumn("TeamStatus");
+		Outer_Table_StudentList.addColumn("MBTI");
+		Outer_Table_StudentList.addColumn("Signal");
+		Outer_Table_StudentList.setColumnCount(5);
+		
+		
 		for(int j = 0 ; j < i ; j++){
-			Outer_Table_StrudentList.removeRow(0);
+			Outer_Table_StudentList.removeRow(0);
 		}
 		tableStudentList.setAutoResizeMode(tableStudentList.AUTO_RESIZE_OFF);
 		int vColIndex = 0;
@@ -84,8 +97,6 @@ public class AdminStudentList extends JPanel {
 		width = 120;
 		col.setPreferredWidth(width);
 	}
-
-
 
 
 }

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -14,11 +15,11 @@ import com.swing.mainpage.MainPage;
 
 import javax.swing.JTextField;
 import java.awt.SystemColor;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JPasswordField;
 
 public class Login {
 
@@ -29,9 +30,9 @@ public class Login {
 	private JLabel lblLoginUserId;
 	private JTextField tfLoginUserId;
 	private JLabel lblLoginPassword;
+	private JButton btnLoginSignIn;
 	private JButton btnLoginSignUp;
 	private JButton btnLoginFindIdPw;
-	private JButton btnLoginSignIn;
 	private JPasswordField pfLoginPassword;
 	
 
@@ -100,6 +101,8 @@ public class Login {
 		}
 		return lblBgLogin;
 	}
+	
+	
 	private JLabel getLblSignIn() {
 		if (lblSignIn == null) {
 			lblSignIn = new JLabel("SIGN IN");
@@ -136,7 +139,6 @@ public class Login {
 		}
 		return lblLoginPassword;
 	}
-	
 	private JPasswordField getPfLoginPassword() {
 		if (pfLoginPassword == null) {
 			pfLoginPassword = new JPasswordField();
@@ -146,20 +148,25 @@ public class Login {
 		}
 		return pfLoginPassword;
 	}
-	
 	private JButton getBtnLoginSignIn() {
 		if (btnLoginSignIn == null) {
 			btnLoginSignIn = new JButton("Sign In");
 			btnLoginSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+		
+					frmteam.setVisible(false);
 					
-//					MainPage mainPage = new MainPage();
-//					mainPage.run();
+					MainPage mainPage= new MainPage();
+					AdminMainPage adminPage = new AdminMainPage();
 					
-					AdminMainPage adminmainPage = new AdminMainPage();
-					adminmainPage.run();
-//					frmteam.setVisible(false);
+					if(tfLoginUserId.getText().equals("Han")) {
+						adminPage.run();
+					}else {
+						mainPage.run();
+					}
+						
 					
+		
 				}
 			});
 			btnLoginSignIn.setForeground(Color.WHITE);
@@ -170,14 +177,13 @@ public class Login {
 		}
 		return btnLoginSignIn;
 	}
-	
 	private JButton getBtnLoginSignUp() {
 		if (btnLoginSignUp == null) {
 			btnLoginSignUp = new JButton("Sign Up");
 			btnLoginSignUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-//					SignUp signUp = new SignUp();
-					TestSignUp signUp = new TestSignUp();
+					SignUp signUp = new SignUp();
+					
 					signUp.run();
 
 				}

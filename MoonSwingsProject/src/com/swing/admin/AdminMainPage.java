@@ -52,6 +52,7 @@ public class AdminMainPage {
 	
 	private JLabel lblImageDefaultLabel;
 	private JLabel lblTitle;
+	private JLabel lblLogout;
 	
 	AdminAnnouncement adminAnnouncement = new AdminAnnouncement();
 	AdminStudentList adminStudentList = new AdminStudentList();
@@ -80,12 +81,9 @@ public class AdminMainPage {
 	/**
 	 * Create the application.
 	 */
+	
 	public AdminMainPage() {
 		initialize();
-		adminAnnouncement.AdminAnnouncementTable();
-		adminStudentList.SLStudentListTable();
-		adminTeamStatus.TSStudentListTable();
-		
 	}
 
 	/**
@@ -97,11 +95,12 @@ public class AdminMainPage {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-
+				
+				
 				adminAnnouncement.getAnnouncement().setVisible(true);
 				adminStudentList.getStudentList().setVisible(false);
 				adminTeamStatus.getTeamStatus().setVisible(false);
-				
+				adminAnnouncement.AdminAnnouncementTable();
 				
 			}
 		});
@@ -112,8 +111,8 @@ public class AdminMainPage {
 		frame.getContentPane().add(getfixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(adminAnnouncement.getAnnouncement());
-		frame.getContentPane().add(adminStudentList.getStudentList());
-		frame.getContentPane().add(adminTeamStatus.getTeamStatus());
+//		frame.getContentPane().add(adminStudentList.getStudentList());
+//		frame.getContentPane().add(adminTeamStatus.getTeamStatusWithScrollPanel());
 		
 
 	}
@@ -135,6 +134,7 @@ public class AdminMainPage {
 			fixedpanel.add(getBtnAnnounce());
 			fixedpanel.add(getBtnStudentList());
 			fixedpanel.add(getBtnTeamStatus());
+			fixedpanel.add(getLblLogout());
 			fixedpanel.add(getLblBgLeftPanel());
 		}
 		return fixedpanel;
@@ -148,10 +148,11 @@ public class AdminMainPage {
 		}
 		return lblBgLeftPanel;
 	}
+
 	private JPanel getImagePanel() {
 		if (ImagePanel == null) {
 			ImagePanel = new JPanel();
-			ImagePanel.setBounds(23, 54, 87, 108);
+			ImagePanel.setBounds(23, 54, 99, 132);
 			ImagePanel.setLayout(null);
 			ImagePanel.add(getLblImageDefaultLabel());
 		}
@@ -161,7 +162,7 @@ public class AdminMainPage {
 		if (lblId == null) {
 			lblId = new JLabel("ID");
 			lblId.setForeground(Color.WHITE);
-			lblId.setBounds(133, 54, 61, 16);
+			lblId.setBounds(137, 70, 61, 16);
 		}
 		return lblId;
 	}
@@ -169,7 +170,7 @@ public class AdminMainPage {
 		if (lblName == null) {
 			lblName = new JLabel("Name");
 			lblName.setForeground(Color.WHITE);
-			lblName.setBounds(133, 82, 61, 16);
+			lblName.setBounds(134, 98, 61, 16);
 		}
 		return lblName;
 	}
@@ -177,7 +178,7 @@ public class AdminMainPage {
 		if (lblMbti == null) {
 			lblMbti = new JLabel("MBTI");
 			lblMbti.setForeground(Color.WHITE);
-			lblMbti.setBounds(133, 110, 37, 16);
+			lblMbti.setBounds(134, 126, 37, 16);
 		}
 		return lblMbti;
 	}
@@ -185,7 +186,7 @@ public class AdminMainPage {
 		if (lblGithub == null) {
 			lblGithub = new JLabel("Github");
 			lblGithub.setForeground(Color.WHITE);
-			lblGithub.setBounds(133, 138, 47, 16);
+			lblGithub.setBounds(134, 154, 47, 16);
 		}
 		return lblGithub;
 	}
@@ -193,7 +194,7 @@ public class AdminMainPage {
 		if (lblShowGithub == null) {
 			lblShowGithub = new JLabel("ZeusHahn");
 			lblShowGithub.setForeground(Color.WHITE);
-			lblShowGithub.setBounds(193, 138, 101, 16);
+			lblShowGithub.setBounds(194, 154, 101, 16);
 		}
 		return lblShowGithub;
 	}
@@ -201,7 +202,7 @@ public class AdminMainPage {
 		if (lblShowName == null) {
 			lblShowName = new JLabel("한경호");
 			lblShowName.setForeground(Color.WHITE);
-			lblShowName.setBounds(193, 82, 61, 16);
+			lblShowName.setBounds(194, 98, 61, 16);
 		}
 		return lblShowName;
 	}
@@ -209,7 +210,7 @@ public class AdminMainPage {
 		if (lblShowMbti == null) {
 			lblShowMbti = new JLabel("ENFJ");
 			lblShowMbti.setForeground(Color.WHITE);
-			lblShowMbti.setBounds(193, 110, 61, 16);
+			lblShowMbti.setBounds(194, 126, 61, 16);
 		}
 		return lblShowMbti;
 	}
@@ -217,9 +218,18 @@ public class AdminMainPage {
 		if (lblShowId == null) {
 			lblShowId = new JLabel("Hahn");
 			lblShowId.setForeground(Color.WHITE);
-			lblShowId.setBounds(193, 54, 61, 16);
+			lblShowId.setBounds(197, 70, 61, 16);
 		}
 		return lblShowId;
+	}
+	private JLabel getLblLogout() {
+		if (lblLogout == null) {
+			lblLogout = new JLabel("Logout");
+			lblLogout.setFont(new Font("Lucida Grande", Font.BOLD, 11));
+			lblLogout.setForeground(Color.WHITE);
+			lblLogout.setBounds(6, 5, 100, 26);
+		}
+		return lblLogout;
 	}
 	private JButton getBtnAnnounce() {
 		if (btnAnnounce == null) {
@@ -255,7 +265,7 @@ public class AdminMainPage {
 			btnTeamStatus.setForeground(new Color(0, 102, 204));
 			btnTeamStatus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					adminTeamStatus.showTeammateStatusAction();
 					checkTeamStatusUIAction();
 				}
 			});
@@ -276,7 +286,7 @@ public class AdminMainPage {
 			lblTitle = new JLabel("Announcement");
 			lblTitle.setForeground(new Color(128, 128, 128));
 			lblTitle.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-			lblTitle.setBounds(325, 30, 327, 36);
+			lblTitle.setBounds(325, 10, 327, 36);
 		}
 		return lblTitle;
 	}
@@ -286,7 +296,7 @@ public class AdminMainPage {
 	// ---------------------
 	
 	private void CheckAnnouncementUIAction(){
-		
+		frame.getContentPane().add(adminAnnouncement.getAnnouncement());
 		lblTitle.setText("Announcement");
 		adminAnnouncement.getAnnouncement().setVisible(true);
 		adminStudentList.getStudentList().setVisible(false);
@@ -295,17 +305,24 @@ public class AdminMainPage {
 	}
 	
 	private void checkStudentListTableUIAction() {
+		frame.getContentPane().add(adminStudentList.getStudentList());
 		lblTitle.setText("Student List");
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(true);
 		adminTeamStatus.getTeamStatus().setVisible(false);
+		adminStudentList.SLStudentListTable();
 	}
 	
 	private void checkTeamStatusUIAction(){
+		
+		frame.getContentPane().add(adminTeamStatus.getTeamStatus());
+		
 		lblTitle.setText("Team Status");
+		adminTeamStatus.TSStudentListTable();
+		adminTeamStatus.getTeamStatus().setVisible(true);
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(false);
-		adminTeamStatus.getTeamStatus().setVisible(true);
-		
+	
 	}
-} 
+
+}

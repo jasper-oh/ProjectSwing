@@ -1,6 +1,7 @@
 package com.swing.adminteamstatus;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,9 +15,13 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.swing.DB.Bean;
+import com.swing.DB.DBAction;
+
 public class AdminTeamStatus extends JPanel {
 	public AdminTeamStatus() {
 	}
+
 
 	/**
 	 * Create the panel.
@@ -61,6 +66,8 @@ public class AdminTeamStatus extends JPanel {
 	private final DefaultTableModel Outer_Table_StrudentList = new DefaultTableModel();
 	private JScrollPane scrollPane_TSStudentList;
 	private JTable tableTeamStatus;
+	
+	ArrayList<JTextField[]> tfbeanList = new ArrayList<JTextField[]>();
 	
 	public JPanel getTeamStatus() {
 		if (panelTeamStatus == null) {
@@ -110,7 +117,7 @@ public class AdminTeamStatus extends JPanel {
 			rbTeam1 = new JRadioButton("T1");
 			buttonGroup.add(rbTeam1);
 			rbTeam1.setForeground(new Color(0, 51, 102));
-			rbTeam1.setBounds(20, 27, 40, 23);
+			rbTeam1.setBounds(10, 27, 50, 23);
 		}
 		return rbTeam1;
 	}
@@ -119,7 +126,7 @@ public class AdminTeamStatus extends JPanel {
 			rbTeam2 = new JRadioButton("T2");
 			buttonGroup.add(rbTeam2);
 			rbTeam2.setForeground(new Color(0, 51, 102));
-			rbTeam2.setBounds(20, 67, 40, 23);
+			rbTeam2.setBounds(10, 67, 50, 23);
 		}
 		return rbTeam2;
 	}
@@ -128,7 +135,7 @@ public class AdminTeamStatus extends JPanel {
 			rbTeam3 = new JRadioButton("T3");
 			buttonGroup.add(rbTeam3);
 			rbTeam3.setForeground(new Color(0, 51, 102));
-			rbTeam3.setBounds(20, 107, 40, 23);
+			rbTeam3.setBounds(10, 107, 50, 23);
 		}
 		return rbTeam3;
 	}
@@ -137,7 +144,7 @@ public class AdminTeamStatus extends JPanel {
 			rbTeam4 = new JRadioButton("T4");
 			buttonGroup.add(rbTeam4);
 			rbTeam4.setForeground(new Color(0, 51, 102));
-			rbTeam4.setBounds(20, 147, 40, 23);
+			rbTeam4.setBounds(10, 147, 50, 23);
 		}
 		return rbTeam4;
 	}
@@ -146,7 +153,7 @@ public class AdminTeamStatus extends JPanel {
 			rbTeam5 = new JRadioButton("T5");
 			buttonGroup.add(rbTeam5);
 			rbTeam5.setForeground(new Color(0, 51, 102));
-			rbTeam5.setBounds(20, 187, 40, 23);
+			rbTeam5.setBounds(10, 187, 50, 23);
 		}
 		return rbTeam5;
 	}
@@ -155,7 +162,7 @@ public class AdminTeamStatus extends JPanel {
 			rbTeam6 = new JRadioButton("T6");
 			buttonGroup.add(rbTeam6);
 			rbTeam6.setForeground(new Color(0, 51, 102));
-			rbTeam6.setBounds(20, 227, 40, 23);
+			rbTeam6.setBounds(10, 227, 50, 23);
 		}
 		return rbTeam6;
 	}
@@ -485,6 +492,57 @@ public class AdminTeamStatus extends JPanel {
 		width = 120;
 		col.setPreferredWidth(width);
 	}
-	
+	public void showTeammateStatusAction(){
+		
+		DBAction dbAction = new DBAction();
+		ArrayList<Bean> beanList =  dbAction.ShowTeammateStatus();
+		
+		JTextField[] tf1 = {tfmate1_1, tfmate1_2, tfmate1_3, tfmate1_4};
+		JTextField[] tf2 = {tfmate2_1, tfmate2_2, tfmate2_3, tfmate2_4};
+		JTextField[] tf3 = {tfmate3_1, tfmate3_2, tfmate3_3, tfmate3_4};
+		JTextField[] tf4 = {tfmate4_1, tfmate4_2, tfmate4_3, tfmate4_4};
+		JTextField[] tf5 = {tfmate5_1, tfmate5_2, tfmate5_3, tfmate5_4};
+		JTextField[] tf6 = {tfmate6_1, tfmate6_2, tfmate6_3, tfmate6_4, tfmate6_5};
+		
+		tfbeanList.add(tf1);
+		tfbeanList.add(tf2);
+		tfbeanList.add(tf3);
+		tfbeanList.add(tf4);
+		tfbeanList.add(tf5);
+		tfbeanList.add(tf6);
+		
+		for(int i=0; i<beanList.size(); i++) {
+			
+			int tempno = beanList.get(i).getNo()-1;
+			String tempname = beanList.get(i).getName();
+			
+			insertstudentname(tfbeanList.get(tempno), tempname, i);
+			
+		}
+		
+	}
+	public void insertstudentname(JTextField[] tfs, String name, int rdbcount) {
+		
+		for(int i=0;i<tfs.length;i++) {
+			if(tfs[i].getText().equals("")) {
+				tfs[i].setText(name);
+				return;
+			}
+		}
+	}
+	public void checkFull(int num) {
+		
+		JTextField[] tfs =  tfbeanList.get(num-1);
+		
+		
+		for(int i=0;i<tfs.length;i++) {
+			
+			if(tfs[i].getText().equals("")) {
+				btnInTeamStatus.setEnabled(true);
+				return;
+			}
+		}
+		btnInTeamStatus.setEnabled(false);
+	}
 
 }
