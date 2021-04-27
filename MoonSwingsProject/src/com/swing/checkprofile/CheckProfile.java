@@ -308,11 +308,11 @@ public class CheckProfile extends JPanel {
 					
 					editButtonAction();
 					
-					if(btnEditinCheckProfile.getText().equals("save")) {
+					if(btnEditinCheckProfile.getText().equals("Save")) {
 						saveAction();
 						return;
 					}
-					btnEditinCheckProfile.setText("save");
+					btnEditinCheckProfile.setText("Save");
 				}
 			});
 			btnEditinCheckProfile.setBackground(Color.WHITE);
@@ -360,7 +360,7 @@ public class CheckProfile extends JPanel {
 	public void CheckProfileTableProject(){
 	    int i = Outer_Table_ProjectTable.getRowCount();
 	    Outer_Table_ProjectTable.addColumn("Project Name");
-	    Outer_Table_ProjectTable.addColumn("TeaName");
+	    Outer_Table_ProjectTable.addColumn("TeamName");
 	    Outer_Table_ProjectTable.addColumn("결과물-Git Address");
 	    Outer_Table_ProjectTable.setColumnCount(3);
 	    for(int j = 0 ; j < i ; j++){
@@ -369,7 +369,7 @@ public class CheckProfile extends JPanel {
 	    ProjectTable.setAutoResizeMode(ProjectTable.AUTO_RESIZE_OFF);
 	    int vColIndex = 0;
 	    TableColumn col = ProjectTable.getColumnModel().getColumn(vColIndex);
-	    int width = 50;
+	    int width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
@@ -384,7 +384,7 @@ public class CheckProfile extends JPanel {
 	@SuppressWarnings("static-access")
 	public void CheckProfileTableReview(){
 	    int i = Outer_Table_TeammateReviewTable.getRowCount();
-	    Outer_Table_TeammateReviewTable.addColumn("Signal Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Teammate Name");
 	    Outer_Table_TeammateReviewTable.addColumn("Project Name");
 	    Outer_Table_TeammateReviewTable.addColumn("Review");
 	    Outer_Table_TeammateReviewTable.setColumnCount(3);
@@ -394,7 +394,7 @@ public class CheckProfile extends JPanel {
 	    TeammateReviewTable.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
 	    int vColIndex = 0;
 	    TableColumn col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
-	    int width = 50;
+	    int width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
@@ -428,23 +428,44 @@ public class CheckProfile extends JPanel {
 		
 		btnCancel.setVisible(true);
 		btnImportImage.setVisible(true);
-		
-		
-		
+		textFieldEnable();
+
 	}
-	
 	
 	private void cancelButtonAction() {
 		btnCancel.setVisible(false);
 		btnImportImage.setVisible(false);
+		btnEditinCheckProfile.setText("Edit");
 		btnEditinCheckProfile.setVisible(true);
+		textFieldUnable();
 		
 	}
 	private void saveAction() {
 		btnEditinCheckProfile.setText("Edit");
 		btnCancel.setVisible(false);
 		btnImportImage.setVisible(false);
+		textFieldUnable();
 		
+	}
+	private void textFieldEnable() {
+		tfCheckProfileId.setEditable(true);
+		tfCheckProfileName.setEditable(true);
+		tfCheckProfilePhone.setEditable(true);
+		tfCheckProfileAddress.setEditable(true);
+		tfCheckProfileMbti.setEditable(true);
+		tfCheckProfileGithub.setEditable(true);
+		tfCheckProfileStrength.setEditable(true);
+		tfCheckProfileIntroduce.setEditable(true);
+	}
+	private void textFieldUnable() {
+		tfCheckProfileId.setEditable(false);
+		tfCheckProfileName.setEditable(false);
+		tfCheckProfilePhone.setEditable(false);
+		tfCheckProfileAddress.setEditable(false);
+		tfCheckProfileMbti.setEditable(false);
+		tfCheckProfileGithub.setEditable(false);
+		tfCheckProfileStrength.setEditable(false);
+		tfCheckProfileIntroduce.setEditable(false);
 	}
 	
 

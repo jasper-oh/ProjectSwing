@@ -118,7 +118,7 @@ public class TeammateReview extends JPanel {
 	    TRProjectTable.setAutoResizeMode(TRProjectTable.AUTO_RESIZE_OFF);
 	    int vColIndex = 0;
 	    TableColumn col = TRProjectTable.getColumnModel().getColumn(vColIndex);
-	    int width = 50;
+	    int width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = TRProjectTable.getColumnModel().getColumn(vColIndex);
@@ -133,7 +133,7 @@ public class TeammateReview extends JPanel {
 	@SuppressWarnings("static-access")
 	public void teammateReviewTableReview(){
 	    int i = Outer_Table_TeammateReviewTable.getRowCount();
-	    Outer_Table_TeammateReviewTable.addColumn("Signal Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Teammate Name");
 	    Outer_Table_TeammateReviewTable.addColumn("Project Name");
 	    Outer_Table_TeammateReviewTable.addColumn("Review");
 	    Outer_Table_TeammateReviewTable.setColumnCount(3);
@@ -143,7 +143,7 @@ public class TeammateReview extends JPanel {
 	    TRTeammateReviewTable.setAutoResizeMode(TRTeammateReviewTable.AUTO_RESIZE_OFF);
 	    int vColIndex = 0;
 	    TableColumn col = TRTeammateReviewTable.getColumnModel().getColumn(vColIndex);
-	    int width = 50;
+	    int width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = TRTeammateReviewTable.getColumnModel().getColumn(vColIndex);

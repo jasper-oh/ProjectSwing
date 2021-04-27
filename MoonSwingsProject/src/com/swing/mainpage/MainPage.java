@@ -14,6 +14,7 @@ import javax.swing.table.TableColumn;
 import com.swing.announcement.Announcement;
 import com.swing.checkprofile.CheckProfile;
 import com.swing.findteammate.FindTeammate;
+import com.swing.login.Login;
 import com.swing.teammatereview.TeammateReview;
 import com.swing.teamstatus.TeamStatus;
 
@@ -31,12 +32,15 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainPage {
 
 	private JFrame frame;
 	private JPanel fixedpanel;
 	private JPanel ImagePanel;
+	private JLabel lblLogout;
 	private JLabel lblId;
 	private JLabel lblName;
 	private JLabel lblMbti;
@@ -109,7 +113,6 @@ public class MainPage {
 		frame.getContentPane().add(fixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(announcement.getAnnouncement());
-
 	}
 	
 	private JPanel fixedPanel() {
@@ -132,7 +135,9 @@ public class MainPage {
 			fixedpanel.add(getBtnFindTeammate());
 			fixedpanel.add(getBtnTeamReview());
 			fixedpanel.add(getBtnTeammateStatus());
+			fixedpanel.add(getLblLogout());
 			fixedpanel.add(getLblBgLeftPanel());
+			
 		}
 		return fixedpanel;
 	}
@@ -155,6 +160,22 @@ public class MainPage {
 			ImagePanel.add(getLblImageDefaultLabel());
 		}
 		return ImagePanel;
+	}
+	private JLabel getLblLogout() {
+		if (lblLogout == null) {
+			lblLogout = new JLabel("Logout");
+			lblLogout.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					logoutActionEvent();
+				}
+			});
+			
+			lblLogout.setFont(new Font("Lucida Grande", Font.BOLD, 11));
+			lblLogout.setForeground(Color.WHITE);
+			lblLogout.setBounds(6, 5, 100, 26);
+		}
+		return lblLogout;
 	}
 	
 	private JLabel getLblId() {
@@ -241,8 +262,7 @@ public class MainPage {
 			btnCheckProfile = new JButton("Check Profile");
 			btnCheckProfile.setForeground(new Color(0, 102, 204));
 			btnCheckProfile.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
+				public void actionPerformed(ActionEvent e) {	
 					CheckProfileUIAction();
 				}
 			});
@@ -307,6 +327,17 @@ public class MainPage {
 		return lblTitle;
 	}
 	
+	
+	private void logoutActionEvent() {
+		
+		Login login = new Login();
+		login.run();
+		
+		frame.setVisible(false);
+		
+	}
+	
+	
 	// ---------------------
 	// button action method
 	// ---------------------
@@ -347,6 +378,7 @@ public class MainPage {
 		findTeammate.getFindTeammate().setVisible(true);
 		findTeammate.FindTeammateTableFindTeammate();
 		findTeammate.FindTeammateTableYouPickedBy();
+		findTeammate.FindTeammateTableMyPick();
 		
 	}
 	private void checkTeamReviewAction(){
