@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import com.swing.admin.AdminMainPage;
 import com.swing.mainpage.MainPage;
 
 import javax.swing.JTextField;
@@ -153,9 +154,18 @@ public class Login {
 			btnLoginSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 		
-					MainPage mainPage= new MainPage();
-					mainPage.run();
 					frmteam.setVisible(false);
+					
+					MainPage mainPage= new MainPage();
+					AdminMainPage adminPage = new AdminMainPage();
+					
+					if(tfLoginUserId.getText().equals("Han")) {
+						adminPage.run();
+					}else {
+						mainPage.run();
+					}
+						
+					
 		
 				}
 			});

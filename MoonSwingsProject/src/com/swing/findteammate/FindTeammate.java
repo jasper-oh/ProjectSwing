@@ -29,6 +29,11 @@ public class FindTeammate extends JPanel {
 	private JButton btnSearch;
 	private JTextField textFieldSearch;
 	private JComboBox searchComboBox;
+	private final DefaultTableModel Outer_Table_MyPick = new DefaultTableModel();
+	private JScrollPane scrollPane_MyPick;
+	private JTable tableMyPick;
+	private JLabel lblFindTeammateMyPick;
+	private JButton btnDelete;
 	
 	/**
 	 * Create the panel.
@@ -45,6 +50,9 @@ public class FindTeammate extends JPanel {
 			panelFindTeammate.add(getSearchComboBox());
 			panelFindTeammate.add(getTextFieldSearch());
 			panelFindTeammate.add(getBtnSearch());
+			panelFindTeammate.add(getLblFindTeammateMyPick());
+			panelFindTeammate.add(getScrollPane_MyPick());
+			panelFindTeammate.add(getBtnDelete());
 
 		}
 		return panelFindTeammate;
@@ -106,14 +114,16 @@ public class FindTeammate extends JPanel {
 			lblFindTeammateYouPickedBy = new JLabel("You Picked By");
 			lblFindTeammateYouPickedBy.setForeground(Color.GRAY);
 			lblFindTeammateYouPickedBy.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-			lblFindTeammateYouPickedBy.setBounds(25, 295, 308, 36);
+			lblFindTeammateYouPickedBy.setBounds(25, 275, 308, 36);
 		}
 		return lblFindTeammateYouPickedBy;
 	}
+	
+//	 25 340 430 120 
 	private JScrollPane getScrollPane_YouPickedBy() {
 		if (scrollPane_YouPickedBy == null) {
 			scrollPane_YouPickedBy = new JScrollPane();
-			scrollPane_YouPickedBy.setBounds(25, 340, 430, 120);
+			scrollPane_YouPickedBy.setBounds(25, 320, 215, 120);
 			scrollPane_YouPickedBy.setViewportView(getTableYouPickedBy());
 		}
 		return scrollPane_YouPickedBy;
@@ -131,10 +141,9 @@ public class FindTeammate extends JPanel {
 	public void FindTeammateTableYouPickedBy(){
 			int i = Outer_Table_FindTeammate.getRowCount();
 			Outer_Table_YouPickedBy.addColumn("Name");
-			Outer_Table_YouPickedBy.addColumn("Github");
 			Outer_Table_YouPickedBy.addColumn("TeamStatus");
-			Outer_Table_YouPickedBy.addColumn("MBTI");
-			Outer_Table_YouPickedBy.setColumnCount(4);
+			
+			Outer_Table_YouPickedBy.setColumnCount(2);
 			for(int j = 0 ; j < i ; j++){
 				Outer_Table_YouPickedBy.removeRow(0);
 			}
@@ -147,15 +156,55 @@ public class FindTeammate extends JPanel {
 			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
 			width = 120;
 			col.setPreferredWidth(width);
-			vColIndex = 2;
-			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
-			width = 120;
-			col.setPreferredWidth(width);
-			vColIndex = 3;
-			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
-			width = 120;
-			col.setPreferredWidth(width);
 	}
+//	 25 340 430 120 
+	private JLabel getLblFindTeammateMyPick() {
+		if (lblFindTeammateMyPick == null) {
+			lblFindTeammateMyPick = new JLabel("My Pick");
+			lblFindTeammateMyPick.setForeground(Color.GRAY);
+			lblFindTeammateMyPick.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+			lblFindTeammateMyPick.setBounds(260, 275, 308, 36);
+		}
+		return lblFindTeammateMyPick;
+	}
+	
+	private JScrollPane getScrollPane_MyPick() {
+		if (scrollPane_MyPick == null) {
+			scrollPane_MyPick = new JScrollPane();
+			scrollPane_MyPick.setBounds(260, 320, 215, 120);
+			scrollPane_MyPick.setViewportView(getTableMyPick());
+		}
+		return scrollPane_MyPick;
+	}
+	private JTable getTableMyPick() {
+		if (tableMyPick == null) {
+			tableMyPick = new JTable();
+			tableMyPick.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			tableMyPick.setModel(Outer_Table_MyPick); // <--***************************************************
+			tableMyPick.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
+			tableMyPick.getTableHeader().setReorderingAllowed(false);  // 컬럼들 이동 불가
+		}
+		return tableMyPick;
+	}
+	public void FindTeammateTableMyPick(){
+		int i = Outer_Table_MyPick.getRowCount();
+		Outer_Table_MyPick.addColumn("Name");
+		Outer_Table_MyPick.addColumn("Team Status");
+		
+		Outer_Table_MyPick.setColumnCount(2);
+		for(int j = 0 ; j < i ; j++){
+			Outer_Table_MyPick.removeRow(0);
+		}
+		tableMyPick.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
+		int vColIndex = 0;
+		TableColumn col = tableMyPick.getColumnModel().getColumn(vColIndex);
+		int width = 120;
+		col.setPreferredWidth(width);
+		vColIndex = 1;
+		col = tableMyPick.getColumnModel().getColumn(vColIndex);
+		width = 120;
+		col.setPreferredWidth(width);
+}
 	
 	private JComboBox getSearchComboBox() {
 		if (searchComboBox == null) {
@@ -185,6 +234,16 @@ public class FindTeammate extends JPanel {
 			btnSearch.setBounds(378, 20, 77, 29);
 		}
 		return btnSearch;
+	}
+	
+	private JButton getBtnDelete() {
+		if (btnDelete == null) {
+			btnDelete= new JButton("Delete");
+			btnDelete.setForeground(new Color(0, 102, 204));
+			btnDelete.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+			btnDelete.setBounds(378, 455 , 70, 35);
+		}
+		return btnDelete;
 	}
 
 }
