@@ -1,5 +1,4 @@
 package com.swing.adminannouncement;
-
 import com.swing.DB.ShareVar;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,28 +27,15 @@ public class DbAction {
 
 	
 	public DbAction(int no) {
-		super();
 		this.no = no;
 	}
-	
-//	public DbAction(String writing, String title, String content) {
-//		super();
-//		this.writing = writing;
-//		this.title = title;
-//		this.content = content;
-//	}
+
 	public DbAction(String title, String content) {
 		super();
 		this.title = title;
 		this.content = content;
 	}
-//	public DbAction(int no, String writing, String title, String content) {
-//		super();
-//		this.no = no;
-//		this.writing = writing;
-//		this.title = title;
-//		this.content = content;
-//	}
+
 	public DbAction(int no, String title, String content) {
 		super();
 		this.no = no;
@@ -200,6 +186,7 @@ public class DbAction {
 	// Delete Announcement
 	public void deleteAction() {
 		PreparedStatement ps = null;
+		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
@@ -214,10 +201,12 @@ public class DbAction {
             ps.executeUpdate();
 
             conn_mysql.close();
+            
         } catch (Exception e){
             e.printStackTrace();
         }
-	}//*delete Action end*
+        
+	}	//*delete Action end*
 	
 	// update Announcement
 	public void updateAction() {

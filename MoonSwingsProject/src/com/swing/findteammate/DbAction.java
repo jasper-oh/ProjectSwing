@@ -27,6 +27,39 @@ public class DbAction {
 		// TODO Auto-generated constructor stub
 	}
 	
+/*
+ * ###################FIND TEAM MATE########################
+#select all student
+SELECT s.name, s.github_id, t.name, s.mbti 
+FROM student s, joining j, team t
+WHERE s.id = j.student_id AND j.team_no = t.no;
+#seach for condition = name
+SELECT s.name, s.github_id, t.name, s.mbti 
+FROM student s, joining j, team t
+WHERE s.name LIKE "%윤%" AND s.id = j.student_id AND j.team_no = t.no;
+#seach for condition = github_id
+SELECT s.name, s.github_id, t.name, s.mbti 
+FROM student s, joining j, team t
+WHERE s.github_id LIKE "%g%" AND s.id = j.student_id AND j.team_no = t.no;
+#seach for condition = team name : find none team = null
+SELECT s.name, s.github_id, t.name, s.mbti 
+FROM student s, joining j, team t
+WHERE t.name LIKE "%m%" AND s.id = j.student_id AND j.team_no = t.no;
+#seach for condition = mbti
+SELECT s.name, s.github_id, t.name, s.mbti 
+FROM student s, joining j, team t
+WHERE s.mbti LIKE "%e%" AND s.id = j.student_id AND j.team_no = t.no;
+#!!!!!!!!!!!!!!1picked
+SELECT sender.name, sender.github_id, (SELECT t.name
+									   FROM dip d, team t, joining j
+                                       WHERE d.sender = j.student_id AND
+											 j.team_no = t.no) team_name, sender.mbti
+FROM dip d, (SELECT st.id d.taget, st.name, st.github_id, st.mbti
+				  FROM student st, dip d
+				  WHERE st.id = d.sender) sender
+WHERE d.taget = 'dbswovlf2009' AND d.sender = sender.id
+ */
+	
 	// method
 	
 	// 전체 검색
