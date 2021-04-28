@@ -227,17 +227,8 @@ public class AdminAnnouncement extends JPanel {
 			btnUpdate.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent e) {
-					String stno = lblAnnoucementNo.getText();
-					String no = stno.substring(0, stno.length()-1);
-
-					String writing = lblAnnoucementDate.getText();
-					String title = lblAnnoucementTitle.getText();
-					String content = txtrAnnouncementContent.getText();
-
-					AdminUpdateAnnouncement update = new AdminUpdateAnnouncement(no, writing, title, content) ;
-					update.run(no, writing, title, content);
 					
-					clearColumn();
+					updateAction();
 				
 				}
 			});
@@ -322,6 +313,22 @@ public class AdminAnnouncement extends JPanel {
 		JOptionPane.showMessageDialog(this, "게시글을 삭제하였습니다. ",
 				"Delete Announcement", 
 				JOptionPane.INFORMATION_MESSAGE);  
+	}
+	
+	public void updateAction() {
+		
+		String stno = lblAnnoucementNo.getText();
+		String no = stno.substring(0, stno.length()-1);
+
+		String writing = lblAnnoucementDate.getText();
+		String title = lblAnnoucementTitle.getText();
+		String content = txtrAnnouncementContent.getText();
+
+		AdminUpdateAnnouncement update = new AdminUpdateAnnouncement(no, writing, title, content) ;
+		update.run(no, writing, title, content);
+		
+		clearColumn();
+		
 	}
 	
 	

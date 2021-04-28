@@ -330,6 +330,7 @@ public class AdminMainPage {
 		adminStudentList.getStudentList().setVisible(true);
 		adminTeamStatus.getTeamStatus().setVisible(false);
 		adminStudentList.SLStudentListTable();
+		adminStudentList.searchAction();
 	}
 	
 	private void checkTeamStatusUIAction(){

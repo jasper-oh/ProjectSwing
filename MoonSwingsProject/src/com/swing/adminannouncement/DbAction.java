@@ -48,15 +48,7 @@ public class DbAction {
 		this.no = no;
 		this.views = views;
 	}
-	
-//	#############Announcement#############
-//	#Announcement table
-//	SELECT no, writing, title, content, views FROM announcement ORDER BY no;
-//	#Announcement detail
-//	SELECT title, content, writing FROM announcement WHERE no = 'int';
-	
-	
-	
+
 	// Method
 /*
  * select list => selectAnnouncementList should be changed 

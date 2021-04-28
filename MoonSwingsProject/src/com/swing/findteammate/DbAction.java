@@ -19,71 +19,87 @@ public class DbAction {
 	String id;
 	String name;
 	String github_id;
-	String mbti;
+	String teamName;
+	String ConditionQueryColumn;
+	String selection;
 	
 	
 	// constructor
 	public DbAction() {
 		// TODO Auto-generated constructor stub
 	}
-	
-/*
- * ###################FIND TEAM MATE########################
-#select all student
-SELECT s.name, s.github_id, t.name, s.mbti 
-FROM student s, joining j, team t
-WHERE s.id = j.student_id AND j.team_no = t.no;
-#seach for condition = name
-SELECT s.name, s.github_id, t.name, s.mbti 
-FROM student s, joining j, team t
-WHERE s.name LIKE "%윤%" AND s.id = j.student_id AND j.team_no = t.no;
-#seach for condition = github_id
-SELECT s.name, s.github_id, t.name, s.mbti 
-FROM student s, joining j, team t
-WHERE s.github_id LIKE "%g%" AND s.id = j.student_id AND j.team_no = t.no;
-#seach for condition = team name : find none team = null
-SELECT s.name, s.github_id, t.name, s.mbti 
-FROM student s, joining j, team t
-WHERE t.name LIKE "%m%" AND s.id = j.student_id AND j.team_no = t.no;
-#seach for condition = mbti
-SELECT s.name, s.github_id, t.name, s.mbti 
-FROM student s, joining j, team t
-WHERE s.mbti LIKE "%e%" AND s.id = j.student_id AND j.team_no = t.no;
-#!!!!!!!!!!!!!!1picked
-SELECT sender.name, sender.github_id, (SELECT t.name
-									   FROM dip d, team t, joining j
-                                       WHERE d.sender = j.student_id AND
-											 j.team_no = t.no) team_name, sender.mbti
-FROM dip d, (SELECT st.id d.taget, st.name, st.github_id, st.mbti
-				  FROM student st, dip d
-				  WHERE st.id = d.sender) sender
-WHERE d.taget = 'dbswovlf2009' AND d.sender = sender.id
- */
+
+	public DbAction(String selection) {
+		super();
+		this.selection = selection;
+	}
+
+	public DbAction(String conditionQueryColumn, String selection) {
+			super();
+			ConditionQueryColumn = conditionQueryColumn;
+			this.selection = selection;
+		}
+
 	
 	// method
 	
-	// 전체 검색
-	public ArrayList<Bean> selectList(){
-		System.out.println("selectList start");
-		ArrayList<Bean> beanList = new ArrayList<Bean>();
-		String WhereDefault = "select name, github_id, id, mbti from Student ";
+	// Admin : Student List Table에 전부 띄우기
+	// FindTeamMate Table에 DB값 가져와서 띄우기
+//	public ArrayList<Bean> selectFindTeammateList(){
+//		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
+//		String query1 = "select s.name, s.github_id, t.name, s.mbti from student s, joining j, team t ";
+//		String query2 = "where s.id = j.student_id and j.team_no = t.no ";
+//		
+//	    try{
+//	        Class.forName("com.mysql.cj.jdbc.Driver");
+//	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+//	        Statement stmt_mysql = conn_mysql.createStatement();
+//	        
+//	        ResultSet rs = stmt_mysql.executeQuery(query1+query2);
+//	
+//			while(rs.next()){
+//				String wkName = rs.getString(1);
+//				String wkGithub_id = rs.getString(2);
+//				String wkTeamName = rs.getString(3);
+//				String wkMbti =rs.getString(4);
+//				  
+////				Bean bean = new Bean(wkName, wkGithub_id, wkTeamName, wkMbti);
+////				beanFTList.add(bean);
+//				}
+//			
+//			conn_mysql.close();
+//	    }
+//	    catch (Exception e){
+//	        e.printStackTrace();
+//	    }
+//	    return beanFTList;
+//		
+//	}
+	
+	// Admin : Student List Table에 ID, Name, TeamStatus, MBTI, Dip count 띄우기
+	public ArrayList<Bean> selectStudentList(){
+		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
+		String query1 = "SELECT s.id, s.name, ";
+		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
+		String query3 = "s.mbti, count(d.taget) FROM student s ";
+		String query4 =	"LEFT JOIN dip d on s.id = d.taget GROUP BY s.id";
 		
 	    try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	        Statement stmt_mysql = conn_mysql.createStatement();
 	        
-	        ResultSet rs = stmt_mysql.executeQuery(WhereDefault);
+	        ResultSet rs = stmt_mysql.executeQuery(query1+query2+query3+query4);
 	
 			while(rs.next()){
-				String wkName = rs.getString(1);
-				String wkGithub_id = rs.getString(2);
-				String wkId = rs.getString(3);
+				String wkId = rs.getString(1);
+				String wkName = rs.getString(2);
+				String wkTeamName = rs.getString(3);
 				String wkMbti =rs.getString(4);
+				int wkDipTagetCount =rs.getInt(5);
 				  
-				Bean bean = new Bean(wkName, wkGithub_id, wkId, wkMbti);
-				beanList.add(bean);
-				System.out.println(bean.name + bean.github_id + bean.id + bean.mbti);
+				Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDipTagetCount);
+				beanFTList.add(bean);
 				}
 			
 			conn_mysql.close();
@@ -91,8 +107,85 @@ WHERE d.taget = 'dbswovlf2009' AND d.sender = sender.id
 	    catch (Exception e){
 	        e.printStackTrace();
 	    }
-	    return beanList;
+	    return beanFTList;
 		
 	}
 	
-}
+	// 조건 검색
+	public ArrayList<Bean> ConditionQueryAction() {
+		
+		ArrayList <Bean> beanFTList = new ArrayList<Bean>();
+
+		String query1 = "SELECT s.id, s.name, ";
+		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
+		String query3 = "s.mbti, count(d.taget) FROM student s LEFT JOIN dip d on s.id = d.taget ";
+		String query4 =	"WHERE " + ConditionQueryColumn + " like '%"+ selection +"%' GROUP BY s.id";
+		
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+            Statement stmt_mysql = conn_mysql.createStatement();
+
+            ResultSet rs = stmt_mysql.executeQuery(query1 + query2 + query3 + query4);
+
+			while(rs.next()){
+				String wkId = rs.getString(1);
+				String wkName = rs.getString(2);
+				String wkTeamName = rs.getString(3);
+				String wkMbti =rs.getString(4);
+				int wkDipTagetCount =rs.getInt(5);
+				  
+				Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDipTagetCount);
+				beanFTList.add(bean);
+            }
+            conn_mysql.close();
+            
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+		
+        return beanFTList;
+	}
+	/*
+		Student List combo_bax -> team status로 search시
+		data 전부 가져와서, selection 값 == (TextField값) 만 beanFTList에 저장.
+	 */
+	public ArrayList<Bean> selectSearchTeamStatusList(){
+		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
+		String query1 = "SELECT s.id, s.name, ";
+		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
+		String query3 = "s.mbti, count(d.taget) FROM student s ";
+		String query4 =	"LEFT JOIN dip d on s.id = d.taget GROUP BY s.id";
+		
+	    try{
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	        Statement stmt_mysql = conn_mysql.createStatement();
+	        
+	        ResultSet rs = stmt_mysql.executeQuery(query1+query2+query3+query4);
+	
+			while(rs.next()){
+				String wkId = rs.getString(1);
+				String wkName = rs.getString(2);
+				String wkTeamName = rs.getString(3);
+				String wkMbti =rs.getString(4);
+				int wkDipTagetCount =rs.getInt(5);
+				
+				if(wkTeamName == null) {
+					continue;
+				}else if(wkTeamName.equals(selection)) {
+					Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDipTagetCount);
+					beanFTList.add(bean);					
+				}
+			}
+			
+			conn_mysql.close();
+	    }
+	    catch (Exception e){
+	        e.printStackTrace();
+	    }
+	    return beanFTList;
+	}
+	
+}// end line

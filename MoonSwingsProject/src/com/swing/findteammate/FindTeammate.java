@@ -2,6 +2,10 @@ package com.swing.findteammate;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -16,6 +20,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.swing.adminstudentlist.AdminStudentProfile;
 import com.swing.findteammate.Bean;
 import com.swing.findteammate.DbAction;
 
@@ -75,6 +80,17 @@ public class FindTeammate extends JPanel {
 		if (TableFindTeammate == null) {
 			TableFindTeammate = new JTable();
 			TableFindTeammate.setForeground(new Color(0, 102, 204));
+			TableFindTeammate.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getButton() == 1){
+						
+						tableClick();
+						
+					}
+				}
+			});
+			
 			TableFindTeammate.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			TableFindTeammate.setModel(Outer_Table_FindTeammate); // <--***************************************************
 			TableFindTeammate.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
@@ -85,34 +101,32 @@ public class FindTeammate extends JPanel {
 
 	public void FindTeammateTableFindTeammate(){
 		int i = Outer_Table_FindTeammate.getRowCount();
+		Outer_Table_FindTeammate.addColumn("ID");
 		Outer_Table_FindTeammate.addColumn("Name");
-		Outer_Table_FindTeammate.addColumn("Github");
 		Outer_Table_FindTeammate.addColumn("TeamStatus");
 		Outer_Table_FindTeammate.addColumn("MBTI");
 		Outer_Table_FindTeammate.setColumnCount(4);
 		
-		System.out.println(1);
 		for(int j = 0 ; j < i ; j++){
 			Outer_Table_FindTeammate.removeRow(0);
 		}
-		System.out.println(2);
 		TableFindTeammate.setAutoResizeMode(TableFindTeammate.AUTO_RESIZE_OFF);
 		int vColIndex = 0;
 		TableColumn col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
 		
-		int width = 120;
+		int width = 100;
 		col.setPreferredWidth(width);
 		vColIndex = 1;
 		col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
-		width = 120;
+		width = 140;
 		col.setPreferredWidth(width);
 		vColIndex = 2;
 		col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
-		width = 120;
+		width = 90;
 		col.setPreferredWidth(width);
 		vColIndex = 3;
 		col = TableFindTeammate.getColumnModel().getColumn(vColIndex);
-		width = 120;
+		width = 70;
 		col.setPreferredWidth(width);
 }
 //	*** End Find Teammate Table
@@ -218,7 +232,7 @@ public class FindTeammate extends JPanel {
 	private JComboBox getSearchComboBox() {
 		if (searchComboBox == null) {
 			searchComboBox = new JComboBox();
-			searchComboBox.setModel(new DefaultComboBoxModel(new String[] {"Name", "GitHub Id", "MBTI", "Team Status"}));
+			searchComboBox.setModel(new DefaultComboBoxModel(new String[] {"All", "Name", "id", "MBTI", "Team Status"}));
 			searchComboBox.setForeground(Color.GRAY);
 			searchComboBox.setBounds(25, 21, 107, 27);
 		}
@@ -240,6 +254,12 @@ public class FindTeammate extends JPanel {
 			btnSearch= new JButton("Search");
 			btnSearch.setForeground(new Color(0, 102, 204));
 			btnSearch.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+			btnSearch.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					ConditionQuery();
+				}
+			});
 			btnSearch.setBounds(378, 20, 77, 29);
 		}
 		return btnSearch;
@@ -256,24 +276,128 @@ public class FindTeammate extends JPanel {
 	}
 
 	// --------------------------------
-	// 21.04.27 Hyokyeong 
+	// 21.04.28 Hyokyeong 
 	// ---------------------------------
 	
 	//DB to Table
 	public void searchAction(){
-		System.out.println("searchAction start");
         DbAction dbAction = new DbAction();
-        ArrayList<Bean> beanList = dbAction.selectList();
+        ArrayList<Bean> beanFTList = dbAction.selectStudentList();
         
-        int listCount = beanList.size();
+        int listCount = beanFTList.size();
         
         for(int i=0; i<listCount; i++) {
-        	String[] qTxt = {beanList.get(i).getName(), beanList.get(i).getGithub_id(), beanList.get(i).getId(), beanList.get(i).getMbti()};
-        	System.out.println(beanList.get(i).getName() + beanList.get(i).getGithub_id() + beanList.get(i).getId() + beanList.get(i).getMbti());
+        	
+        	String teamStatus = beanFTList.get(i).getTeamName();
+//        	
+//        	if(teamStatus == null) {
+//        		teamStatus = "NONE";
+//        	}
+        	
+        	String[] qTxt = {beanFTList.get(i).getId(),
+        			beanFTList.get(i).getName(), 
+        			teamStatus, 
+        			beanFTList.get(i).getMbti()};
+        	
         	Outer_Table_FindTeammate.addRow(qTxt);	
         	
         }
 	}
+	
+	// Condition Query
+	private void ConditionQuery() {
+		int i = searchComboBox.getSelectedIndex();
+		String ConditionQueryColumn = "";
+		String selection = textFieldSearch.getText().trim();
+		switch (i) {
+		case 0:
+			textFieldSearch.setText("");
+			FindTeammateTableFindTeammate();
+			searchAction();
+			return;
+		case 1:
+			ConditionQueryColumn = "s.name";
+			break;
+		case 2:
+			ConditionQueryColumn = "s.id";
+			break;
+		case 3:
+			ConditionQueryColumn = "s.mbti";
+			break;
+		case 4:
+			FindTeammateTableFindTeammate();
+			searchTeamStatus(selection);
+			return;
+			
+		default:
+			break;
+		}
+		
+		FindTeammateTableFindTeammate();
+		ConditionQueryAction(ConditionQueryColumn, selection);
+	}
+	
+	/*
+	Student List combo_bax -> team status로 search시
+	 */
+	private void searchTeamStatus(String selection) {
+		
+        DbAction dbAction = new DbAction(selection);
+        ArrayList<Bean> beanFTList = dbAction.selectSearchTeamStatusList();
+        
+        int listCount = beanFTList.size();
+        
+        for(int i=0; i<listCount; i++) {
+        	
+        	String teamStatus = beanFTList.get(i).getTeamName();
+
+        	
+        	String[] qTxt = {beanFTList.get(i).getId(),
+        			beanFTList.get(i).getName(), 
+        			teamStatus, 
+        			beanFTList.get(i).getMbti()};
+        	
+        	Outer_Table_FindTeammate.addRow(qTxt);	
+        	
+        }
+	}
+	
+	
+	// 조건검색 실행 
+	private void ConditionQueryAction(String ConditionQueryColumn, String selection) {
+		
+		DbAction dbAction = new DbAction(ConditionQueryColumn, selection);
+		ArrayList<Bean> beanFTList = dbAction.ConditionQueryAction();
+		int listCount = beanFTList.size();
+
+        for(int i=0; i<listCount; i++) {
+        	
+        	String teamStatus = beanFTList.get(i).getTeamName();
+//        	
+//        	if(teamStatus == null) {
+//        		teamStatus = "NONE";
+//        	}
+        	
+        	String[] qTxt = {beanFTList.get(i).getId(),
+        			beanFTList.get(i).getName(), 
+        			teamStatus, 
+        			beanFTList.get(i).getMbti()};
+        	Outer_Table_FindTeammate.addRow(qTxt);
+		}
+		
+	}
+	
+//	 tableClick
+	private void tableClick() {
+		
+		int i = TableFindTeammate.getSelectedRow();
+		String ckId = (String)TableFindTeammate.getValueAt(i, 0);
+		String ckName = (String)TableFindTeammate.getValueAt(i, 1);
+		
+		OthersProfile studentProfile = new OthersProfile(ckId, ckName);
+		studentProfile.run(ckId, ckName);
+		
+	}// table Click End
 	
 	
 } // End Line

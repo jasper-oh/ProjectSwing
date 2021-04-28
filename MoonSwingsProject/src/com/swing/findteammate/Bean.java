@@ -1,17 +1,21 @@
 package com.swing.findteammate;
 
+import java.sql.Blob;
+
 public class Bean {
 
 	// field
 	String id ;
-	String pw ;
+	Blob photo;
 	String name;
 	String mbti;
 	String github_id;
-	String introduce;
 	String subway;
-	String strength;
 	String phone;
+	String strength;
+	String introduce;
+	String teamName;
+	int dipTagetCount;
 	
 
 	
@@ -22,12 +26,33 @@ public class Bean {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Bean(String name, String github_id, String id, String mbti) {
+	public Bean(String id) {
 		super();
 		this.id = id;
+	}
+
+
+	public Bean(String id, String name, Blob photo, String mbti, String github_id, String subway, String phone,
+			String strength, String introduce) {
+		super();
+		this.id = id;
+		this.photo = photo;
 		this.name = name;
 		this.mbti = mbti;
 		this.github_id = github_id;
+		this.subway = subway;
+		this.phone = phone;
+		this.strength = strength;
+		this.introduce = introduce;
+	}
+
+	public Bean(String id, String name, String teamName, String mbti, int dipTagetCount) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.teamName = teamName;
+		this.mbti = mbti;
+		this.dipTagetCount = dipTagetCount;
 	}
 	
 	// method
@@ -39,16 +64,6 @@ public class Bean {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-
-	public String getPw() {
-		return pw;
-	}
-
-
-	public void setPw(String pw) {
-		this.pw = pw;
 	}
 
 
@@ -119,6 +134,30 @@ public class Bean {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Blob getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+
+	public int getDipTagetCount() {
+		return dipTagetCount;
+	}
+
+	public void setDipTagetCount(int dipTagetCount) {
+		this.dipTagetCount = dipTagetCount;
 	}
 	
 }

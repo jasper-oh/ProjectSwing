@@ -12,6 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import com.swing.findteammate.Bean;
+import com.swing.findteammate.DbAction2;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -23,26 +27,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AdminStudentProfile {
 
 	private JFrame frmProfile;
-//	private JPanel panelOtherProfile;
-	private JPanel Panel_Ima_otherProfile;
 	private JLabel lblOtherProfileId;
 	private JLabel lblOtherProfileName;
 	private JLabel lblOtherProfileMbti;
 	private JLabel lblOtherProfileGithub;
 	private JLabel lblOtherProfileAddress;
-	private JTextField tfOtherProfileId;
-	private JTextField tfOtherProfileName;
-	private JTextField tfOtherProfileAddress;
-	private JTextField tfOtherProfileMbti;
-	private JTextField tfOtherProfileGithub;
+	private JTextField tfStudentId;
+	private JTextField tfStudentName;
+	private JTextField tfStudentAddress;
+	private JTextField tfStudentMbti;
+	private JTextField tfStudentGithub;
 	private JLabel lblOtherProfileStrength;
-	private JTextField tfOtherProfileStrength;
+	private JTextField tfStudentStrength;
 	private JLabel lblOtherProfileIntroduce;
-	private JTextField tfOtherProfileIntroduse;
+	private JTextField tfStudentIntroduce;
 	private JScrollPane scrollPane_Project;
 	private JTable ProjectTable;
 	
@@ -56,19 +60,25 @@ public class AdminStudentProfile {
 	private JScrollPane scrollPane_TeammateReview;
 	private JTable TeammateReviewTable;
 	private JLabel lblOtherProfilePhone;
-	private JTextField tfOtherProfilePhone;
-	private JLabel lblOtherProfile;
-	private JTextField tfSignal;
+	private JTextField tfStudentPhone;
+	private JLabel lblStudentTitle;
+	private JTextField tfStudentDipCount;
 	private JLabel lblSignal;
+	String id;
+	String name;
+	String dipCount;
+	private JButton btnClose;
+	private JLabel lblPhoto;
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void run() {
+	public static void run(String id, String name, String dipCount) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminStudentProfile window = new AdminStudentProfile();
+					AdminStudentProfile window = new AdminStudentProfile(id, name, dipCount);
 					window.frmProfile.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,31 +90,43 @@ public class AdminStudentProfile {
 	/**
 	 * Create the application.
 	 */
-	public AdminStudentProfile() {
+	public AdminStudentProfile(String id, String name, String dipCount) {
+		this.id = id;
+		this.name = name;
+		this.dipCount = dipCount;
 		initialize();
 	}
-
+	
+//	DbAction2 dbAction = new DbAction2(id);
+//	Bean bean = dbAction.TableClick();
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frmProfile = new JFrame();
 		frmProfile.getContentPane().setBackground(Color.WHITE);
-		frmProfile.setBounds(100, 100, 500, 600);
+		frmProfile.setBounds(100, 100, 480, 600);
+		frmProfile.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				setText();
+				
+			}
+		});
 		
 //		frmProfile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProfile.getContentPane().setLayout(null);
-		frmProfile.getContentPane().add(getPanel_Ima_otherProfile());
 		frmProfile.getContentPane().add(getLblOtherProfileId());
 		frmProfile.getContentPane().add(getLblOtherProfileName());
 		frmProfile.getContentPane().add(getLblOtherProfileMbti());
 		frmProfile.getContentPane().add(getLblOtherProfileGithub());
 		frmProfile.getContentPane().add(getLblOtherProfileAddress());
-		frmProfile.getContentPane().add(getTfOtherProfileId());
-		frmProfile.getContentPane().add(getTfOtherProfileName());
-		frmProfile.getContentPane().add(getTfOtherProfileAddress());
-		frmProfile.getContentPane().add(getTfOtherProfileMbti());
-		frmProfile.getContentPane().add(getTfOtherProfileGithub());
+		frmProfile.getContentPane().add(getTfStudentId());
+		frmProfile.getContentPane().add(getTfStudentName());
+		frmProfile.getContentPane().add(getTfStudentAddress());
+		frmProfile.getContentPane().add(getTfStudentMbti());
+		frmProfile.getContentPane().add(getTfStudentGithub());
 		frmProfile.getContentPane().add(getLblOtherProfileStrength());
 		frmProfile.getContentPane().add(getTextField_4());
 		frmProfile.getContentPane().add(getLblOtherProfileIntroduce());
@@ -114,24 +136,15 @@ public class AdminStudentProfile {
 		frmProfile.getContentPane().add(getLblOtherTeammateReview());
 		frmProfile.getContentPane().add(getScrollPane_TeammateReview());
 		frmProfile.getContentPane().add(getLblOtherProfilePhone());
-		frmProfile.getContentPane().add(getTfOtherProfilePhone());
-		frmProfile.getContentPane().add(getLblOtherProfile());
-		frmProfile.getContentPane().add(getTfSignal());
+		frmProfile.getContentPane().add(getTfStudentPhone());
+		frmProfile.getContentPane().add(getLblStudentTitle());
+		frmProfile.getContentPane().add(getTfStudentDipCount());
 		frmProfile.getContentPane().add(getLblSignal());
+		frmProfile.getContentPane().add(getBtnClose());
+		frmProfile.getContentPane().add(getLblPhoto());
 		
 
 
-	}
-
-	
-	private JPanel getPanel_Ima_otherProfile() {
-		if (Panel_Ima_otherProfile == null) {
-			Panel_Ima_otherProfile = new JPanel();
-			Panel_Ima_otherProfile.setBackground(new Color(245, 245, 245));
-			Panel_Ima_otherProfile.setLayout(null);
-			Panel_Ima_otherProfile.setBounds(30, 59, 102, 136);
-		}
-		return Panel_Ima_otherProfile;
 	}
 	private JLabel getLblOtherProfileId() {
 		if (lblOtherProfileId == null) {
@@ -179,55 +192,66 @@ public class AdminStudentProfile {
 		}
 		return lblOtherProfileAddress;
 	}
-	private JTextField getTfOtherProfileId() {
-		if (tfOtherProfileId == null) {
-			tfOtherProfileId = new JTextField();
-			tfOtherProfileId.setForeground(new Color(0, 102, 204));
-			tfOtherProfileId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileId.setBounds(207, 59, 230, 21);
-			tfOtherProfileId.setColumns(10);
+	private JTextField getTfStudentId() {
+		if (tfStudentId == null) {
+			tfStudentId = new JTextField();
+			tfStudentId.setEditable(false);
+			tfStudentId.setForeground(new Color(0, 102, 204));
+			tfStudentId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentId.setText(id);
+			tfStudentId.setBounds(207, 59, 230, 21);
+			tfStudentId.setColumns(10);
 		}
-		return tfOtherProfileId;
+		return tfStudentId;
 	}
-	private JTextField getTfOtherProfileName() {
-		if (tfOtherProfileName == null) {
-			tfOtherProfileName = new JTextField();
-			tfOtherProfileName.setForeground(new Color(0, 102, 204));
-			tfOtherProfileName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileName.setColumns(10);
-			tfOtherProfileName.setBounds(207, 87, 230, 21);
+	private JTextField getTfStudentName() {
+		if (tfStudentName == null) {
+			tfStudentName = new JTextField();
+			tfStudentName.setEditable(false);
+			tfStudentName.setForeground(new Color(0, 102, 204));
+			tfStudentName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentName.setColumns(10);
+			tfStudentName.setText(name);
+			tfStudentName.setBounds(207, 87, 230, 21);
 		}
-		return tfOtherProfileName;
+		return tfStudentName;
 	}
-	private JTextField getTfOtherProfileAddress() {
-		if (tfOtherProfileAddress == null) {
-			tfOtherProfileAddress = new JTextField();
-			tfOtherProfileAddress.setForeground(new Color(0, 102, 204));
-			tfOtherProfileAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileAddress.setColumns(10);
-			tfOtherProfileAddress.setBounds(207, 171, 230, 21);
+	private JTextField getTfStudentAddress() {
+		if (tfStudentAddress == null) {
+			tfStudentAddress = new JTextField();
+			tfStudentAddress.setEditable(false);
+			tfStudentAddress.setForeground(new Color(0, 102, 204));
+			tfStudentAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentAddress.setColumns(10);
+			tfStudentAddress.setBounds(207, 171, 230, 21);
+//			tfStudentAddress.setText(bean.getSubway());
 		}
-		return tfOtherProfileAddress;
+		return tfStudentAddress;
 	}
-	private JTextField getTfOtherProfileMbti() {
-		if (tfOtherProfileMbti == null) {
-			tfOtherProfileMbti = new JTextField();
-			tfOtherProfileMbti.setForeground(new Color(0, 102, 204));
-			tfOtherProfileMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileMbti.setColumns(10);
-			tfOtherProfileMbti.setBounds(207, 115, 230, 21);
+	private JTextField getTfStudentMbti() {
+		if (tfStudentMbti == null) {
+			tfStudentMbti = new JTextField();
+			tfStudentMbti.setEditable(false);
+			tfStudentMbti.setForeground(new Color(0, 102, 204));
+			tfStudentMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentMbti.setColumns(10);
+			tfStudentMbti.setBounds(207, 115, 230, 21);
+//			tfStudentMbti.setText(bean.getMbti());
 		}
-		return tfOtherProfileMbti;
+		return tfStudentMbti;
 	}
-	private JTextField getTfOtherProfileGithub() {
-		if (tfOtherProfileGithub == null) {
-			tfOtherProfileGithub = new JTextField();
-			tfOtherProfileGithub.setForeground(new Color(0, 102, 204));
-			tfOtherProfileGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileGithub.setColumns(10);
-			tfOtherProfileGithub.setBounds(207, 143, 230, 21);
+	private JTextField getTfStudentGithub() {
+		if (tfStudentGithub == null) {
+			tfStudentGithub = new JTextField();
+			tfStudentGithub.setEditable(false);
+			tfStudentGithub.setForeground(new Color(0, 102, 204));
+			tfStudentGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentGithub.setColumns(10);
+			tfStudentGithub.setBounds(207, 143, 230, 21);
+//			tfStudentGithub.setText(bean.getGithub_id());
+
 		}
-		return tfOtherProfileGithub;
+		return tfStudentGithub;
 	}
 	private JLabel getLblOtherProfileStrength() {
 		if (lblOtherProfileStrength == null) {
@@ -239,14 +263,17 @@ public class AdminStudentProfile {
 		return lblOtherProfileStrength;
 	}
 	private JTextField getTextField_4() {
-		if (tfOtherProfileStrength == null) {
-			tfOtherProfileStrength = new JTextField();
-			tfOtherProfileStrength.setForeground(new Color(0, 102, 204));
-			tfOtherProfileStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileStrength.setBounds(120, 232, 317, 21);
-			tfOtherProfileStrength.setColumns(10);
+		if (tfStudentStrength == null) {
+			tfStudentStrength = new JTextField();
+			tfStudentStrength.setEditable(false);
+			tfStudentStrength.setForeground(new Color(0, 102, 204));
+			tfStudentStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentStrength.setBounds(120, 232, 317, 21);
+			tfStudentStrength.setColumns(10);
+//			tfStudentStrength.setText(bean.getStrength());
+
 		}
-		return tfOtherProfileStrength;
+		return tfStudentStrength;
 	}
 	private JLabel getLblOtherProfileIntroduce() {
 		if (lblOtherProfileIntroduce == null) {
@@ -254,18 +281,22 @@ public class AdminStudentProfile {
 			lblOtherProfileIntroduce.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			lblOtherProfileIntroduce.setForeground(Color.GRAY);
 			lblOtherProfileIntroduce.setBounds(30, 262, 91, 15);
+			
 		}
 		return lblOtherProfileIntroduce;
 	}
 	private JTextField getTextField_5() {
-		if (tfOtherProfileIntroduse == null) {
-			tfOtherProfileIntroduse = new JTextField();
-			tfOtherProfileIntroduse.setForeground(new Color(0, 102, 204));
-			tfOtherProfileIntroduse.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileIntroduse.setColumns(10);
-			tfOtherProfileIntroduse.setBounds(120, 257, 317, 21);
+		if (tfStudentIntroduce == null) {
+			tfStudentIntroduce = new JTextField();
+			tfStudentIntroduce.setEditable(false);
+			tfStudentIntroduce.setForeground(new Color(0, 102, 204));
+			tfStudentIntroduce.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentIntroduce.setColumns(10);
+			tfStudentIntroduce.setBounds(120, 257, 317, 21);
+//			tfStudentIntroduce.setText(bean.getIntroduce());
+
 		}
-		return tfOtherProfileIntroduse;
+		return tfStudentIntroduce;
 	}
 	private JScrollPane getScrollPane_Project() {
 		if (scrollPane_Project == null) {
@@ -333,37 +364,43 @@ public class AdminStudentProfile {
 			lblOtherProfilePhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 			lblOtherProfilePhone.setForeground(Color.GRAY);
 			lblOtherProfilePhone.setBounds(30, 209, 61, 16);
+			
 		}
 		return lblOtherProfilePhone;
 	}
-	private JTextField getTfOtherProfilePhone() {
-		if (tfOtherProfilePhone == null) {
-			tfOtherProfilePhone = new JTextField();
-			tfOtherProfilePhone.setForeground(new Color(0, 102, 204));
-			tfOtherProfilePhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfilePhone.setColumns(10);
-			tfOtherProfilePhone.setBounds(120, 207, 317, 21);
+	private JTextField getTfStudentPhone() {
+		if (tfStudentPhone == null) {
+			tfStudentPhone = new JTextField();
+			tfStudentPhone.setEditable(false);
+			tfStudentPhone.setForeground(new Color(0, 102, 204));
+			tfStudentPhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentPhone.setColumns(10);
+			tfStudentPhone.setBounds(120, 207, 317, 21);
+//			tfStudentPhone.setText(bean.getPhone());
 		}
-		return tfOtherProfilePhone;
+		return tfStudentPhone;
 	}
-	private JLabel getLblOtherProfile() {
-		if (lblOtherProfile == null) {
-			lblOtherProfile = new JLabel("JaePill's Profile");
-			lblOtherProfile.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-			lblOtherProfile.setForeground(Color.GRAY);
-			lblOtherProfile.setBounds(30, 17, 401, 30);
+	private JLabel getLblStudentTitle() {
+		if (lblStudentTitle == null) {
+			lblStudentTitle = new JLabel();
+			lblStudentTitle.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+			lblStudentTitle.setForeground(Color.GRAY);
+			lblStudentTitle.setText(name + "'s Profile");
+			lblStudentTitle.setBounds(30, 17, 401, 30);
 		}
-		return lblOtherProfile;
+		return lblStudentTitle;
 	}
-	private JTextField getTfSignal() {
-		if (tfSignal == null) {
-			tfSignal = new JTextField();
-			tfSignal.setForeground(new Color(0, 102, 204));
-			tfSignal.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfSignal.setColumns(10);
-			tfSignal.setBounds(120, 286, 317, 21);
+	private JTextField getTfStudentDipCount() {
+		if (tfStudentDipCount == null) {
+			tfStudentDipCount = new JTextField();
+			tfStudentDipCount.setEditable(false);
+			tfStudentDipCount.setForeground(new Color(0, 102, 204));
+			tfStudentDipCount.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentDipCount.setText(dipCount);
+			tfStudentDipCount.setColumns(10);
+			tfStudentDipCount.setBounds(120, 286, 317, 21);
 		}
-		return tfSignal;
+		return tfStudentDipCount;
 	}
 	private JLabel getLblSignal() {
 		if (lblSignal == null) {
@@ -373,5 +410,47 @@ public class AdminStudentProfile {
 			lblSignal.setBounds(30, 291, 91, 15);
 		}
 		return lblSignal;
+	}
+	private JButton getBtnClose() {
+		if (btnClose == null) {
+			btnClose = new JButton("Close");
+			btnClose.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frmProfile.dispose();
+				}
+			});
+			btnClose.setForeground(new Color(0, 102, 204));
+			btnClose.setBackground(Color.WHITE);
+			btnClose.setBounds(400, 6, 70, 29);
+		}
+		return btnClose;
+	}
+	
+	//----------------------
+	// 21.04.28 hyokyeong
+	//----------------------
+	
+	// click 한 id의 data 보여주기
+	//photo, mbti, github_id, subway, phone, strength, introduce
+	private void setText() {
+		
+		DbAction2 dbAction = new DbAction2(tfStudentId.getText());
+		Bean bean = dbAction.TableClick();
+		
+//		lblPhoto.setIcon(bean.getPhoto());
+		tfStudentMbti.setText(bean.getMbti());
+		tfStudentGithub.setText(bean.getGithub_id());
+		tfStudentAddress.setText(bean.getSubway());
+		tfStudentPhone.setText(bean.getPhone());
+		tfStudentStrength.setText(bean.getStrength());
+		tfStudentIntroduce.setText(bean.getIntroduce());
+	}
+	private JLabel getLblPhoto() {
+		if (lblPhoto == null) {
+			lblPhoto = new JLabel("");
+			lblPhoto.setIcon(null);
+			lblPhoto.setBounds(30, 59, 102, 136);
+		}
+		return lblPhoto;
 	}
 } // End Line
