@@ -19,6 +19,8 @@ import com.swing.teammatereview.TeammateReview;
 import com.swing.teamstatus.TeamStatus;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,6 +28,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -57,8 +61,15 @@ public class MainPage {
 	private JLabel lblImageDefaultLabel;
 	private JLabel lblTitle;
 	private JLabel lblBgLeftPanel;
-
-
+	
+	Login getBrief = new Login();
+	
+	String[] getBriefInfo = getBrief.getBriefInfo(Login.tfLoginUserId.getText());
+	
+	FixedPanelDBAction fpdba = new FixedPanelDBAction(Login.tfLoginUserId.getText());
+	ImageIcon imageIcon = new ImageIcon(fpdba.getStudentImage());
+	
+	
 	TeamStatus teamStatus = new TeamStatus();
 	TeammateReview teammateReview = new TeammateReview();	
 	FindTeammate findTeammate = new FindTeammate();
@@ -87,6 +98,7 @@ public class MainPage {
 	 */
 	public MainPage() {
 		initialize();
+		
 	}
 
 	/**
@@ -213,33 +225,33 @@ public class MainPage {
 	}
 	private JLabel getLblShowGithub() {
 		if (lblShowGithub == null) {
-			lblShowGithub = new JLabel("jasper-oh");
+			lblShowGithub = new JLabel(getBriefInfo[3]);
 			lblShowGithub.setForeground(Color.WHITE);
-			lblShowGithub.setBounds(194, 154, 101, 16);
+			lblShowGithub.setBounds(183, 154, 101, 16);
 		}
 		return lblShowGithub;
 	}
 	private JLabel getLblShowName() {
 		if (lblShowName == null) {
-			lblShowName = new JLabel("오영준");
+			lblShowName = new JLabel(getBriefInfo[1]);
 			lblShowName.setForeground(Color.WHITE);
-			lblShowName.setBounds(194, 98, 61, 16);
+			lblShowName.setBounds(183, 98, 61, 16);
 		}
 		return lblShowName;
 	}
 	private JLabel getLblShowMbti() {
 		if (lblShowMbti == null) {
-			lblShowMbti = new JLabel("ENFJ");
+			lblShowMbti = new JLabel(getBriefInfo[2]);
 			lblShowMbti.setForeground(Color.WHITE);
-			lblShowMbti.setBounds(194, 126, 61, 16);
+			lblShowMbti.setBounds(183, 126, 61, 16);
 		}
 		return lblShowMbti;
 	}
 	private JLabel getLblShowId() {
 		if (lblShowId == null) {
-			lblShowId = new JLabel("Jasper");
+			lblShowId = new JLabel(getBriefInfo[0]);
 			lblShowId.setForeground(Color.WHITE);
-			lblShowId.setBounds(197, 70, 61, 16);
+			lblShowId.setBounds(186, 70, 114, 16);
 		}
 		return lblShowId;
 	}
@@ -313,7 +325,9 @@ public class MainPage {
 		if (lblImageDefaultLabel == null) {
 			lblImageDefaultLabel = new JLabel("Image");
 			lblImageDefaultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblImageDefaultLabel.setBounds(6, 64, 75, 16);
+			lblImageDefaultLabel.setBounds(0, 0, 99, 132);
+			Image image = imageIcon.getImage().getScaledInstance(lblImageDefaultLabel.getWidth()+17, lblImageDefaultLabel.getHeight(), Image.SCALE_SMOOTH);
+			lblImageDefaultLabel.setIcon(new ImageIcon(image));
 		}
 		return lblImageDefaultLabel;
 	}
@@ -336,6 +350,8 @@ public class MainPage {
 		frame.setVisible(false);
 		
 	}
+	
+
 	
 	
 	// ---------------------

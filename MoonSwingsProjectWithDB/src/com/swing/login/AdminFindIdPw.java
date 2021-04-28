@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -14,19 +15,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class FindIdPw {
+public class AdminFindIdPw {
 
-	private JFrame frmFindId;
+	private JFrame frmAdminFindId;
 	private JLabel lblFIndIdPwFindId;
 	private JLabel lblFindIdPwFindPw;
 	private JLabel lblFIndIdPwName;
 	private JLabel lblFindIdPwPhone;
 	private JLabel lblFindIdPwId;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tfFindIdName;
+	private JTextField tfFindIdPhone;
+	private JTextField tfFindPwId;
+	private JTextField tfFindPwName;
+	private JTextField tfFindPwPhone;
 	private JLabel lblFIndIdPwName_1;
 	private JLabel lblFindIdPwPhone_1;
 	private JButton btnNewButton;
@@ -41,8 +42,8 @@ public class FindIdPw {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FindIdPw window = new FindIdPw();
-					window.frmFindId.setVisible(true);
+					AdminFindIdPw window = new AdminFindIdPw();
+					window.frmAdminFindId.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,7 +54,7 @@ public class FindIdPw {
 	/**
 	 * Create the application.
 	 */
-	public FindIdPw() {
+	public AdminFindIdPw() {
 		initialize();
 	}
 
@@ -61,30 +62,30 @@ public class FindIdPw {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmFindId = new JFrame();
-		frmFindId.getContentPane().setBackground(new Color(255, 255, 255));
-		frmFindId.getContentPane().setForeground(Color.GRAY);
-		frmFindId.setTitle("Find ID / PW");
-		frmFindId.setBounds(100, 100, 640, 360);
-//		frmFindId.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmFindId.getContentPane().setLayout(null);
-		frmFindId.setResizable(false);
-		frmFindId.getContentPane().add(getLblFIndIdPwFindId());
-		frmFindId.getContentPane().add(getLblFindIdPwFindPw());
-		frmFindId.getContentPane().add(getLblFIndIdPwName());
-		frmFindId.getContentPane().add(getLblFindIdPwPhone());
-		frmFindId.getContentPane().add(getLblFindIdPwId());
-		frmFindId.getContentPane().add(getTextField());
-		frmFindId.getContentPane().add(getTextField_1());
-		frmFindId.getContentPane().add(getTextField_2());
-		frmFindId.getContentPane().add(getTextField_3());
-		frmFindId.getContentPane().add(getTextField_4());
-		frmFindId.getContentPane().add(getLblFIndIdPwName_1());
-		frmFindId.getContentPane().add(getLblFindIdPwPhone_1());
-		frmFindId.getContentPane().add(getBtnNewButton());
-		frmFindId.getContentPane().add(getBtnFindPassword());
-		frmFindId.getContentPane().add(getBtnCanel());
-		frmFindId.getContentPane().add(getSeparator());
+		frmAdminFindId = new JFrame();
+		frmAdminFindId.getContentPane().setBackground(new Color(255, 255, 255));
+		frmAdminFindId.getContentPane().setForeground(Color.GRAY);
+		frmAdminFindId.setTitle("Find ID / PW");
+		frmAdminFindId.setBounds(100, 100, 640, 360);
+//		frmAdminFindId.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAdminFindId.getContentPane().setLayout(null);
+		frmAdminFindId.setResizable(false);
+		frmAdminFindId.getContentPane().add(getLblFIndIdPwFindId());
+		frmAdminFindId.getContentPane().add(getLblFindIdPwFindPw());
+		frmAdminFindId.getContentPane().add(getLblFIndIdPwName());
+		frmAdminFindId.getContentPane().add(getLblFindIdPwPhone());
+		frmAdminFindId.getContentPane().add(getLblFindIdPwId());
+		frmAdminFindId.getContentPane().add(getTfFindIdName());
+		frmAdminFindId.getContentPane().add(getTfFindIdPhone());
+		frmAdminFindId.getContentPane().add(getTfFindPwId());
+		frmAdminFindId.getContentPane().add(getTfFindPwName());
+		frmAdminFindId.getContentPane().add(getTfFindPwPhone());
+		frmAdminFindId.getContentPane().add(getLblFIndIdPwName_1());
+		frmAdminFindId.getContentPane().add(getLblFindIdPwPhone_1());
+		frmAdminFindId.getContentPane().add(getBtnNewButton());
+		frmAdminFindId.getContentPane().add(getBtnFindPassword());
+		frmAdminFindId.getContentPane().add(getBtnCanel());
+		frmAdminFindId.getContentPane().add(getSeparator());
 	}
 	private JLabel getLblFIndIdPwFindId() {
 		if (lblFIndIdPwFindId == null) {
@@ -128,45 +129,45 @@ public class FindIdPw {
 		}
 		return lblFindIdPwId;
 	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setBounds(35, 108, 252, 30);
-			textField.setColumns(10);
+	private JTextField getTfFindIdName() {
+		if (tfFindIdName == null) {
+			tfFindIdName = new JTextField();
+			tfFindIdName.setBounds(35, 108, 252, 30);
+			tfFindIdName.setColumns(10);
 		}
-		return textField;
+		return tfFindIdName;
 	}
-	private JTextField getTextField_1() {
-		if (textField_1 == null) {
-			textField_1 = new JTextField();
-			textField_1.setColumns(10);
-			textField_1.setBounds(35, 198, 252, 30);
+	private JTextField getTfFindIdPhone() {
+		if (tfFindIdPhone == null) {
+			tfFindIdPhone = new JTextField();
+			tfFindIdPhone.setColumns(10);
+			tfFindIdPhone.setBounds(35, 198, 252, 30);
 		}
-		return textField_1;
+		return tfFindIdPhone;
 	}
-	private JTextField getTextField_2() {
-		if (textField_2 == null) {
-			textField_2 = new JTextField();
-			textField_2.setColumns(10);
-			textField_2.setBounds(349, 80, 254, 30);
+	private JTextField getTfFindPwId() {
+		if (tfFindPwId == null) {
+			tfFindPwId = new JTextField();
+			tfFindPwId.setColumns(10);
+			tfFindPwId.setBounds(349, 80, 254, 30);
 		}
-		return textField_2;
+		return tfFindPwId;
 	}
-	private JTextField getTextField_3() {
-		if (textField_3 == null) {
-			textField_3 = new JTextField();
-			textField_3.setColumns(10);
-			textField_3.setBounds(349, 148, 254, 30);
+	private JTextField getTfFindPwName() {
+		if (tfFindPwName == null) {
+			tfFindPwName = new JTextField();
+			tfFindPwName.setColumns(10);
+			tfFindPwName.setBounds(349, 148, 254, 30);
 		}
-		return textField_3;
+		return tfFindPwName;
 	}
-	private JTextField getTextField_4() {
-		if (textField_4 == null) {
-			textField_4 = new JTextField();
-			textField_4.setColumns(10);
-			textField_4.setBounds(349, 214, 254, 30);
+	private JTextField getTfFindPwPhone() {
+		if (tfFindPwPhone == null) {
+			tfFindPwPhone = new JTextField();
+			tfFindPwPhone.setColumns(10);
+			tfFindPwPhone.setBounds(349, 214, 254, 30);
 		}
-		return textField_4;
+		return tfFindPwPhone;
 	}
 	private JLabel getLblFIndIdPwName_1() {
 		if (lblFIndIdPwName_1 == null) {
@@ -187,6 +188,12 @@ public class FindIdPw {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Find ID");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					findIdAction();
+					
+				}
+			});
 			btnNewButton.setBackground(new Color(0, 102, 204));
 			btnNewButton.setForeground(Color.WHITE);
 			btnNewButton.setOpaque(true);
@@ -198,6 +205,12 @@ public class FindIdPw {
 	private JButton getBtnFindPassword() {
 		if (btnFindPassword == null) {
 			btnFindPassword = new JButton("Find Password");
+			btnFindPassword.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					findPwAction();
+					
+				}
+			});
 			btnFindPassword.setBackground(new Color(0, 102, 204));
 			btnFindPassword.setForeground(Color.WHITE);
 			btnFindPassword.setOpaque(true);
@@ -211,7 +224,7 @@ public class FindIdPw {
 			btnCanel = new JButton("Canel");
 			btnCanel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					frmFindId.setVisible(false);
+					frmAdminFindId.setVisible(false);
 					
 				}
 			});
@@ -228,5 +241,41 @@ public class FindIdPw {
 			separator.setBounds(313, 20, 30, 287);
 		}
 		return separator;
+	}
+	
+	private void findIdAction() {
+		String name = tfFindIdName.getText();
+		String phone = tfFindIdPhone.getText();
+		System.out.println(name);
+		System.out.println(phone);
+		
+		
+		AdminFindIdPwDBAction AdminFindIdPwDBAction = new AdminFindIdPwDBAction(name, phone);
+		
+		if(AdminFindIdPwDBAction.getFindIdAction().equals("false")) {
+			JOptionPane.showMessageDialog(null,"해당 하는 Id 가 없습니다. 아이디를 생성해주세요.");
+		}else {
+			String comment = "Your Id is "+ AdminFindIdPwDBAction.getFindIdAction();
+			JOptionPane.showMessageDialog(null, comment);
+		}
+
+	}
+	private void findPwAction() {
+		String id = tfFindPwId.getText();
+		String name = tfFindPwName.getText();
+		String phone = tfFindPwPhone.getText();
+	
+	AdminFindIdPwDBAction AdminFindIdPwDBAction = new AdminFindIdPwDBAction(id,name, phone);
+	
+	if(AdminFindIdPwDBAction.getFindIdAction().equals("false")) {
+		
+		JOptionPane.showMessageDialog(null,"Pw 불러올 수 없습니다. 아이디를 생성해주세요.");
+		
+	}else {
+		
+		String comment = "Your Password is "+ AdminFindIdPwDBAction.getFindPwAction();
+		JOptionPane.showMessageDialog(null, comment);
+		
+		}
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -22,11 +23,11 @@ public class FindIdPw {
 	private JLabel lblFIndIdPwName;
 	private JLabel lblFindIdPwPhone;
 	private JLabel lblFindIdPwId;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tfFindIdName;
+	private JTextField tfFindIdPhone;
+	private JTextField tfFindPwId;
+	private JTextField tfFindPwName;
+	private JTextField tfFindPwPhone;
 	private JLabel lblFIndIdPwName_1;
 	private JLabel lblFindIdPwPhone_1;
 	private JButton btnNewButton;
@@ -74,11 +75,11 @@ public class FindIdPw {
 		frmFindId.getContentPane().add(getLblFIndIdPwName());
 		frmFindId.getContentPane().add(getLblFindIdPwPhone());
 		frmFindId.getContentPane().add(getLblFindIdPwId());
-		frmFindId.getContentPane().add(getTextField());
-		frmFindId.getContentPane().add(getTextField_1());
-		frmFindId.getContentPane().add(getTextField_2());
-		frmFindId.getContentPane().add(getTextField_3());
-		frmFindId.getContentPane().add(getTextField_4());
+		frmFindId.getContentPane().add(getTfFindIdName());
+		frmFindId.getContentPane().add(getTfFindIdPhone());
+		frmFindId.getContentPane().add(getTfFindPwId());
+		frmFindId.getContentPane().add(getTfFindPwName());
+		frmFindId.getContentPane().add(getTfFindPwPhone());
 		frmFindId.getContentPane().add(getLblFIndIdPwName_1());
 		frmFindId.getContentPane().add(getLblFindIdPwPhone_1());
 		frmFindId.getContentPane().add(getBtnNewButton());
@@ -128,45 +129,45 @@ public class FindIdPw {
 		}
 		return lblFindIdPwId;
 	}
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setBounds(35, 108, 252, 30);
-			textField.setColumns(10);
+	private JTextField getTfFindIdName() {
+		if (tfFindIdName == null) {
+			tfFindIdName = new JTextField();
+			tfFindIdName.setBounds(35, 108, 252, 30);
+			tfFindIdName.setColumns(10);
 		}
-		return textField;
+		return tfFindIdName;
 	}
-	private JTextField getTextField_1() {
-		if (textField_1 == null) {
-			textField_1 = new JTextField();
-			textField_1.setColumns(10);
-			textField_1.setBounds(35, 198, 252, 30);
+	private JTextField getTfFindIdPhone() {
+		if (tfFindIdPhone == null) {
+			tfFindIdPhone = new JTextField();
+			tfFindIdPhone.setColumns(10);
+			tfFindIdPhone.setBounds(35, 198, 252, 30);
 		}
-		return textField_1;
+		return tfFindIdPhone;
 	}
-	private JTextField getTextField_2() {
-		if (textField_2 == null) {
-			textField_2 = new JTextField();
-			textField_2.setColumns(10);
-			textField_2.setBounds(349, 80, 254, 30);
+	private JTextField getTfFindPwId() {
+		if (tfFindPwId == null) {
+			tfFindPwId = new JTextField();
+			tfFindPwId.setColumns(10);
+			tfFindPwId.setBounds(349, 80, 254, 30);
 		}
-		return textField_2;
+		return tfFindPwId;
 	}
-	private JTextField getTextField_3() {
-		if (textField_3 == null) {
-			textField_3 = new JTextField();
-			textField_3.setColumns(10);
-			textField_3.setBounds(349, 148, 254, 30);
+	private JTextField getTfFindPwName() {
+		if (tfFindPwName == null) {
+			tfFindPwName = new JTextField();
+			tfFindPwName.setColumns(10);
+			tfFindPwName.setBounds(349, 148, 254, 30);
 		}
-		return textField_3;
+		return tfFindPwName;
 	}
-	private JTextField getTextField_4() {
-		if (textField_4 == null) {
-			textField_4 = new JTextField();
-			textField_4.setColumns(10);
-			textField_4.setBounds(349, 214, 254, 30);
+	private JTextField getTfFindPwPhone() {
+		if (tfFindPwPhone == null) {
+			tfFindPwPhone = new JTextField();
+			tfFindPwPhone.setColumns(10);
+			tfFindPwPhone.setBounds(349, 214, 254, 30);
 		}
-		return textField_4;
+		return tfFindPwPhone;
 	}
 	private JLabel getLblFIndIdPwName_1() {
 		if (lblFIndIdPwName_1 == null) {
@@ -187,6 +188,12 @@ public class FindIdPw {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Find ID");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					findIdAction();
+					
+				}
+			});
 			btnNewButton.setBackground(new Color(0, 102, 204));
 			btnNewButton.setForeground(Color.WHITE);
 			btnNewButton.setOpaque(true);
@@ -198,6 +205,12 @@ public class FindIdPw {
 	private JButton getBtnFindPassword() {
 		if (btnFindPassword == null) {
 			btnFindPassword = new JButton("Find Password");
+			btnFindPassword.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					findPwAction();
+					
+				}
+			});
 			btnFindPassword.setBackground(new Color(0, 102, 204));
 			btnFindPassword.setForeground(Color.WHITE);
 			btnFindPassword.setOpaque(true);
@@ -228,5 +241,41 @@ public class FindIdPw {
 			separator.setBounds(313, 20, 30, 287);
 		}
 		return separator;
+	}
+	
+	private void findIdAction() {
+		String name = tfFindIdName.getText();
+		String phone = tfFindIdPhone.getText();
+		System.out.println(name);
+		System.out.println(phone);
+		
+		
+		FindIDPWDBAction findIdPwDbAction = new FindIDPWDBAction(name, phone);
+		
+		if(findIdPwDbAction.getFindIdAction().equals("false")) {
+			JOptionPane.showMessageDialog(null,"해당 하는 Id 가 없습니다. 아이디를 생성해주세요.");
+		}else {
+			String comment = "Your Id is "+ findIdPwDbAction.getFindIdAction();
+			JOptionPane.showMessageDialog(null, comment);
+		}
+
+	}
+	private void findPwAction() {
+		String id = tfFindPwId.getText();
+		String name = tfFindPwName.getText();
+		String phone = tfFindPwPhone.getText();
+	
+	FindIDPWDBAction findIdPwDbAction = new FindIDPWDBAction(id,name, phone);
+	
+	if(findIdPwDbAction.getFindIdAction().equals("false")) {
+		
+		JOptionPane.showMessageDialog(null,"Pw 불러올 수 없습니다. 아이디를 생성해주세요.");
+		
+	}else {
+		
+		String comment = "Your Password is "+ findIdPwDbAction.getFindPwAction();
+		JOptionPane.showMessageDialog(null, comment);
+		
+		}
 	}
 }

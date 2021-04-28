@@ -7,10 +7,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import com.swing.admin.AdminFixedPanelDBAction;
 import com.swing.admin.AdminMainPage;
+import com.swing.checkprofile.CheckProfileDBAction;
+import com.swing.mainpage.FixedPanelDBAction;
 import com.swing.mainpage.MainPage;
 
 import javax.swing.JTextField;
@@ -19,7 +24,10 @@ import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Login {
 
@@ -28,12 +36,13 @@ public class Login {
 	private JLabel lblBgLogin;
 	private JLabel lblSignIn;
 	private JLabel lblLoginUserId;
-	private JTextField tfLoginUserId;
+	public static JTextField tfLoginUserId;
 	private JLabel lblLoginPassword;
 	private JButton btnLoginSignIn;
 	private JButton btnLoginSignUp;
 	private JButton btnLoginFindIdPw;
 	private JPasswordField pfLoginPassword;
+	private JComboBox cbCheckStudentTeacher;
 	
 
 	/**
@@ -80,6 +89,7 @@ public class Login {
 		frmteam.getContentPane().add(getBtnLoginSignIn());
 		frmteam.getContentPane().add(getBtnLoginSignUp());
 		frmteam.getContentPane().add(getBtnLoginFindIdPw());
+		frmteam.getContentPane().add(getCBCheckStudentTeacher());
 	}
 
 	private JPanel getPanel() {
@@ -148,25 +158,32 @@ public class Login {
 		}
 		return pfLoginPassword;
 	}
+	private JComboBox getCBCheckStudentTeacher() {
+		if (cbCheckStudentTeacher == null) {
+			cbCheckStudentTeacher = new JComboBox();
+			cbCheckStudentTeacher.setModel(new DefaultComboBoxModel(new String[] {"Student", "Teacher"}));
+			cbCheckStudentTeacher.setBounds(434, 104, 105, 30);
+		}
+		return cbCheckStudentTeacher;
+	}
 	private JButton getBtnLoginSignIn() {
 		if (btnLoginSignIn == null) {
 			btnLoginSignIn = new JButton("Sign In");
 			btnLoginSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-		
-					frmteam.setVisible(false);
 					
-					MainPage mainPage= new MainPage();
-					AdminMainPage adminPage = new AdminMainPage();
+					System.out.println(cbCheckStudentTeacher.getSelectedIndex());
 					
-					if(tfLoginUserId.getText().equals("Han")) {
-						adminPage.run();
-					}else {
-						mainPage.run();
+					if(cbCheckStudentTeacher.getSelectedIndex() == 0) {	
+						String userId = tfLoginUserId.getText();
+						getBriefInfo(userId);
+						loginAction();
 					}
-						
-					
-		
+					if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
+						String userId = tfLoginUserId.getText();
+						getTeacherBriefInfo(userId);
+						teacherLoginAction();
+					}
 				}
 			});
 			btnLoginSignIn.setForeground(Color.WHITE);
@@ -182,10 +199,14 @@ public class Login {
 			btnLoginSignUp = new JButton("Sign Up");
 			btnLoginSignUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					SignUp signUp = new SignUp();
 					
-					signUp.run();
-
+					if(cbCheckStudentTeacher.getSelectedIndex() == 0) {	
+						SignUp signUp = new SignUp();
+						signUp.run();
+					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
+						AdminSignUp adminSignUp = new AdminSignUp();
+						adminSignUp.run();
+					}
 				}
 			});
 			btnLoginSignUp.setForeground(new Color(0, 102, 204));
@@ -201,12 +222,85 @@ public class Login {
 			btnLoginFindIdPw.setForeground(new Color(0, 102, 204));
 			btnLoginFindIdPw.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					FindIdPw findIdPw = new FindIdPw();
-					findIdPw.run();
+					
+					if(cbCheckStudentTeacher.getSelectedIndex() == 0) {
+						FindIdPw findIdPw = new FindIdPw();
+						findIdPw.run();
+					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
+						AdminFindIdPw adminFindIdPw = new AdminFindIdPw();
+						adminFindIdPw.run();
+					}
 				}
 			});
 			btnLoginFindIdPw.setBounds(594, 454, 159, 43);
 		}
 		return btnLoginFindIdPw;
 	}
+	private void loginAction() {
+		
+		String logInId = tfLoginUserId.getText();
+		char[] logInPw = pfLoginPassword.getPassword();
+		String strLoginPw = String.copyValueOf(logInPw);
+		
+		
+		SignInDBAction signInDbAction = new SignInDBAction(logInId,strLoginPw);
+		
+		if(signInDbAction.CheckLoginAction()) {
+			frmteam.setVisible(false);
+			MainPage mainPage= new MainPage();
+			mainPage.run();
+		}else{
+			JOptionPane.showMessageDialog(null, "ID 와 PW 를 다시 체크해 주세요");
+			tfLoginUserId.setText("");
+			pfLoginPassword.setText("");
+		}
+	}
+	private void teacherLoginAction() {
+		String logInId = tfLoginUserId.getText();
+		char[] logInPw = pfLoginPassword.getPassword();
+		String strLoginPw = String.copyValueOf(logInPw);
+		
+		SignInDBAction signInDbAction = new SignInDBAction(logInId,strLoginPw);
+		
+		if(signInDbAction.CheckTeacherLoginAction()) {
+			frmteam.setVisible(false);
+			AdminMainPage adminMainPage = new AdminMainPage();
+			adminMainPage.run();
+		}else {
+			JOptionPane.showMessageDialog(null, "ID 와 PW 를 다시 체크해 주세요");
+			tfLoginUserId.setText("");
+			pfLoginPassword.setText("");
+		}
+		
+	}
+	
+	public String[] getBriefInfo(String logInId) {
+
+		FixedPanelDBAction fixedPanelInfo = new FixedPanelDBAction(logInId);
+		
+		String[] briefInfo = fixedPanelInfo.getFixedPanelInfo();
+		System.out.println("GetBriefInfo");
+
+		return briefInfo;
+	}
+	
+	public String[] getTeacherBriefInfo(String logInId) {
+		
+		AdminFixedPanelDBAction fixedAdminPanelInfo = new AdminFixedPanelDBAction(logInId);
+		
+		String[] adminBriefInfo = fixedAdminPanelInfo.getFixedPanelTeacherInfo();
+		System.out.println("getTeacherBriefInfo");
+
+		return adminBriefInfo;
+	}
+	
+//	public String[] getCheckProfileInfo(String loginId) {
+//		
+//		CheckProfileDBAction checkProfileInfo = new CheckProfileDBAction(loginId);
+//		
+//		String[] arrCheckProfileInfo = checkProfileInfo.insertAction();
+//		
+//		return arrCheckProfileInfo;
+//	}
+
 }
