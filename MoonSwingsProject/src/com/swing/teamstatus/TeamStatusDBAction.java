@@ -1,4 +1,4 @@
-package com.swing.DB;
+package com.swing.teamstatus;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,10 +10,10 @@ import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
-import com.swing.DB.Bean;
+import com.swing.teamstatus.TeamStatusBean;
 import com.swing.DB.ShareVar;
 
-public class DBAction {
+public class TeamStatusDBAction {
 	
 	private final String url_mysql = ShareVar.url_mysql;
 	private final String id_mysql = ShareVar.id_mysql;
@@ -31,12 +31,11 @@ public class DBAction {
 	//팀 정보
 	int no;
 	
-	public DBAction() {
+	public TeamStatusDBAction() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	public DBAction(String id, String name, String mbti, String github_id, String subway, String phone,
+	public TeamStatusDBAction(String id, String name, String mbti, String github_id, String subway, String phone,
 			String strength, String introduce) {
 		super();
 		this.id = id;
@@ -47,74 +46,6 @@ public class DBAction {
 		this.phone = phone;
 		this.strength = strength;
 		this.introduce = introduce;
-	}
-	
-	
-	//checkkProfile 내 정보 불러오기
-	public Bean checkProfileAction(){
-		
-		Bean bean = null;
-		//수정해야함
-		String WhereDefault = "SELECT id, name, mbti, github_id, subway, phone, strength, introduce FROM student WHERE id = 'crybaby'";
-		
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-			Statement stmt_mysql = conn_mysql.createStatement();
-			
-			ResultSet rs = stmt_mysql.executeQuery(WhereDefault);//레코드 단위로 가져온다
-		
-			while(rs.next()){
-				String id = rs.getString(1);
-				String name = rs.getString(2);
-				String mbti = rs.getString(3);
-				String github_id = rs.getString(4);
-				String subway = rs.getString(5);
-				String phone = rs.getString(6);
-				String strength = rs.getString(7);
-				String introduce = rs.getString(8);
-				
-				bean = new Bean(id, name, mbti, github_id, subway, phone, strength, introduce);
-			}
-			conn_mysql.close();
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-			
-		return bean;
-	}
-	
-	//checkProfile 수정하기
-	public boolean checkProfileUpdateAction() {
-		
-		PreparedStatement ps = null;
-		
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
-			@SuppressWarnings("unused")
-			Statement stmt_mysql = conn_mysql.createStatement();
-			
-			String A = "UPDATE student SET mbti = ?, github_id = ?, subway = ?, phone = ?, strength = ?, introduce = ? WHERE id = ?";
-
-			ps = conn_mysql.prepareStatement(A);
-	        ps.setString(1, mbti.trim());
-	        ps.setString(2, github_id.trim());
-	        ps.setString(3, subway.trim());
-	        ps.setString(4, phone.trim());
-	        ps.setString(5, strength.trim());
-	        ps.setString(6, introduce.trim());
-	        ps.setString(7, id);
-			ps.executeUpdate();
-			
-			conn_mysql.close();
-			return true;
-		} catch (Exception e){
-			e.printStackTrace();
-			return false;
-      
-		}
 	}
 	
 	//TeamStatus In Action
@@ -178,9 +109,9 @@ public class DBAction {
 	}
 	
 	//teammate status 불러오기
-	public ArrayList<Bean> ShowTeammateStatus(){
+	public ArrayList<TeamStatusBean> ShowTeammateStatus(){
 		
-		ArrayList<Bean> beanList = new ArrayList<Bean>();
+		ArrayList<TeamStatusBean> beanList = new ArrayList<TeamStatusBean>();
 		String WhereDefault = "SELECT t.name, s.name FROM student s, joining j, team t WHERE s.id = j.student_id AND j.team_no = t.no";
 		
 		try{
@@ -194,7 +125,7 @@ public class DBAction {
 				int wkteamname = rs.getInt(1);
 				String wkname = rs.getString(2);
 				
-				Bean bean = new Bean(wkteamname, wkname);
+				TeamStatusBean bean = new TeamStatusBean(wkteamname, wkname);
 				beanList.add(bean);
 			}
 			conn_mysql.close();

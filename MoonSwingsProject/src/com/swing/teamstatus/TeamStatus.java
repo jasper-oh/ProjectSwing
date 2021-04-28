@@ -15,8 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.swing.DB.Bean;
-import com.swing.DB.DBAction;
+import com.swing.teamstatus.TeamStatusBean;
+import com.swing.teamstatus.TeamStatusDBAction;
 
 public class TeamStatus extends JPanel {
 	
@@ -60,7 +60,7 @@ public class TeamStatus extends JPanel {
 	private JTextField tfmate6_5;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
-	DBAction dbAction = new DBAction();
+	TeamStatusDBAction tsdbAction = new TeamStatusDBAction();
 	//팀원이름을 불러올 텍스트필드 집합
 	ArrayList<JTextField[]> tfbeanList = new ArrayList<JTextField[]>();
 	
@@ -516,12 +516,15 @@ public class TeamStatus extends JPanel {
 	// 텍스트 필드 집합에 저장하고 쿼리로 빈을 채움
 	public void showTeammateStatusAction(){
 		
+		btnInTeamStatus.setEnabled(false);
+		btnOutTeamStatus.setEnabled(false);
+		
 		//정리해주고 채워주기 위함
 		for(JTextField[] tfarrays : tfbeanList) {
 			clearTeamColumn(tfarrays);
 		}
 		
-		ArrayList<Bean> beanList =  dbAction.ShowTeammateStatus();
+		ArrayList<TeamStatusBean> beanList =  tsdbAction.ShowTeammateStatus();
 		
 		JTextField[] tf1 = {tfmate1_1, tfmate1_2, tfmate1_3, tfmate1_4};
 		JTextField[] tf2 = {tfmate2_1, tfmate2_2, tfmate2_3, tfmate2_4};
@@ -564,20 +567,8 @@ public class TeamStatus extends JPanel {
 				return;
 			}
 		}
+
 	}
-	
-	//rdb 버튼 활성화 하기 위함
-//	public void checkRdb() {
-//		
-//		JTextField[] tfs =  tfbeanList.get(rdbs.get(selectedrdb));
-//		
-//		for(int i=0;i<rdbs.size();i++) {
-//			if(tfs[i].getText().equals("")) {
-//				btnInTeamStatus.setEnabled(true);
-//				return;
-//			}
-//		}
-//	}
 	
 	//그팀에 텍스트필드가 빈자리가 없다면 in버튼 비활성화
 	public void checkFull(int num) {
@@ -612,9 +603,10 @@ public class TeamStatus extends JPanel {
 		for(int i=0;i<tfs.length;i++) {
 			//수정하기
 			if(tfs[i].getText().equals("이승연")) {
-				dbAction.teamStatusOutAction();
+				tsdbAction.teamStatusOutAction();
 				showTeammateStatusAction();
 				btnInTeamStatus.setVisible(true);
+				btnInTeamStatus.setEnabled(true);
 			}
 		}
 	}
@@ -625,7 +617,7 @@ public class TeamStatus extends JPanel {
 		for(int i=0;i<tfs.length;i++) {
 			//수정하기
 			if(tfs[i].getText().equals("")) {
-				dbAction.teamStatusInAction(selectedrdb);
+				tsdbAction.teamStatusInAction(selectedrdb);
 				//pk를 아이디로 잡아야하지 않을까?
 				showTeammateStatusAction();
 				btnInTeamStatus.setVisible(false);

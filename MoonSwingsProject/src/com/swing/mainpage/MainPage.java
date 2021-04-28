@@ -11,7 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.swing.DB.DBAction;
+import com.swing.teamstatus.TeamStatusDBAction;
+import com.swing.checkprofile.CheckProfileDBAction;
 import com.swing.announcement.Announcement;
 import com.swing.checkprofile.CheckProfile;
 import com.swing.findteammate.FindTeammate;

@@ -26,9 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.swing.DB.ShareVar;
-import com.swing.DB.Bean;
-import com.swing.DB.DBAction;
+import com.swing.checkprofile.CheckProfileBean;
+import com.swing.checkprofile.CheckProfileDBAction;
 
 
 
@@ -500,7 +499,7 @@ public class CheckProfile extends JPanel {
 		String introduce = tfCheckProfileIntroduce.getText();
 		
 		
-		DBAction dbaction = new DBAction(id, name, mbti, github_id, subway, phone, strength, introduce);
+		CheckProfileDBAction dbaction = new CheckProfileDBAction(id, name, mbti, github_id, subway, phone, strength, introduce);
 		boolean aaa = dbaction.checkProfileUpdateAction();
 		if(aaa == true){
 	          JOptionPane.showMessageDialog(null, tfCheckProfileName.getText()+" 님의 정보가 수정 되었습니다.!");                    
@@ -513,8 +512,8 @@ public class CheckProfile extends JPanel {
 	//------crybaby 불러오기
 	public void SearchAction() {
 		
-		DBAction dbAction = new DBAction();
-		Bean bean = dbAction.checkProfileAction();
+		CheckProfileDBAction dbAction = new CheckProfileDBAction();
+		CheckProfileBean bean = dbAction.checkProfileAction();
         
 		tfCheckProfileId.setText(bean.getId());
 		tfCheckProfileName.setText(bean.getName());
@@ -524,6 +523,5 @@ public class CheckProfile extends JPanel {
 		tfCheckProfilePhone.setText(bean.getPhone());
 
 	}
-
 
 }

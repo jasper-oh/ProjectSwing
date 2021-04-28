@@ -1,0 +1,62 @@
+package com.swing.adminteamstatus;
+
+public class AdminTeamStatusBean {
+	
+	//학생 정보
+	String name;
+	
+	//조인 정보
+	int student_id;
+	int team_no;
+	
+	//팀 정보
+	int no;
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public AdminTeamStatusBean(int no) {
+		super();
+		this.no = no;
+	}
+
+	public AdminTeamStatusBean(int no, String name) {
+		super();
+		this.name = name;
+		this.no = no;
+	}
+	
+	public int getStudent_id() {
+		return student_id;
+	}
+
+	public void setStudent_id(int student_id) {
+		this.student_id = student_id;
+	}
+
+	public int getTeam_no() {
+		return team_no;
+	}
+
+	public void setTeam_no(int team_no) {
+		this.team_no = team_no;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+
+	
+
+}

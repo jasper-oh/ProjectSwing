@@ -1,6 +1,8 @@
 package com.swing.adminteamstatus;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -15,13 +17,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
-import com.swing.DB.Bean;
-import com.swing.DB.DBAction;
+import com.swing.adminteamstatus.AdminTeamStatusBean;
+import com.swing.adminteamstatus.AdminTeamStatusDBAction;
 
 public class AdminTeamStatus extends JPanel {
 	public AdminTeamStatus() {
 	}
-
 
 	/**
 	 * Create the panel.
@@ -67,7 +68,18 @@ public class AdminTeamStatus extends JPanel {
 	private JScrollPane scrollPane_TSStudentList;
 	private JTable tableTeamStatus;
 	
+	AdminTeamStatusDBAction dbAction = new AdminTeamStatusDBAction();
+	//팀원이름을 불러올 텍스트필드 집합
 	ArrayList<JTextField[]> tfbeanList = new ArrayList<JTextField[]>();
+	
+	//라디오버튼 집합(처음에 이름불러오고 내가 속한 팀에 라디오버튼이 클릭되어 있도록하기위해)
+	ArrayList<JRadioButton> rdbs = new ArrayList<JRadioButton>();
+	
+	//그 라디오버튼 번호를 저장하기 위한 객체
+	int myteamcount = 999;
+	
+	//들어갈 팀의 번호를 저장하기 위한 객체
+	int selectedrdb = 999;
 	
 	public JPanel getTeamStatus() {
 		if (panelTeamStatus == null) {
@@ -118,7 +130,15 @@ public class AdminTeamStatus extends JPanel {
 			buttonGroup.add(rbTeam1);
 			rbTeam1.setForeground(new Color(0, 51, 102));
 			rbTeam1.setBounds(10, 27, 50, 23);
+			
+			rbTeam1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					selectedrdb = 1;
+					checkFull(selectedrdb);
+				}
+			});
 		}
+		rdbs.add(rbTeam1);
 		return rbTeam1;
 	}
 	private JRadioButton getRbTeam2() {
@@ -127,7 +147,15 @@ public class AdminTeamStatus extends JPanel {
 			buttonGroup.add(rbTeam2);
 			rbTeam2.setForeground(new Color(0, 51, 102));
 			rbTeam2.setBounds(10, 67, 50, 23);
+			
+			rbTeam2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					selectedrdb = 2;
+					checkFull(selectedrdb);
+				}
+			});
 		}
+		rdbs.add(rbTeam2);
 		return rbTeam2;
 	}
 	private JRadioButton getRbTeam3() {
@@ -136,7 +164,14 @@ public class AdminTeamStatus extends JPanel {
 			buttonGroup.add(rbTeam3);
 			rbTeam3.setForeground(new Color(0, 51, 102));
 			rbTeam3.setBounds(10, 107, 50, 23);
+			rbTeam3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					selectedrdb = 3;
+					checkFull(selectedrdb);
+				}
+			});
 		}
+		rdbs.add(rbTeam3);
 		return rbTeam3;
 	}
 	private JRadioButton getRbTeam4() {
@@ -145,7 +180,14 @@ public class AdminTeamStatus extends JPanel {
 			buttonGroup.add(rbTeam4);
 			rbTeam4.setForeground(new Color(0, 51, 102));
 			rbTeam4.setBounds(10, 147, 50, 23);
+			rbTeam4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					selectedrdb = 4;
+					checkFull(selectedrdb);
+				}
+			});
 		}
+		rdbs.add(rbTeam4);
 		return rbTeam4;
 	}
 	private JRadioButton getRbTeam5() {
@@ -154,7 +196,14 @@ public class AdminTeamStatus extends JPanel {
 			buttonGroup.add(rbTeam5);
 			rbTeam5.setForeground(new Color(0, 51, 102));
 			rbTeam5.setBounds(10, 187, 50, 23);
+			rbTeam5.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					selectedrdb = 5;
+					checkFull(selectedrdb);
+				}
+			});
 		}
+		rdbs.add(rbTeam5);
 		return rbTeam5;
 	}
 	private JRadioButton getRbTeam6() {
@@ -163,7 +212,14 @@ public class AdminTeamStatus extends JPanel {
 			buttonGroup.add(rbTeam6);
 			rbTeam6.setForeground(new Color(0, 51, 102));
 			rbTeam6.setBounds(10, 227, 50, 23);
+			rbTeam6.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					selectedrdb = 6;
+					checkFull(selectedrdb);
+				}
+			});
 		}
+		rdbs.add(rbTeam6);
 		return rbTeam6;
 	}
 	private JTextField gettfmate1_1() {
@@ -424,6 +480,11 @@ public class AdminTeamStatus extends JPanel {
 			btnInTeamStatus = new JButton("IN");
 			btnInTeamStatus.setForeground(new Color(51, 102, 153));
 			btnInTeamStatus.setBounds(20, 455, 220, 40);
+			btnInTeamStatus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					clickInAction();
+				}
+			});
 		}
 		return btnInTeamStatus;
 	}
@@ -433,6 +494,11 @@ public class AdminTeamStatus extends JPanel {
 			btnOutTeamStatus.setBackground(new Color(255, 255, 255));
 			btnOutTeamStatus.setForeground(new Color(51, 102, 153));
 			btnOutTeamStatus.setBounds(240, 455, 220, 40);
+			btnOutTeamStatus.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					clickOutAction();
+				}
+			});
 		}
 		return btnOutTeamStatus;
 	}
@@ -494,8 +560,11 @@ public class AdminTeamStatus extends JPanel {
 	}
 	public void showTeammateStatusAction(){
 		
-		DBAction dbAction = new DBAction();
-		ArrayList<Bean> beanList =  dbAction.ShowTeammateStatus();
+		for(JTextField[] tfarrays : tfbeanList) {
+			clearTeamColumn(tfarrays);
+		}
+		
+		ArrayList<AdminTeamStatusBean> beanList =  dbAction.ShowTeammateStatus();
 		
 		JTextField[] tf1 = {tfmate1_1, tfmate1_2, tfmate1_3, tfmate1_4};
 		JTextField[] tf2 = {tfmate2_1, tfmate2_2, tfmate2_3, tfmate2_4};
@@ -543,6 +612,42 @@ public class AdminTeamStatus extends JPanel {
 			}
 		}
 		btnInTeamStatus.setEnabled(false);
+	}
+	
+	//out버튼 클릭 delete 쿼리 호출
+	public void clickOutAction() {
+		JTextField[] tfs = tfbeanList.get(myteamcount);
+		for(int i=0;i<tfs.length;i++) {
+			//수정하기
+			if(tfs[i].getText().equals("이승연")) {
+				dbAction.teamStatusOutAction();
+				showTeammateStatusAction();
+				btnInTeamStatus.setVisible(true);
+				btnInTeamStatus.setEnabled(true);
+			}
+		}
+	}
+	
+	//in 버튼 클릭시 insert쿼리 호출
+	public void clickInAction() {
+		JTextField[] tfs = tfbeanList.get(selectedrdb-1);
+		for(int i=0;i<tfs.length;i++) {
+			//수정하기
+			if(tfs[i].getText().equals("")) {
+				dbAction.teamStatusInAction(selectedrdb);
+				//pk를 아이디로 잡아야하지 않을까?
+				showTeammateStatusAction();
+				btnInTeamStatus.setVisible(false);
+				return;
+			}
+		}
+	}
+	
+	//텍스트필드 지워주기 위한 친구
+	private void clearTeamColumn(JTextField[] tfs) {
+		for(JTextField tf : tfs) {
+			tf.setText("");
+		}
 	}
 
 }

@@ -1,6 +1,6 @@
-package com.swing.DB;
+package com.swing.checkprofile;
 
-public class Bean {
+public class CheckProfileBean {
 	
 	//학생 정보
 	String id;
@@ -12,27 +12,14 @@ public class Bean {
 	String strength;
 	String introduce;
 	
-	//조인 정보
+	//조인 정보 아마 필요할거야
 	int student_id;
 	int team_no;
 	
 	//팀 정보
 	int no;
 	
-	
-	
-	public Bean(int no) {
-		super();
-		this.no = no;
-	}
-
-	public Bean(int no, String name) {
-		super();
-		this.name = name;
-		this.no = no;
-	}
-
-	public Bean(String id, String name, String mbti, String github_id, String subway, String phone,
+	public CheckProfileBean(String id, String name, String mbti, String github_id, String subway, String phone,
 			String strength, String introduce) {
 		super();
 		this.id = id;
@@ -118,8 +105,5 @@ public class Bean {
 	public void setNo(int no) {
 		this.no = no;
 	}
-
-
-	
 
 }
