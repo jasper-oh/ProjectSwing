@@ -72,6 +72,7 @@ public class TeamStatusDBAction {
 			String A = "DELETE FROM joining WHERE student_id = 'crybaby'";
 
 			ps = conn_mysql.prepareStatement(A);
+			//수정하기
 //	        ps.setString(1, Integer.toString(no).trim());
 			ps.executeUpdate();
 			

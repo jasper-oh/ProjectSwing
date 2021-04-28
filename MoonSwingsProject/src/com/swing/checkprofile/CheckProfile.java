@@ -466,8 +466,6 @@ public class CheckProfile extends JPanel {
 		
 	}
 	private void textFieldEnable() {
-		tfCheckProfileId.setEditable(true);
-		tfCheckProfileName.setEditable(true);
 		tfCheckProfilePhone.setEditable(true);
 		tfCheckProfileAddress.setEditable(true);
 		tfCheckProfileMbti.setEditable(true);
@@ -476,8 +474,6 @@ public class CheckProfile extends JPanel {
 		tfCheckProfileIntroduce.setEditable(true);
 	}
 	private void textFieldUnable() {
-		tfCheckProfileId.setEditable(false);
-		tfCheckProfileName.setEditable(false);
 		tfCheckProfilePhone.setEditable(false);
 		tfCheckProfileAddress.setEditable(false);
 		tfCheckProfileMbti.setEditable(false);
@@ -521,6 +517,8 @@ public class CheckProfile extends JPanel {
 		tfCheckProfileGithub.setText(bean.getGithub_id());
 		tfCheckProfileAddress.setText(bean.getSubway());
 		tfCheckProfilePhone.setText(bean.getPhone());
+		tfCheckProfileStrength.setText(bean.getStrength());
+		tfCheckProfileIntroduce.setText(bean.getIntroduce());
 
 	}
 

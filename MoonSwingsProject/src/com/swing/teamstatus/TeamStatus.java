@@ -68,7 +68,7 @@ public class TeamStatus extends JPanel {
 	ArrayList<JRadioButton> rdbs = new ArrayList<JRadioButton>();
 	
 	//그 라디오버튼 번호를 저장하기 위한 객체
-	int myteamcount = 999;
+	int myteamcount = 888;
 	
 	//들어갈 팀의 번호를 저장하기 위한 객체
 	int selectedrdb = 999;

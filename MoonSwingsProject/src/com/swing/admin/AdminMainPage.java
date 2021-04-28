@@ -96,11 +96,10 @@ public class AdminMainPage {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				
-				
-				adminAnnouncement.getAnnouncement().setVisible(true);
-				adminStudentList.getStudentList().setVisible(false);
-				adminTeamStatus.getTeamStatus().setVisible(false);
 				adminAnnouncement.AdminAnnouncementTable();
+				adminAnnouncement.setVisible(true);
+				adminStudentList.setVisible(false);
+				adminTeamStatus.setVisible(false);
 				
 			}
 		});
@@ -111,9 +110,6 @@ public class AdminMainPage {
 		frame.getContentPane().add(getfixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(adminAnnouncement.getAnnouncement());
-//		frame.getContentPane().add(adminStudentList.getStudentList());
-//		frame.getContentPane().add(adminTeamStatus.getTeamStatusWithScrollPanel());
-		
 
 	}
 	private JPanel getfixedPanel() {
@@ -265,7 +261,6 @@ public class AdminMainPage {
 			btnTeamStatus.setForeground(new Color(0, 102, 204));
 			btnTeamStatus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					adminTeamStatus.showTeammateStatusAction();
 					checkTeamStatusUIAction();
 				}
 			});
@@ -318,11 +313,13 @@ public class AdminMainPage {
 		frame.getContentPane().add(adminTeamStatus.getTeamStatus());
 		
 		lblTitle.setText("Team Status");
-		adminTeamStatus.TSStudentListTable();
 		adminTeamStatus.getTeamStatus().setVisible(true);
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(false);
-	
+		adminTeamStatus.TSStudentListTable();
+		adminTeamStatus.SearchAction();
+		adminTeamStatus.showTeammateStatusAction();
+		
 	}
 
 }
