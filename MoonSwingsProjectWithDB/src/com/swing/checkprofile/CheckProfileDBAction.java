@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,11 +23,43 @@ public class CheckProfileDBAction {
 	
 	String id;
 	
+	String mbti;
+	String github_id;
+	String address;
+	String phone;
+	String strength;
+	String introduce;
+	String photo;
 	
 	public CheckProfileDBAction(String id) {
 		super();
 		this.id = id;
 	}
+	
+	
+
+	public CheckProfileDBAction(String id, String mbti, String github_id, String address, String phone, String strength,
+			String introduce) {
+		super();
+		this.id = id;
+		this.mbti = mbti;
+		this.github_id = github_id;
+		this.address = address;
+		this.phone = phone;
+		this.strength = strength;
+		this.introduce = introduce;
+		
+	}
+
+
+
+	public CheckProfileDBAction(String id, String photo) {
+		super();
+		this.id = id;
+		this.photo = photo;
+	}
+
+
 
 	String[] checkProfileInfo = new String[8];
 	
@@ -110,8 +143,107 @@ public BufferedImage getStudentImage() {
         
     }
 }
-public 
+public boolean updateUserProfile() {
+	PreparedStatement ps = null;
+    try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+        @SuppressWarnings("unused")
+		  Statement stmt_mysql = conn_mysql.createStatement();
 
+        String A = "update student set mbti = ?, github_id = ?, subway = ?, phone = ?, strength = ?, introduce = ? where id = ? ";
+        
+
+        ps = conn_mysql.prepareStatement(A);
+        
+        ps.setString(1, mbti);
+        ps.setString(2, github_id);
+        ps.setString(3, address);
+        ps.setString(4, phone);
+        ps.setString(5, strength);
+        ps.setString(6, introduce);
+        ps.setString(7, id);
+        ps.executeUpdate();
+        
+        System.out.println("updated User Profile");
+        
+        conn_mysql.close();
+        
+        return true;
+    } catch (Exception e){
+        e.printStackTrace();
+        return false;
+    }
+
+}
+
+public boolean makeNullUserPhoto() {
+	PreparedStatement ps = null;
+	
+	try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+        @SuppressWarnings("unused")
+		Statement stmt_mysql = conn_mysql.createStatement();
+
+        String A = "update student set photo = null where id = ? ";
+        
+        InputStream inputStream = new FileInputStream(new File(photo));
+        
+        ps = conn_mysql.prepareStatement(A);
+        
+        
+        ps.setString(1, id);
+        ps.executeUpdate();
+        
+        System.out.println("Now Your Photo is null");
+        
+        conn_mysql.close();
+        
+        return true;
+        
+    } catch (Exception e){
+        e.printStackTrace();
+        
+        return false;
+    }
+	
+	
+}
+
+public boolean updateUserPhoto() {
+	
+	PreparedStatement ps = null;
+
+    try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+        @SuppressWarnings("unused")
+		Statement stmt_mysql = conn_mysql.createStatement();
+
+        String A = "update student set photo = ? where id = ? ";
+        
+        InputStream inputStream = new FileInputStream(new File(photo));
+        
+        ps = conn_mysql.prepareStatement(A);
+        
+        ps.setBlob(1, inputStream);
+        ps.setString(2, id);
+        ps.executeUpdate();
+        
+        System.out.println("updated User Photo");
+        
+        conn_mysql.close();
+        
+        return true;
+        
+    } catch (Exception e){
+        e.printStackTrace();
+        
+        return false;
+    }
+
+}
 
 
 

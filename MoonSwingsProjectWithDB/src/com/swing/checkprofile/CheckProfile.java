@@ -5,16 +5,20 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -54,11 +58,14 @@ public class CheckProfile extends JPanel {
 	private JTextField tfCheckProfilePhone;
 	private JButton btnImportImage;
 	private JButton btnCancel;
+	String imageNewPath;
 	ArrayList<JTextField> checkPersonalInfo = new ArrayList<JTextField>();
 	
 	
 	
 	String[] personalInfo =getCheckProfileInfo(Login.tfLoginUserId.getText());
+	
+	
 	FixedPanelDBAction fpdba = new FixedPanelDBAction(Login.tfLoginUserId.getText());
 	ImageIcon imageIcon = new ImageIcon(fpdba.getStudentImage());
 	
@@ -108,6 +115,12 @@ public class CheckProfile extends JPanel {
 	private JButton getBtnImportImage() {
 		if (btnImportImage == null) {
 			btnImportImage = new JButton("Import Image");
+			btnImportImage.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					importImageAction();
+
+				}
+			});
 			btnImportImage.setFont(new Font("Lucida Grande", Font.PLAIN, 9));
 			btnImportImage.setForeground(new Color(0, 102, 204));
 			btnImportImage.setBounds(30, 152, 102, 29);
@@ -464,8 +477,8 @@ public class CheckProfile extends JPanel {
 		textFieldUnable();
 	}
 	private void textFieldEnable() {
-		tfCheckProfileId.setEditable(true);
-		tfCheckProfileName.setEditable(true);
+		tfCheckProfileId.setEditable(false);
+		tfCheckProfileName.setEditable(false);
 		tfCheckProfilePhone.setEditable(true);
 		tfCheckProfileAddress.setEditable(true);
 		tfCheckProfileMbti.setEditable(true);
@@ -487,10 +500,10 @@ public class CheckProfile extends JPanel {
 	private void getAllJTextField() {
 		checkPersonalInfo.add(tfCheckProfileId);
 		checkPersonalInfo.add(tfCheckProfileName);
-		checkPersonalInfo.add(tfCheckProfilePhone);
 		checkPersonalInfo.add(tfCheckProfileMbti);
 		checkPersonalInfo.add(tfCheckProfileGithub);
 		checkPersonalInfo.add(tfCheckProfileAddress);
+		checkPersonalInfo.add(tfCheckProfilePhone);
 		checkPersonalInfo.add(tfCheckProfileStrength);
 		checkPersonalInfo.add(tfCheckProfileIntroduce);
 	}
@@ -509,10 +522,32 @@ public class CheckProfile extends JPanel {
 	
 	private void saveAllJTextfieldAction() {
 		
+		String userId = Login.tfLoginUserId.getText();
+		String userMbti = tfCheckProfileMbti.getText();
+		String userGithubId = tfCheckProfileGithub.getText();
+		String userAddress = tfCheckProfileAddress.getText();
+		String userPhone = tfCheckProfilePhone.getText();
+		String userStrength = tfCheckProfileStrength.getText();
+		String userIntroduce = tfCheckProfileIntroduce.getText();
 		
-		
-		
-		
+		if(userPhone.equals("")) {
+			
+			JOptionPane.showMessageDialog(null, "Blank in Phone number area is not acceptable ! ");
+			tfCheckProfilePhone.setText(personalInfo[5]);
+			return;
+		}else {
+						
+			CheckProfileDBAction checkProfile = new CheckProfileDBAction(userId,userMbti,userGithubId,userAddress,userPhone,userStrength,userIntroduce);
+			
+			boolean msg = checkProfile.updateUserProfile();
+			
+			if(msg) {
+				UpdateImageAction();
+				JOptionPane.showMessageDialog(null, "Update Complete!");
+			}else {
+				JOptionPane.showMessageDialog(null, "Update failed!");
+			}
+		}
 		
 	}
 	public String[] getCheckProfileInfo(String loginId) {
@@ -522,6 +557,63 @@ public class CheckProfile extends JPanel {
 		String[] arrCheckProfileInfo = checkProfileInfo.insertAction();
 		
 		return arrCheckProfileInfo;
+	}
+	
+	public void importImageAction() {
+		
+		
+		JFileChooser browseImageFile = new JFileChooser();
+		
+		FileNameExtensionFilter fnef = new FileNameExtensionFilter("Image","png","jpg","jpeg");
+		browseImageFile.addChoosableFileFilter(fnef);
+		
+		int showOpenDialogue = browseImageFile.showOpenDialog(null);
+		
+		if(showOpenDialogue == JFileChooser.APPROVE_OPTION) {
+			File selectedImageFile = browseImageFile.getSelectedFile();
+			String selectedImagePath = selectedImageFile.getAbsolutePath();
+			imageNewPath = selectedImagePath;
+			System.out.println(selectedImagePath);
+//			JOptionPane.showMessageDialog(null, selectedImagePath);
+			
+			btnImportImage.setText("Done!");
+			ImageIcon imageIcon = new ImageIcon(selectedImagePath);
+			
+			Image image = imageIcon.getImage().getScaledInstance(ImageLabel_1.getWidth()+17, ImageLabel_1.getHeight(), Image.SCALE_SMOOTH);
+			ImageLabel_1.setIcon(new ImageIcon(image));
+			}
+	}
+	
+	private void UpdateImageAction() {
+		
+		String userId = Login.tfLoginUserId.getText();
+		
+		
+		if(btnImportImage.getText().equals("Done!")) {
+			
+			CheckProfileDBAction UpdateImage = new CheckProfileDBAction(userId,imageNewPath);
+			
+			
+			boolean msgNullPhoto = UpdateImage.makeNullUserPhoto();
+			
+			if(msgNullPhoto) {
+				boolean msg = UpdateImage.updateUserPhoto();
+				
+					if(msg) {
+		
+					}else {
+						JOptionPane.showMessageDialog(null, "Image Updated failed");
+						return;
+					}
+
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Image Make Null failed");
+			}
+			
+		}else {
+			return;
+		}
 	}
 
 }
