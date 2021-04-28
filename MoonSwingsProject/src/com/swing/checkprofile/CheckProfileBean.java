@@ -12,13 +12,6 @@ public class CheckProfileBean {
 	String strength;
 	String introduce;
 	
-	//조인 정보 아마 필요할거야
-	int student_id;
-	int team_no;
-	
-	//팀 정보
-	int no;
-	
 	public CheckProfileBean(String id, String name, String mbti, String github_id, String subway, String phone,
 			String strength, String introduce) {
 		super();
@@ -80,30 +73,6 @@ public class CheckProfileBean {
 	}
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
-	}
-
-	public int getStudent_id() {
-		return student_id;
-	}
-
-	public void setStudent_id(int student_id) {
-		this.student_id = student_id;
-	}
-
-	public int getTeam_no() {
-		return team_no;
-	}
-
-	public void setTeam_no(int team_no) {
-		this.team_no = team_no;
-	}
-
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
 	}
 
 }

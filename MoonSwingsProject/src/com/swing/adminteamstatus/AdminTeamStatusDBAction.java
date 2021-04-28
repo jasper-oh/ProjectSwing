@@ -19,36 +19,9 @@ public class AdminTeamStatusDBAction {
 	private final String id_mysql = ShareVar.id_mysql;
 	private final String pw_mysql = ShareVar.pw_mysql;
 	
-	String id;
-	String name;
-	String mbti;
-	String github_id;
-	String subway;
-	String phone;
-	String strength;
-	String introduce;
-	
-	//팀 정보
-	int no;
-	
 	public AdminTeamStatusDBAction() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	public AdminTeamStatusDBAction(String id, String name, String mbti, String github_id, String subway, String phone,
-			String strength, String introduce) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.mbti = mbti;
-		this.github_id = github_id;
-		this.subway = subway;
-		this.phone = phone;
-		this.strength = strength;
-		this.introduce = introduce;
-	}
-	
 	//TeamStatus In Action
 	public boolean teamStatusInAction(int selectedrdb) {
 		

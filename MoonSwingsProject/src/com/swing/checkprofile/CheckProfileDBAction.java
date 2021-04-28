@@ -28,9 +28,6 @@ public class CheckProfileDBAction {
 	String strength;
 	String introduce;
 	
-	//팀 정보
-	int no;
-	
 	public CheckProfileDBAction() {
 		// TODO Auto-generated constructor stub
 	}

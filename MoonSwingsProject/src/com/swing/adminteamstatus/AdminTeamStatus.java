@@ -69,6 +69,7 @@ public class AdminTeamStatus extends JPanel {
 	private JTable tableTeamStatus;
 	
 	AdminTeamStatusDBAction dbAction = new AdminTeamStatusDBAction();
+	
 	//팀원이름을 불러올 텍스트필드 집합
 	ArrayList<JTextField[]> tfbeanList = new ArrayList<JTextField[]>();
 	
@@ -229,6 +230,8 @@ public class AdminTeamStatus extends JPanel {
 			tfmate1_1.setForeground(new Color(0, 51, 102));
 			tfmate1_1.setColumns(10);
 			tfmate1_1.setBounds(65, 25, 80, 30);
+			tfmate1_1.setEditable(false);
+			
 		}
 		return tfmate1_1;
 	}
@@ -239,6 +242,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate1_2.setForeground(new Color(0, 51, 102));
 			tfmate1_2.setColumns(10);
 			tfmate1_2.setBounds(145, 25, 80, 30);
+			tfmate1_2.setEditable(false);
 		}
 		return tfmate1_2;
 	}
@@ -249,6 +253,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate1_3.setForeground(new Color(0, 51, 102));
 			tfmate1_3.setColumns(10);
 			tfmate1_3.setBounds(225, 25, 80, 30);
+			tfmate1_3.setEditable(false);
 		}
 		return tfmate1_3;
 	}
@@ -259,6 +264,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate1_4.setForeground(new Color(0, 51, 102));
 			tfmate1_4.setColumns(10);
 			tfmate1_4.setBounds(305, 25, 80, 30);
+			tfmate1_4.setEditable(false);
 		}
 		return tfmate1_4;
 	}
@@ -269,6 +275,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate2_1.setForeground(new Color(0, 51, 102));
 			tfmate2_1.setColumns(10);
 			tfmate2_1.setBounds(65, 63, 80, 30);
+			tfmate2_1.setEditable(false);
 		}
 		return tfmate2_1;
 	}
@@ -279,6 +286,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate2_2.setForeground(new Color(0, 51, 102));
 			tfmate2_2.setColumns(10);
 			tfmate2_2.setBounds(145, 63, 80, 30);
+			tfmate2_2.setEditable(false);
 		}
 		return tfmate2_2;
 	}
@@ -289,6 +297,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate2_3.setForeground(new Color(0, 51, 102));
 			tfmate2_3.setColumns(10);
 			tfmate2_3.setBounds(225, 63, 80, 30);
+			tfmate2_3.setEditable(false);
 		}
 		return tfmate2_3;
 	}
@@ -299,6 +308,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate2_4.setForeground(new Color(0, 51, 102));
 			tfmate2_4.setColumns(10);
 			tfmate2_4.setBounds(305, 63, 80, 30);
+			tfmate2_4.setEditable(false);
 		}
 		return tfmate2_4;
 	}
@@ -311,6 +321,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate3_1.setForeground(new Color(0, 51, 102));
 			tfmate3_1.setColumns(10);
 			tfmate3_1.setBounds(65, 103, 80, 30);
+			tfmate3_1.setEditable(false);
 		}
 		return tfmate3_1;
 	}
@@ -321,6 +332,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate3_2.setForeground(new Color(0, 51, 102));
 			tfmate3_2.setColumns(10);
 			tfmate3_2.setBounds(145, 103, 80, 30);
+			tfmate3_2.setEditable(false);
 		}
 		return tfmate3_2;
 	}
@@ -331,6 +343,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate3_3.setForeground(new Color(0, 51, 102));
 			tfmate3_3.setColumns(10);
 			tfmate3_3.setBounds(225, 103, 80, 30);
+			tfmate3_3.setEditable(false);
 		}
 		return tfmate3_3;
 	}
@@ -341,6 +354,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate3_4.setForeground(new Color(0, 51, 102));
 			tfmate3_4.setColumns(10);
 			tfmate3_4.setBounds(305, 103, 80, 30);
+			tfmate3_4.setEditable(false);
 		}
 		return tfmate3_4;
 	}
@@ -351,6 +365,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate4_1.setForeground(new Color(0, 51, 102));
 			tfmate4_1.setColumns(10);
 			tfmate4_1.setBounds(65, 143, 80, 30);
+			tfmate4_1.setEditable(false);
 		}
 		return tfmate4_1;
 	}
@@ -361,6 +376,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate4_2.setForeground(new Color(0, 51, 102));
 			tfmate4_2.setColumns(10);
 			tfmate4_2.setBounds(145, 143, 80, 30);
+			tfmate4_2.setEditable(false);
 		}
 		return tfmate4_2;
 	}
@@ -371,6 +387,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate4_3.setForeground(new Color(0, 51, 102));
 			tfmate4_3.setColumns(10);
 			tfmate4_3.setBounds(225, 143, 80, 30);
+			tfmate4_3.setEditable(false);
 		}
 		return tfmate4_3;
 	}
@@ -381,6 +398,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate4_4.setForeground(new Color(0, 51, 102));
 			tfmate4_4.setColumns(10);
 			tfmate4_4.setBounds(305, 143, 80, 30);
+			tfmate4_4.setEditable(false);
 		}
 		return tfmate4_4;
 	}
@@ -391,6 +409,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate5_1.setForeground(new Color(0, 51, 102));
 			tfmate5_1.setColumns(10);
 			tfmate5_1.setBounds(65, 184, 80, 30);
+			tfmate5_1.setEditable(false);
 		}
 		return tfmate5_1;
 	}
@@ -401,6 +420,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate5_2.setForeground(new Color(0, 51, 102));
 			tfmate5_2.setColumns(10);
 			tfmate5_2.setBounds(145, 184, 80, 30);
+			tfmate5_2.setEditable(false);
 		}
 		return tfmate5_2;
 	}
@@ -411,6 +431,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate5_3.setForeground(new Color(0, 51, 102));
 			tfmate5_3.setColumns(10);
 			tfmate5_3.setBounds(225, 184, 80, 30);
+			tfmate5_3.setEditable(false);
 		}
 		return tfmate5_3;
 	}
@@ -421,6 +442,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate5_4.setForeground(new Color(0, 51, 102));
 			tfmate5_4.setColumns(10);
 			tfmate5_4.setBounds(305, 184, 80, 30);
+			tfmate5_4.setEditable(false);
 		}
 		return tfmate5_4;
 	}
@@ -432,6 +454,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate6_1.setForeground(new Color(0, 51, 102));
 			tfmate6_1.setColumns(10);
 			tfmate6_1.setBounds(65, 224, 80, 30);
+			tfmate6_1.setEditable(false);
 		}
 		return tfmate6_1;
 	}
@@ -442,6 +465,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate6_2.setForeground(new Color(0, 51, 102));
 			tfmate6_2.setColumns(10);
 			tfmate6_2.setBounds(145, 224, 80, 30);
+			tfmate6_2.setEditable(false);
 		}
 		return tfmate6_2;
 	}
@@ -452,6 +476,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate6_3.setForeground(new Color(0, 51, 102));
 			tfmate6_3.setColumns(10);
 			tfmate6_3.setBounds(225, 224, 80, 30);
+			tfmate6_3.setEditable(false);
 		}
 		return tfmate6_3;
 	}
@@ -462,6 +487,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate6_4.setForeground(new Color(0, 51, 102));
 			tfmate6_4.setColumns(10);
 			tfmate6_4.setBounds(305, 224, 80, 30);
+			tfmate6_4.setEditable(false);
 		}
 		return tfmate6_4;
 	}
@@ -472,6 +498,7 @@ public class AdminTeamStatus extends JPanel {
 			tfmate6_5.setForeground(new Color(0, 51, 102));
 			tfmate6_5.setColumns(10);
 			tfmate6_5.setBounds(385, 224, 80, 30);
+			tfmate6_5.setEditable(false);
 		}
 		return tfmate6_5;
 	}
