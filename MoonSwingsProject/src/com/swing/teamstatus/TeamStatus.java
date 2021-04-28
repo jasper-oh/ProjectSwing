@@ -63,10 +63,13 @@ public class TeamStatus extends JPanel {
 	DBAction dbAction = new DBAction();
 	//팀원이름을 불러올 텍스트필드 집합
 	ArrayList<JTextField[]> tfbeanList = new ArrayList<JTextField[]>();
-	//라디오버튼 집합(처음ㅁ에 이름불러오고 내가 속한 팀에 라디오버튼이 클릭되어 있도록하기위해)
+	
+	//라디오버튼 집합(처음에 이름불러오고 내가 속한 팀에 라디오버튼이 클릭되어 있도록하기위해)
 	ArrayList<JRadioButton> rdbs = new ArrayList<JRadioButton>();
+	
 	//그 라디오버튼 번호를 저장하기 위한 객체
 	int myteamcount = 999;
+	
 	//들어갈 팀의 번호를 저장하기 위한 객체
 	int selectedrdb = 999;
 	
@@ -512,11 +515,12 @@ public class TeamStatus extends JPanel {
 	}
 	// 텍스트 필드 집합에 저장하고 쿼리로 빈을 채움
 	public void showTeammateStatusAction(){
+		
+		//정리해주고 채워주기 위함
 		for(JTextField[] tfarrays : tfbeanList) {
 			clearTeamColumn(tfarrays);
 		}
 		
-		DBAction dbAction = new DBAction();
 		ArrayList<Bean> beanList =  dbAction.ShowTeammateStatus();
 		
 		JTextField[] tf1 = {tfmate1_1, tfmate1_2, tfmate1_3, tfmate1_4};
@@ -537,14 +541,14 @@ public class TeamStatus extends JPanel {
 			
 			int tempno = beanList.get(i).getNo()-1;
 			String tempname = beanList.get(i).getName();
-			System.out.println(tempno + tempname);
+//			System.out.println(tempno + tempname);
 			insertstudentname(tfbeanList.get(tempno), tempname, tempno);
 			
 		}
 		
 	}
 	
-	//빈칸이면 출력해주고 내이름이 있다면 버튼 조작, 내가 속한 팀에 버튼의 번호를 주기위함
+	//빈칸이면 출력해주고 내이름이 있다면 버튼 조작, 내가 속한 팀에 버튼의 번호를 보내주기위함
 	public void insertstudentname(JTextField[] tfs, String name, int rdbcount) {
 		
 		for(int i=0;i<tfs.length;i++) {
@@ -561,11 +565,24 @@ public class TeamStatus extends JPanel {
 			}
 		}
 	}
-	//그팀에 텍스트필드가 빈자리가 없다며 in버튼 비활성화
+	
+	//rdb 버튼 활성화 하기 위함
+//	public void checkRdb() {
+//		
+//		JTextField[] tfs =  tfbeanList.get(rdbs.get(selectedrdb));
+//		
+//		for(int i=0;i<rdbs.size();i++) {
+//			if(tfs[i].getText().equals("")) {
+//				btnInTeamStatus.setEnabled(true);
+//				return;
+//			}
+//		}
+//	}
+	
+	//그팀에 텍스트필드가 빈자리가 없다면 in버튼 비활성화
 	public void checkFull(int num) {
 		
 		JTextField[] tfs =  tfbeanList.get(num-1);
-		
 		for(int i=0;i<tfs.length;i++) {
 			if(tfs[i].getText().equals("")) {
 				btnInTeamStatus.setEnabled(true);
@@ -575,11 +592,10 @@ public class TeamStatus extends JPanel {
 		btnInTeamStatus.setEnabled(false);
 	}
 	
-	//그 필드에 내이름있는지 확인하고 out버튼 활정화
+	//그 필드에 내 이름있는지 확인하고 out버튼 활정화
 	public void checkMyname(int num) {
 		
 		JTextField[] tfs =  tfbeanList.get(num-1);
-		
 		for(int i=0;i<tfs.length;i++) {
 			//수정해야함
 			if(tfs[i].getText().equals("이승연")) {
@@ -597,17 +613,9 @@ public class TeamStatus extends JPanel {
 			//수정하기
 			if(tfs[i].getText().equals("이승연")) {
 				dbAction.teamStatusOutAction();
-				clearTeamColumn(tfs);
 				showTeammateStatusAction();
 				btnInTeamStatus.setVisible(true);
 			}
-		}
-	}
-	
-	//텍스트필드 지워주기 위한 친구(지워주고 다시 채움)
-	private void clearTeamColumn(JTextField[] tfs) {
-		for(JTextField tf : tfs) {
-			tf.setText("");
 		}
 	}
 	
@@ -618,11 +626,18 @@ public class TeamStatus extends JPanel {
 			//수정하기
 			if(tfs[i].getText().equals("")) {
 				dbAction.teamStatusInAction(selectedrdb);
-				clearTeamColumn(tfs);
+				//pk를 아이디로 잡아야하지 않을까?
 				showTeammateStatusAction();
 				btnInTeamStatus.setVisible(false);
 				return;
 			}
+		}
+	}
+	
+	//텍스트필드 지워주기 위한 친구
+	private void clearTeamColumn(JTextField[] tfs) {
+		for(JTextField tf : tfs) {
+			tf.setText("");
 		}
 	}
 	
