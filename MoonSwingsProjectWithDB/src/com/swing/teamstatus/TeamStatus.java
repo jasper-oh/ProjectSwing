@@ -422,6 +422,9 @@ public class TeamStatus extends JPanel {
 		}
 		return tfmate6_5;
 	}
+	
+	
+	
 
 		
 	}

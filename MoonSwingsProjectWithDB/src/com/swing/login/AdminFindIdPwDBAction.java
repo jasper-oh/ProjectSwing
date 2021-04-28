@@ -8,97 +8,115 @@ import java.sql.Statement;
 
 import com.swing.DB.ShareVar;
 
-public class SignInDBAction {
+public class AdminFindIdPwDBAction {
 	private final String url_mysql =  ShareVar.url_mysql;
 	private final String id_mysql = ShareVar.id_mysql;
 	private final String pw_mysql = ShareVar.pw_mysql;
 	
 	String id;
-	String pw;
+	String name;
+	String phone;
 	
 	
-	public SignInDBAction(String id, String pw) {
+	
+	public AdminFindIdPwDBAction(String name, String phone) {
+		super();
+		this.phone = phone;
+		this.name = name;
+	}
+	
+	
+	
+	public AdminFindIdPwDBAction(String id, String name, String phone) {
 		super();
 		this.id = id;
-		this.pw = pw;
+		this.name = name;
+		this.phone = phone;
 	}
-	
-	public boolean CheckLoginAction() {
+
+
+
+	public String getFindIdAction() {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		boolean result = false;
-		
+		String searchId = "";
 		try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	        @SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-	        String A = "SELECT * FROM student";
-	        String B = " WHERE id = ? AND pw = ?"  ;
+	        String A = "select id from teacher";
+	        String B = " where name = ? and phone = ?"  ;
 	        
-	        System.out.println(A+B);
+
+	        
 
 	        ps = conn_mysql.prepareStatement(A+B);
 	        
-	        ps.setString(1, id.trim());
-	        ps.setString(2, pw.trim());
+	        ps.setString(1, name.trim());
+	        ps.setString(2, phone.trim());
 	        rs = ps.executeQuery();
 	        
 	        
 	        
-	        if(rs.next()) {
-	        	result = true;
-	        }else {
-	        	result = false;
+	        while(rs.next()) {
+	        	searchId = rs.getString("id");
 	        }
 	        
 	        conn_mysql.close();
-	        return result;
+	        
+	        return searchId;
+	        
+	        
 	    } catch (Exception e){                    
 	        e.printStackTrace();
-	        return false;
+	        return "false";
 	    }
 		
 	}
-	public boolean CheckTeacherLoginAction() {
-		
+	
+	public String getFindPwAction() {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		boolean result = false;
-		
+		String searchPw = "";
 		try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	        @SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-	        String A = "SELECT * FROM teacher";
-	        String B = " WHERE id = ? AND pw = ?"  ;
-	        
+	        String A = "select pw from teacher";
+	        String B = " WHERE id = ? AND name = ? AND phone = ?" ;
+
 	        System.out.println(A+B);
 
 	        ps = conn_mysql.prepareStatement(A+B);
 	        
 	        ps.setString(1, id.trim());
-	        ps.setString(2, pw.trim());
+	        ps.setString(2, name.trim());
+	        ps.setString(3, phone.trim());
 	        rs = ps.executeQuery();
 	        
 	        
 	        
-	        if(rs.next()) {
-	        	result = true;
-	        }else {
-	        	result = false;
+	        while(rs.next()) {
+	        	searchPw = rs.getString("pw");
 	        }
 	        
 	        conn_mysql.close();
-	        return result;
+	        
+	        return searchPw;
+	        
+	        
 	    } catch (Exception e){                    
 	        e.printStackTrace();
-	        return result;
+	        return "false";
 	    }
+		
 	}
+
 	
+
 }

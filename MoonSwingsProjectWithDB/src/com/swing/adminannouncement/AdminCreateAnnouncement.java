@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -23,6 +25,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
+
 import javax.swing.JTextArea;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
@@ -88,7 +92,7 @@ public class AdminCreateAnnouncement {
 			textArea = new JTextArea();
 			textArea.setBackground(Color.WHITE);
 			textArea.setForeground(Color.GRAY);
-			textArea.setText("내용 적는곳");
+			textArea.setText("");
 			textArea.setRows(20);
 			textArea.setBounds(37, 76, 415, 165);
 		}
@@ -107,7 +111,7 @@ public class AdminCreateAnnouncement {
 			dtrpnTitle = new JEditorPane();
 			dtrpnTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 			dtrpnTitle.setForeground(Color.GRAY);
-			dtrpnTitle.setText("Title");
+			dtrpnTitle.setText("");
 			dtrpnTitle.setBounds(37, 18, 415, 30);
 		}
 		return dtrpnTitle;
@@ -115,10 +119,47 @@ public class AdminCreateAnnouncement {
 	private JButton getBtnCreate() {
 		if (btnCreate == null) {
 			btnCreate = new JButton("Create");
+			btnCreate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+									
+					insertAction();
+					AdminAnnouncement adminAnnouncement = new AdminAnnouncement();
+					adminAnnouncement.searchAction();
+//					adminAnnouncement.clearColumn();
+
+				}
+			});
 			btnCreate.setBackground(Color.WHITE);
 			btnCreate.setForeground(new Color(0, 102, 204));
 			btnCreate.setBounds(348, 267, 117, 40);
 		}
 		return btnCreate;
+	}
+	
+	private void insertAction() {
+		
+//		Calendar cal = Calendar.getInstance();
+//		int year = cal.get ( cal.YEAR );
+//		int month = cal.get ( cal.MONTH ) + 1 ;
+//		int date = cal.get ( cal.DATE ) ;
+//		
+//		String writing = year + "-" + month + "-" + date ;
+		String title = dtrpnTitle.getText();
+		String content = textArea.getText();
+
+		
+//		DbAction dbAction = new DbAction(writing, title, content);
+		DbAction dbAction = new DbAction(title, content);
+		boolean msg = dbAction.insertAction();
+		
+		if(msg == true) {
+			JOptionPane.showMessageDialog(null, "게시물이 등록되었습니다.");
+			frmCreate.dispose();	                
+		}else {
+			JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!",
+					"Critical Error!", 
+					JOptionPane.ERROR_MESSAGE);                    
+		}
+		
 	}
 } // End Line

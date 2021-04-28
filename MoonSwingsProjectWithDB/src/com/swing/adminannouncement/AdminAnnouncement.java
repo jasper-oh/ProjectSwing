@@ -1,12 +1,23 @@
 package com.swing.adminannouncement;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -18,14 +29,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import com.swing.login.FindIdPw;
-
 public class AdminAnnouncement extends JPanel {
+	
+	public AdminAnnouncement() {
+	}
 	
 	
 	private JPanel panelAnnouncement;
 	private JScrollPane scrollPane;
 	private final DefaultTableModel Outer_Table_Announcement = new DefaultTableModel();
 	private JTable tableAnnouncement;
+	private JLabel lblAnnoucementNo;
 	private JLabel lblAnnoucementTitle;
 	private JLabel lblAnnoucementDate;
 	private JSeparator separator;
@@ -33,6 +47,7 @@ public class AdminAnnouncement extends JPanel {
 	private JButton btnCreate;
 	private JButton btnDelete;
 	private JButton btnUpdate;
+	
 	
 	/**
 	 * Create the panel.
@@ -44,6 +59,7 @@ public class AdminAnnouncement extends JPanel {
 			panelAnnouncement.setBounds(300, 45, 490, 497);
 			panelAnnouncement.setLayout(null);
 			panelAnnouncement.add(getScrollPane());
+			panelAnnouncement.add(getLblAnnoucementNo());
 			panelAnnouncement.add(getLblAnnoucementTitle());
 			panelAnnouncement.add(getLblAnnoucementDate());
 			panelAnnouncement.add(getSeparator());
@@ -68,6 +84,17 @@ public class AdminAnnouncement extends JPanel {
 		if (tableAnnouncement == null) {
 			tableAnnouncement = new JTable();
 			tableAnnouncement.setForeground(new Color(0, 102, 204));
+			tableAnnouncement.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getButton() == 1){
+						clickCount();
+						TableClick();
+						AdminAnnouncementTable();
+						searchAction();
+					}
+				}
+			});
 			tableAnnouncement.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tableAnnouncement.getTableHeader().setReorderingAllowed(false);
 			tableAnnouncement.setModel(Outer_Table_Announcement); 
@@ -107,17 +134,27 @@ public class AdminAnnouncement extends JPanel {
 	    col.setPreferredWidth(width);
 		}
 	
+	private JLabel getLblAnnoucementNo() {
+		if (lblAnnoucementNo == null) {
+			lblAnnoucementNo = new JLabel("");
+			lblAnnoucementNo.setBounds(30, 233, 20, 38);
+			lblAnnoucementNo.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+			lblAnnoucementNo.setForeground(new Color(0, 102, 204));
+		}
+		return lblAnnoucementNo;
+	}
 	private JLabel getLblAnnoucementTitle() {
 		if (lblAnnoucementTitle == null) {
-			lblAnnoucementTitle = new JLabel("Announcement Title");
-			lblAnnoucementTitle.setBounds(30, 233, 295, 38);
+			lblAnnoucementTitle = new JLabel("");
+			lblAnnoucementTitle.setBounds(60, 233, 295, 38);
+			lblAnnoucementTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 			lblAnnoucementTitle.setForeground(new Color(0, 102, 204));
 		}
 		return lblAnnoucementTitle;
 	}
 	private JLabel getLblAnnoucementDate() {
 		if (lblAnnoucementDate == null) {
-			lblAnnoucementDate = new JLabel("2021-04-23");
+			lblAnnoucementDate = new JLabel("");
 			lblAnnoucementDate.setBounds(350, 233, 110, 38);
 			lblAnnoucementDate.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 			lblAnnoucementDate.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -138,13 +175,15 @@ public class AdminAnnouncement extends JPanel {
 			txtrAnnouncementContent = new JTextArea();
 			txtrAnnouncementContent.setBounds(30, 283, 430, 141);
 			txtrAnnouncementContent.setRows(20);
-			txtrAnnouncementContent.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			txtrAnnouncementContent.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 			txtrAnnouncementContent.setForeground(new Color(0, 102, 204));
-			txtrAnnouncementContent.setText("Announcement Content\nhello everyone\ni'm fine thank you and you?");
+			txtrAnnouncementContent.setText("");
+			txtrAnnouncementContent.setEditable(false);
 		}
 		return txtrAnnouncementContent;
 	}
-
+	
+	// button
 	private JButton getBtnCreate() {
 		if (btnCreate == null) {
 			btnCreate = new JButton("Create");
@@ -153,6 +192,7 @@ public class AdminAnnouncement extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					AdminCreateAnnouncement create = new AdminCreateAnnouncement() ;
 					create.run();
+					clearColumn();
 				}
 			});
 			btnCreate.setBounds(25, 435, 140, 35);
@@ -163,6 +203,16 @@ public class AdminAnnouncement extends JPanel {
 		if (btnDelete == null) {
 			btnDelete = new JButton("Delete");
 			btnDelete.setForeground(new Color(0, 102, 204));
+			btnDelete.setEnabled(false);
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+						deleteAction();
+						searchAction();
+						clearColumn();
+					
+				}
+			});
 			btnDelete.setBounds(325, 435, 140, 35);
 		}
 		return btnDelete;
@@ -171,15 +221,108 @@ public class AdminAnnouncement extends JPanel {
 		if (btnUpdate == null) {
 			btnUpdate = new JButton("Update");
 			btnUpdate.setForeground(new Color(0, 102, 204));
+			btnUpdate.setEnabled(false);
 			btnUpdate.setBounds(175, 435, 140, 35);
 			btnUpdate.addActionListener(new ActionListener() {
+				
 				public void actionPerformed(ActionEvent e) {
-					AdminUpdateAnnouncement update = new AdminUpdateAnnouncement() ;
-					update.run();
+					String stno = lblAnnoucementNo.getText();
+					String no = stno.substring(0, stno.length()-1);
+
+					String writing = lblAnnoucementDate.getText();
+					String title = lblAnnoucementTitle.getText();
+					String content = txtrAnnouncementContent.getText();
+
+					AdminUpdateAnnouncement update = new AdminUpdateAnnouncement(no, writing, title, content) ;
+					update.run(no, writing, title, content);
+					
+					clearColumn();
+				
 				}
 			});
 		}
 		return btnUpdate;
 	}
-
-}
+	
+	// --------------------------------
+	// 21.04.27 Hyokyeong 
+	// ---------------------------------
+	
+	//DB to Table
+	public void searchAction(){
+        DbAction dbAction = new DbAction();
+        ArrayList<Bean> beanList = dbAction.selectAnnouncementList();
+        
+        int listCount = beanList.size();
+        
+        for(int i=0; i<listCount; i++) {
+        	String anNo = Integer.toString(beanList.get(i).getNo());
+        	String anVi = Integer.toString(beanList.get(i).getViews());
+        	String[] qTxt = {anNo, beanList.get(i).getWriting(), beanList.get(i).getTitle(), anVi};
+        	Outer_Table_Announcement.addRow(qTxt);	
+        	
+        }
+	}
+	
+	// click시 내용 띄우기
+	private void TableClick() {
+		int i = tableAnnouncement.getSelectedRow();
+		String anNo = (String)tableAnnouncement.getValueAt(i, 0);
+		int wkNo = Integer.parseInt(anNo);
+		
+		DbAction dbAction = new DbAction(wkNo);		
+		Bean bean = dbAction.TableClick();
+		String stNo = Integer.toString(bean.getNo());
+	
+		
+		lblAnnoucementNo.setText(stNo+".");
+		lblAnnoucementTitle.setText(bean.getTitle());
+		lblAnnoucementDate.setText(bean.getWriting());
+		txtrAnnouncementContent.setText(bean.getContent());
+		
+		btnUpdate.setEnabled(true);
+		btnDelete.setEnabled(true);
+	}
+	
+	// Table Click시 Count ++
+	private void clickCount() {
+		
+		int i = tableAnnouncement.getSelectedRow();
+		String anNo = (String)tableAnnouncement.getValueAt(i, 0);
+		int wkNo = Integer.parseInt(anNo);
+		
+		String anViews = (String)tableAnnouncement.getValueAt(i , 3);
+		int wkViews = Integer.parseInt(anViews);
+		
+		DbAction dbAction = new DbAction(wkNo, wkViews);
+		dbAction.clickCount();           
+	}
+	
+	// Announcement data field Clear
+	public void clearColumn() {
+		lblAnnoucementNo.setText("");
+		lblAnnoucementTitle.setText("");
+		lblAnnoucementDate.setText("");
+		txtrAnnouncementContent.setText("");
+		btnUpdate.setEnabled(false);
+		btnDelete.setEnabled(false);
+	}
+	
+	// delete Announcement
+	private void deleteAction() {
+		
+		int i = tableAnnouncement.getSelectedRow();
+		String anNo = (String)tableAnnouncement.getValueAt(i, 0);
+		int wkNo = Integer.parseInt(anNo);
+		
+		DbAction dbAction = new DbAction(wkNo);
+		
+		dbAction.deleteAction();
+		
+		JOptionPane.showMessageDialog(this, "게시글을 삭제하였습니다. ",
+				"Delete Announcement", 
+				JOptionPane.INFORMATION_MESSAGE);  
+	}
+	
+	
+} // end line

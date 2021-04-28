@@ -2,9 +2,12 @@ package com.swing.checkprofile;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,12 +18,15 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.swing.login.Login;
+import com.swing.mainpage.FixedPanelDBAction;
+
 public class CheckProfile extends JPanel {
 	public CheckProfile() {
 	}
 
 	private JPanel panelCheckProfile;
-	private JPanel ImagePanel_1;
+	private JLabel ImageLabel_1;
 	private JLabel lblCheckProfileId;
 	private JLabel lblCheckProfileName;
 	private JLabel lblCheckProfileMbti;
@@ -48,6 +54,14 @@ public class CheckProfile extends JPanel {
 	private JTextField tfCheckProfilePhone;
 	private JButton btnImportImage;
 	private JButton btnCancel;
+	ArrayList<JTextField> checkPersonalInfo = new ArrayList<JTextField>();
+	
+	
+	
+	String[] personalInfo =getCheckProfileInfo(Login.tfLoginUserId.getText());
+	FixedPanelDBAction fpdba = new FixedPanelDBAction(Login.tfLoginUserId.getText());
+	ImageIcon imageIcon = new ImageIcon(fpdba.getStudentImage());
+	
 	
 	
 	/**
@@ -60,7 +74,7 @@ public class CheckProfile extends JPanel {
 			panelCheckProfile.setForeground(Color.BLACK);
 			panelCheckProfile.setBounds(300, 45, 490, 497);
 			panelCheckProfile.setLayout(null);
-			panelCheckProfile.add(getImagePanel_1());
+			panelCheckProfile.add(getImageLabel_1());
 			panelCheckProfile.add(getLblCheckProfileId());
 			panelCheckProfile.add(getLblCheckProfileName());
 			panelCheckProfile.add(getLblCheckProfileMbti());
@@ -84,6 +98,8 @@ public class CheckProfile extends JPanel {
 			panelCheckProfile.add(getTfCheckProfilePhone());
 			panelCheckProfile.add(getBtnImportImage());
 			panelCheckProfile.add(getBtnCancel());
+			getAllJTextField();
+			setDataOfAllJTextField();
 			
 		}
 		return panelCheckProfile;
@@ -100,14 +116,16 @@ public class CheckProfile extends JPanel {
 		return btnImportImage;
 	}
 	
-	private JPanel getImagePanel_1() {
-		if (ImagePanel_1 == null) {
-			ImagePanel_1 = new JPanel();
-			ImagePanel_1.setBackground(new Color(245, 245, 245));
-			ImagePanel_1.setLayout(null);
-			ImagePanel_1.setBounds(30, 10, 102, 136);
+	private JLabel getImageLabel_1() {
+		if (ImageLabel_1 == null) {
+			ImageLabel_1 = new JLabel();
+			ImageLabel_1.setBackground(new Color(245, 245, 245));
+			ImageLabel_1.setLayout(null);
+			ImageLabel_1.setBounds(30, 10, 102, 136);
+			Image image = imageIcon.getImage().getScaledInstance(ImageLabel_1.getWidth()+17, ImageLabel_1.getHeight(), Image.SCALE_SMOOTH);
+			ImageLabel_1.setIcon(new ImageIcon(image));
 		}
-		return ImagePanel_1;
+		return ImageLabel_1;
 	}
 	private JLabel getLblCheckProfileId() {
 		if (lblCheckProfileId == null) {
@@ -429,7 +447,6 @@ public class CheckProfile extends JPanel {
 		btnCancel.setVisible(true);
 		btnImportImage.setVisible(true);
 		textFieldEnable();
-
 	}
 	
 	private void cancelButtonAction() {
@@ -438,14 +455,13 @@ public class CheckProfile extends JPanel {
 		btnEditinCheckProfile.setText("Edit");
 		btnEditinCheckProfile.setVisible(true);
 		textFieldUnable();
-		
 	}
 	private void saveAction() {
 		btnEditinCheckProfile.setText("Edit");
 		btnCancel.setVisible(false);
 		btnImportImage.setVisible(false);
+		saveAllJTextfieldAction();
 		textFieldUnable();
-		
 	}
 	private void textFieldEnable() {
 		tfCheckProfileId.setEditable(true);
@@ -468,5 +484,44 @@ public class CheckProfile extends JPanel {
 		tfCheckProfileIntroduce.setEditable(false);
 	}
 	
+	private void getAllJTextField() {
+		checkPersonalInfo.add(tfCheckProfileId);
+		checkPersonalInfo.add(tfCheckProfileName);
+		checkPersonalInfo.add(tfCheckProfilePhone);
+		checkPersonalInfo.add(tfCheckProfileMbti);
+		checkPersonalInfo.add(tfCheckProfileGithub);
+		checkPersonalInfo.add(tfCheckProfileAddress);
+		checkPersonalInfo.add(tfCheckProfileStrength);
+		checkPersonalInfo.add(tfCheckProfileIntroduce);
+	}
+	
+//	private void getDataOfAllJTextField() {
+//		for(int i = 0 ; i < checkPersonalInfo.size() ; i++) {
+//			System.out.println(checkPersonalInfo.get(i));
+//		}
+//	}
+	
+	private void setDataOfAllJTextField() {
+		for(int i = 0 ; i < checkPersonalInfo.size() ; i++) {
+			checkPersonalInfo.get(i).setText(personalInfo[i]);
+		}
+	}
+	
+	private void saveAllJTextfieldAction() {
+		
+		
+		
+		
+		
+		
+	}
+	public String[] getCheckProfileInfo(String loginId) {
+		
+		CheckProfileDBAction checkProfileInfo = new CheckProfileDBAction(loginId);
+		
+		String[] arrCheckProfileInfo = checkProfileInfo.insertAction();
+		
+		return arrCheckProfileInfo;
+	}
 
 }

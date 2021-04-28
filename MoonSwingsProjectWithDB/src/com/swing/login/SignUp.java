@@ -1,9 +1,5 @@
 package com.swing.login;
 
-
-// 비밀번호 제약 사항 몇자이상 몇사이내?
-//어떤식으로 포함 할것 ?
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -417,7 +413,15 @@ public class SignUp {
 	
 	private void signUpAction() {
 	
-		if(btnPwCheck.getText().equals("Check") && btnPwCheck.getText().equals("Check") && btnNewButton.getText().equals("Done!")) {
+		if(btnSignUpIdCheck.getText().equals("Check") && btnPwCheck.getText().equals("Check") && btnNewButton.getText().equals("Done!")) {
+			
+			if(tfSignUpName.getText().equals("Enter Your Name")) {
+				JOptionPane.showMessageDialog(null, "이름은 필수 입력란입니다.");
+			}else if(tfSignUpPhone.getText().equals("01011112222")) {
+				JOptionPane.showMessageDialog(null, "전화번호는 필수 입력란입니다.");
+			}else {
+			
+			
 			String id = tfSignUpId.getText().trim();
 			char[] pw = tfSignUpPw.getPassword();
 			String strPw = String.copyValueOf(pw);
@@ -433,21 +437,27 @@ public class SignUp {
 
 			SignUpDBAction signUpDbAction = new SignUpDBAction(id, strPw , name, mbti,  phone, github_id, introduce, subway, photo);
 		
-		boolean msg = signUpDbAction.insertAction();
+			boolean msg = signUpDbAction.insertAction();
 		
 			if ( msg ){
-				JOptionPane.showMessageDialog(null, "Sign Up Success! "+" \n Welcome "+ tfSignUpName.getText());      
+				JOptionPane.showMessageDialog(null, "Sign Up Success! "+" \n Welcome "+ tfSignUpName.getText());
+				frmSignUp.setVisible(false);
+				
 				}else {
 					JOptionPane.showMessageDialog(null,"회원가입중 에러가 발생했습니다!",
 							"Critical Error!", 
 							JOptionPane.ERROR_MESSAGE);    
-		 }		
-		}else if(btnPwCheck.getText().equals("Check") && btnPwCheck.getText().equals("Check")){
-			JOptionPane.showConfirmDialog(null, " Please Check the ID or Check the PassWord");
-		}else {
+				}	
+			}
+
+//			btnPwCheck.getText().equals("Check") && btnPwCheck.getText().equals("Check") 
+		}else if( btnNewButton.getText().equals("Done!") == false){
 			JOptionPane.showConfirmDialog(null, "Please Import your Photo to identify you");
+		}else {
+			JOptionPane.showConfirmDialog(null, " Please Check the ID or Check the PassWord");
 		}
 	}
+//	signUpAction end
 	
 	private JButton getBtnPwCheck() {
 		if (btnPwCheck == null) {
@@ -539,7 +549,6 @@ public class SignUp {
 	}
 	public void importImageAction() {
 		
-		btnNewButton.setText("Done!");
 		
 		JFileChooser browseImageFile = new JFileChooser();
 		
@@ -552,8 +561,10 @@ public class SignUp {
 			File selectedImageFile = browseImageFile.getSelectedFile();
 			String selectedImagePath = selectedImageFile.getAbsolutePath();
 			imagePath = selectedImagePath;
+			System.out.println(selectedImagePath);
 //			JOptionPane.showMessageDialog(null, selectedImagePath);
 			
+			btnNewButton.setText("Done!");
 			ImageIcon imageIcon = new ImageIcon(selectedImagePath);
 			
 			Image image = imageIcon.getImage().getScaledInstance(lblSignUpImage.getWidth()+17, lblSignUpImage.getHeight(), Image.SCALE_SMOOTH);

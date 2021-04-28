@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import com.swing.admin.AdminFixedPanelDBAction;
 import com.swing.admin.AdminMainPage;
+import com.swing.checkprofile.CheckProfileDBAction;
 import com.swing.mainpage.FixedPanelDBAction;
 import com.swing.mainpage.MainPage;
 
@@ -170,12 +172,16 @@ public class Login {
 			btnLoginSignIn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
+					System.out.println(cbCheckStudentTeacher.getSelectedIndex());
 					
 					if(cbCheckStudentTeacher.getSelectedIndex() == 0) {	
 						String userId = tfLoginUserId.getText();
 						getBriefInfo(userId);
-					loginAction();
-					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
+						loginAction();
+					}
+					if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
+						String userId = tfLoginUserId.getText();
+						getTeacherBriefInfo(userId);
 						teacherLoginAction();
 					}
 				}
@@ -193,10 +199,14 @@ public class Login {
 			btnLoginSignUp = new JButton("Sign Up");
 			btnLoginSignUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					SignUp signUp = new SignUp();
 					
-					signUp.run();
-
+					if(cbCheckStudentTeacher.getSelectedIndex() == 0) {	
+						SignUp signUp = new SignUp();
+						signUp.run();
+					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
+						AdminSignUp adminSignUp = new AdminSignUp();
+						adminSignUp.run();
+					}
 				}
 			});
 			btnLoginSignUp.setForeground(new Color(0, 102, 204));
@@ -212,8 +222,14 @@ public class Login {
 			btnLoginFindIdPw.setForeground(new Color(0, 102, 204));
 			btnLoginFindIdPw.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					FindIdPw findIdPw = new FindIdPw();
-					findIdPw.run();
+					
+					if(cbCheckStudentTeacher.getSelectedIndex() == 0) {
+						FindIdPw findIdPw = new FindIdPw();
+						findIdPw.run();
+					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
+						AdminFindIdPw adminFindIdPw = new AdminFindIdPw();
+						adminFindIdPw.run();
+					}
 				}
 			});
 			btnLoginFindIdPw.setBounds(594, 454, 159, 43);
@@ -263,8 +279,28 @@ public class Login {
 		FixedPanelDBAction fixedPanelInfo = new FixedPanelDBAction(logInId);
 		
 		String[] briefInfo = fixedPanelInfo.getFixedPanelInfo();
+		System.out.println("GetBriefInfo");
 
 		return briefInfo;
 	}
+	
+	public String[] getTeacherBriefInfo(String logInId) {
+		
+		AdminFixedPanelDBAction fixedAdminPanelInfo = new AdminFixedPanelDBAction(logInId);
+		
+		String[] adminBriefInfo = fixedAdminPanelInfo.getFixedPanelTeacherInfo();
+		System.out.println("getTeacherBriefInfo");
+
+		return adminBriefInfo;
+	}
+	
+//	public String[] getCheckProfileInfo(String loginId) {
+//		
+//		CheckProfileDBAction checkProfileInfo = new CheckProfileDBAction(loginId);
+//		
+//		String[] arrCheckProfileInfo = checkProfileInfo.insertAction();
+//		
+//		return arrCheckProfileInfo;
+//	}
 
 }

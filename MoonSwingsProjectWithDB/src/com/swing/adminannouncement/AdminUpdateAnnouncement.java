@@ -11,7 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -23,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
+
 import javax.swing.JTextArea;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
@@ -30,26 +33,27 @@ import javax.swing.JEditorPane;
 
 public class AdminUpdateAnnouncement {
 
-	private JFrame frmCreate;
-	
-	// Outer Table for Project
-	private final DefaultTableModel Outer_Table_ProjectTable = new DefaultTableModel();
-	// Outer Table for Teammate Review
-	private final DefaultTableModel Outer_Table_TeammateReviewTable = new DefaultTableModel();
+	private JFrame frmUpdate;
 	private JTextArea textArea;
 	private JSeparator separator;
 	private JEditorPane dtrpnTitle;
 	private JButton btnUpdate;
+	String no;
+	String writing;
+	String title;
+	String content;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void run() {
+
+	public void run(String no, String writing, String title, String content) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminUpdateAnnouncement window = new AdminUpdateAnnouncement();
-					window.frmCreate.setVisible(true);
+					AdminUpdateAnnouncement window = new AdminUpdateAnnouncement(no, writing, title, content);
+					window.frmUpdate.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,7 +64,11 @@ public class AdminUpdateAnnouncement {
 	/**
 	 * Create the application.
 	 */
-	public AdminUpdateAnnouncement() {
+	public AdminUpdateAnnouncement(String no, String writing, String title, String content) {
+		this.no = no;
+		this.writing = writing;
+		this.title = title;
+		this.content = content;
 		initialize();
 	}
 
@@ -68,17 +76,15 @@ public class AdminUpdateAnnouncement {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmCreate = new JFrame();
-		frmCreate.setTitle("Update Annoucement");
-		frmCreate.getContentPane().setBackground(Color.WHITE);
-		frmCreate.setBounds(100, 100, 500, 350);
-		
-//		frmProfile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCreate.getContentPane().setLayout(null);
-		frmCreate.getContentPane().add(getTextArea());
-		frmCreate.getContentPane().add(getSeparator());
-		frmCreate.getContentPane().add(getDtrpnTitle());
-		frmCreate.getContentPane().add(getBtnUpdate());
+		frmUpdate = new JFrame();
+		frmUpdate.setTitle("Update Annoucement");
+		frmUpdate.getContentPane().setBackground(Color.WHITE);
+		frmUpdate.setBounds(100, 100, 500, 350);		
+		frmUpdate.getContentPane().setLayout(null);
+		frmUpdate.getContentPane().add(getTextArea());
+		frmUpdate.getContentPane().add(getSeparator());
+		frmUpdate.getContentPane().add(getDtrpnTitle());
+		frmUpdate.getContentPane().add(getBtnUpdate());
 		
 
 
@@ -88,7 +94,7 @@ public class AdminUpdateAnnouncement {
 			textArea = new JTextArea();
 			textArea.setBackground(Color.WHITE);
 			textArea.setForeground(Color.GRAY);
-			textArea.setText("내용 적는곳");
+			textArea.setText(content);
 			textArea.setRows(20);
 			textArea.setBounds(37, 76, 415, 165);
 		}
@@ -107,7 +113,7 @@ public class AdminUpdateAnnouncement {
 			dtrpnTitle = new JEditorPane();
 			dtrpnTitle.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 			dtrpnTitle.setForeground(Color.GRAY);
-			dtrpnTitle.setText("Title");
+			dtrpnTitle.setText(title);
 			dtrpnTitle.setBounds(37, 18, 415, 30);
 		}
 		return dtrpnTitle;
@@ -117,8 +123,39 @@ public class AdminUpdateAnnouncement {
 			btnUpdate = new JButton("Update");
 			btnUpdate.setBackground(Color.WHITE);
 			btnUpdate.setForeground(new Color(0, 102, 204));
+			btnUpdate.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+									
+					updateAction();
+					AdminAnnouncement adminAnnouncement = new AdminAnnouncement();
+					adminAnnouncement.searchAction();
+				}
+			});
 			btnUpdate.setBounds(348, 267, 117, 40);
 		}
 		return btnUpdate;
 	}
+	
+	
+	private void updateAction() {
+		
+		int intno = Integer.parseInt(no);
+		
+//		Calendar cal = Calendar.getInstance();
+//		int year = cal.get ( cal.YEAR );
+//		int month = cal.get ( cal.MONTH ) + 1 ;
+//		int date = cal.get ( cal.DATE ) ;
+//		
+//		String writing = year + "-" + month + "-" + date ;
+		String title = dtrpnTitle.getText();
+		String content = textArea.getText();
+		
+		DbAction dbAction = new DbAction(intno, title, content);
+		dbAction.updateAction();           
+		
+		JOptionPane.showMessageDialog(null, intno + "번의 게시물이 수정되었습니다.");
+		frmUpdate.dispose();	
+	}
+	
+	
 } // End Line
