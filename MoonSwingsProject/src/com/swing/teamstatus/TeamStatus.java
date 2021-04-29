@@ -660,6 +660,3 @@ public class TeamStatus extends JPanel {
 	
 }
 
-
-
-

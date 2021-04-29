@@ -14,6 +14,7 @@ import javax.swing.table.TableColumn;
 import com.swing.adminannouncement.AdminAnnouncement;
 import com.swing.adminstudentlist.AdminStudentList;
 import com.swing.adminteamstatus.AdminTeamStatus;
+import com.swing.adminteamstatus.AdminTeamStatusDBAction;
 
 import java.awt.Font;
 import javax.swing.JTable;
@@ -319,6 +320,7 @@ public class AdminMainPage {
 		adminTeamStatus.TSStudentListTable();
 		adminTeamStatus.SearchAction();
 		adminTeamStatus.showTeammateStatusAction();
+		adminTeamStatus.dbAction = new AdminTeamStatusDBAction();
 		
 	}
 

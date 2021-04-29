@@ -74,16 +74,13 @@ public class AdminTeamStatus extends JPanel {
 	private JScrollPane scrollPane_TSStudentList;
 	private JTable tableTeamStatus;
 	
-	AdminTeamStatusDBAction dbAction = new AdminTeamStatusDBAction();
+	public AdminTeamStatusDBAction dbAction = new AdminTeamStatusDBAction();
 	
 	//팀원이름을 불러올 텍스트필드 집합
 	ArrayList<JTextField[]> tfbeanList = new ArrayList<JTextField[]>();
 	
 	//라디오버튼 집합(처음에 이름불러오고 내가 속한 팀에 라디오버튼이 클릭되어 있도록하기위해)
 	ArrayList<JRadioButton> rdbs = new ArrayList<JRadioButton>();
-	
-	//그 라디오버튼 번호를 저장하기 위한 객체
-	int teamcount = 888;
 	
 	//들어갈 팀의 번호를 저장하기 위한 객체
 	int selectedrdb = 999;
@@ -567,16 +564,20 @@ public class AdminTeamStatus extends JPanel {
 		}
 		return tableTeamStatus;
 	}
+	//테이블 꾸미기
 	public void TSStudentListTable(){
+		
 		int i = Outer_Table_StrudentList.getRowCount();
 		Outer_Table_StrudentList.addColumn("ID");
 		Outer_Table_StrudentList.addColumn("Name");
 		Outer_Table_StrudentList.addColumn("MBTI");
 		Outer_Table_StrudentList.addColumn("Signal");
 		Outer_Table_StrudentList.setColumnCount(4);
+		
 		for(int j = 0 ; j < i ; j++){
 			Outer_Table_StrudentList.removeRow(0);
 		}
+		
 		tableTeamStatus.setAutoResizeMode(tableTeamStatus.AUTO_RESIZE_OFF);
 		int vColIndex = 0;
 		TableColumn col = tableTeamStatus.getColumnModel().getColumn(vColIndex);
@@ -604,6 +605,7 @@ public class AdminTeamStatus extends JPanel {
 		int listCount = beanList.size();
 		
 		for (int index = 0; index < listCount; index++) {
+			
 			String temp = beanList.get(index).getId();
 			String[] qTxt = {temp, beanList.get(index).getName(), beanList.get(index).getMbti(), beanList.get(index).getDip()};
 			Outer_Table_StrudentList.addRow(qTxt);
@@ -630,10 +632,18 @@ public class AdminTeamStatus extends JPanel {
 		for(int i=0;i<tfs.length;i++) {
 			//수정하기
 			if(tfs[i].getText().equals("")) {
-				dbAction.teamStatusInAction(selectedrdb);
-				showTeammateStatusAction();
-				TSStudentListTable();
-				SearchAction();
+				boolean aaa = dbAction.teamStatusInAction(selectedrdb);
+				
+				if(aaa == true){
+					TSStudentListTable();
+					SearchAction();
+					showTeammateStatusAction();
+			        JOptionPane.showMessageDialog(null, selectedrdb + " 팀에 추가 되었습니다.!"); 
+				}else{
+					JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");
+				}
+				buttonGroup.clearSelection();
+				dbAction = new AdminTeamStatusDBAction();
 				return;
 			}
 		}
@@ -641,7 +651,6 @@ public class AdminTeamStatus extends JPanel {
 	
 	//out버튼 클릭 delete 쿼리 호출
 	public void clickOutAction() {
-		
 		boolean aaa = dbAction.teamStatusOutAction(selectedrdb);
 		
 		if(aaa == true){
@@ -654,8 +663,9 @@ public class AdminTeamStatus extends JPanel {
 		for(int i=0;i<tfs.length;i++) {
 			dbAction.teamStatusOutAction(selectedrdb);
 		}
-		showTeammateStatusAction();
+		buttonGroup.clearSelection();
 		TSStudentListTable();
+		showTeammateStatusAction();
 		SearchAction();
 	}
 	
@@ -690,14 +700,14 @@ public class AdminTeamStatus extends JPanel {
 			int tempno = beanList.get(i).getNo()-1;
 			String tempname = beanList.get(i).getName();
 			
-			insertstudentname(tfbeanList.get(tempno), tempname);
+			insertstudentname(tfbeanList.get(tempno), tempname, tempno);
 			
 		}
 		
 	}
 	
 	//빈칸이면 출력
-	public void insertstudentname(JTextField[] tfs, String name) {
+	public void insertstudentname(JTextField[] tfs, String name, int rdbcount) {
 		
 		for(int i=0;i<tfs.length;i++) {
 			if(tfs[i].getText().equals("")) {
@@ -707,6 +717,7 @@ public class AdminTeamStatus extends JPanel {
 		}
 
 	}
+	
 	//텍스트필드 확인하고 버튼 비활성화
 	public void checkFull(int num) {
 		
@@ -716,13 +727,14 @@ public class AdminTeamStatus extends JPanel {
 			
 			if(tfs[i].getText().equals("")) {
 				btnInTeamStatus.setEnabled(true);
+				btnOutTeamStatus.setEnabled(true);
 				return;
 			}
 		}
 		btnInTeamStatus.setEnabled(false);
 		btnOutTeamStatus.setEnabled(true);
 	}
-
+	
 	//텍스트필드 지워주기 위한 친구
 	private void clearTeamColumn(JTextField[] tfs) {
 		for(JTextField tf : tfs) {

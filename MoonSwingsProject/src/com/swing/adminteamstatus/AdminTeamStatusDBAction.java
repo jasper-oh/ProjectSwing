@@ -63,12 +63,12 @@ public class AdminTeamStatusDBAction {
 			
 			conn_mysql.close();// 사용후 데이터베이스 연결 끊음
 			
-			JOptionPane.showMessageDialog(null, name + "님의 정보가 입력되었습니다.");
+//			JOptionPane.showMessageDialog(null, name + "님의 정보가 입력되었습니다.");
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 	
 	//TeamStatus Out Action
