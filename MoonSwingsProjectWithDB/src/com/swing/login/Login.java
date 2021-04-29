@@ -162,10 +162,12 @@ public class Login {
 		if (cbCheckStudentTeacher == null) {
 			cbCheckStudentTeacher = new JComboBox();
 			cbCheckStudentTeacher.setModel(new DefaultComboBoxModel(new String[] {"Student", "Teacher"}));
-			cbCheckStudentTeacher.setBounds(434, 104, 105, 30);
+			cbCheckStudentTeacher.setBounds(648, 140, 105, 30);
 		}
 		return cbCheckStudentTeacher;
 	}
+	
+	
 	private JButton getBtnLoginSignIn() {
 		if (btnLoginSignIn == null) {
 			btnLoginSignIn = new JButton("Sign In");
@@ -194,6 +196,8 @@ public class Login {
 		}
 		return btnLoginSignIn;
 	}
+	
+	
 	private JButton getBtnLoginSignUp() {
 		if (btnLoginSignUp == null) {
 			btnLoginSignUp = new JButton("Sign Up");
@@ -215,6 +219,8 @@ public class Login {
 		}
 		return btnLoginSignUp;
 	}
+	
+	
 	private JButton getBtnLoginFindIdPw() {
 		if (btnLoginFindIdPw == null) {
 			btnLoginFindIdPw = new JButton("Find ID / PW");
@@ -236,6 +242,8 @@ public class Login {
 		}
 		return btnLoginFindIdPw;
 	}
+	
+	
 	private void loginAction() {
 		
 		String logInId = tfLoginUserId.getText();
@@ -255,6 +263,8 @@ public class Login {
 			pfLoginPassword.setText("");
 		}
 	}
+	
+	
 	private void teacherLoginAction() {
 		String logInId = tfLoginUserId.getText();
 		char[] logInPw = pfLoginPassword.getPassword();
@@ -293,14 +303,4 @@ public class Login {
 
 		return adminBriefInfo;
 	}
-	
-//	public String[] getCheckProfileInfo(String loginId) {
-//		
-//		CheckProfileDBAction checkProfileInfo = new CheckProfileDBAction(loginId);
-//		
-//		String[] arrCheckProfileInfo = checkProfileInfo.insertAction();
-//		
-//		return arrCheckProfileInfo;
-//	}
-
 }
