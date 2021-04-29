@@ -98,7 +98,7 @@ public class SignUp {
 		frmSignUp.getContentPane().setBackground(Color.WHITE);
 		frmSignUp.setTitle("Sign Up");
 		frmSignUp.setBounds(100, 100, 500, 560);
-		frmSignUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frmSignUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSignUp.getContentPane().setLayout(null);
 		frmSignUp.setResizable(false);
 		frmSignUp.getContentPane().add(getPanelSignUpImage());
@@ -403,7 +403,7 @@ public class SignUp {
 	}
 	private JLabel getLblSignUpPasswordCheck() {
 		if (lblSignUpPasswordCheck == null) {
-			lblSignUpPasswordCheck = new JLabel("Password에 Id 포함불가, 9~12자리 비밀번호 , 공백 사용불가");
+			lblSignUpPasswordCheck = new JLabel("Password에 Id 포함불가,대소문자 포함,특수기호 포함, 5~12자리 비밀번호 , 공백 사용불가");
 			lblSignUpPasswordCheck.setForeground(Color.LIGHT_GRAY);
 			lblSignUpPasswordCheck.setFont(new Font("Lucida Grande", Font.BOLD, 12));
 			lblSignUpPasswordCheck.setBounds(147, 163, 322, 16);
@@ -431,11 +431,14 @@ public class SignUp {
 			String github_id = tfSignUpGithub.getText().trim();
 			String introduce = tfSignUpBriefInfo.getText();
 			String subway = tfSignUpAddress.getText();
+			
+//			Strength 받아오기
+			String strength = tfSignUpStrength.getText();
 			String photo = imagePath;
 			
 			System.out.println(photo);
 
-			SignUpDBAction signUpDbAction = new SignUpDBAction(id, strPw , name, mbti,  phone, github_id, introduce, subway, photo);
+			SignUpDBAction signUpDbAction = new SignUpDBAction(id, strPw , name, mbti,  phone, github_id, introduce, subway, strength ,photo);
 		
 			boolean msg = signUpDbAction.insertAction();
 		
@@ -506,11 +509,8 @@ public class SignUp {
 			
 		} else if(strFirstPw.equals(strSecondPw)) {
 			
-			String pwPattern = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{9,12}$";
+			String pwPattern = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{5,12}$";
 			Matcher matcher = Pattern.compile(pwPattern).matcher(strFirstPw);
-			
-			pwPattern = "(.)\\1\\1\\1";
-			Matcher matcher2 = Pattern.compile(pwPattern).matcher(strFirstPw);
 			
 			if(strFirstPw.contains(id)){
 				
@@ -527,27 +527,18 @@ public class SignUp {
 				 return;
 				
 			}
-			if(!matcher.matches() || matcher2.find()){
-				btnPwCheck.setText("Check");
-				tfSignUpPw.setEditable(false);
-				tfSignUpPwConfirm.setEditable(false);
 			
-			}
 			
-			if(matcher.matches() == true) {
-				JOptionPane.showMessageDialog(null,"영문, 숫자, 특수문자 조합, 9~12자리로 비밀번호를 작성해주세요");
+			if(!matcher.matches()){
+				btnPwCheck.setText("Check!");
+				return;
+				
+			}else {
+				JOptionPane.showMessageDialog(null,"영문, 숫자, 특수문자 조합, 5~12자리로 비밀번호를 작성해주세요");
 				tfSignUpPw.setText("");
 				tfSignUpPwConfirm.setText("");
 			}
-			if(matcher2.find()) {
-				JOptionPane.showMessageDialog(null,"같은 문자 4개이상 사용 불가입니다.");
-				tfSignUpPw.setText("");
-				tfSignUpPwConfirm.setText("");
-			}
-			
-			
-			
-			
+
 		}
 	}
 	public void importImageAction() {

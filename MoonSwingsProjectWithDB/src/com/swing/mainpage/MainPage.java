@@ -71,10 +71,12 @@ public class MainPage {
 	
 	
 	TeamStatus teamStatus = new TeamStatus();
-	TeammateReview teammateReview = new TeammateReview();	
+	TeammateReview teammateReview = new TeammateReview(Login.tfLoginUserId.getText());	
 	FindTeammate findTeammate = new FindTeammate();
 	CheckProfile checkProfile = new CheckProfile();
 	Announcement announcement = new Announcement();
+	
+	
 	
 	/**
 	 * Launch the application.
@@ -86,6 +88,7 @@ public class MainPage {
 				try {
 					MainPage window = new MainPage();
 					window.frame.setVisible(true);
+				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -110,7 +113,6 @@ public class MainPage {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				
 				announcement.AnnouncementTable();
 				announcement.searchAction();
 				announcement.setVisible(true);
@@ -126,6 +128,7 @@ public class MainPage {
 		frame.getContentPane().add(fixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(announcement.getAnnouncement());
+
 	}
 	
 	private JPanel fixedPanel() {
@@ -277,6 +280,7 @@ public class MainPage {
 			btnCheckProfile.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {	
 					CheckProfileUIAction();
+					
 				}
 			});
 			btnCheckProfile.setBounds(23, 289, 246, 43);
@@ -360,11 +364,12 @@ public class MainPage {
 	// ---------------------
 	
 	private void CheckAnnouncementUIAction(){
+		
 		lblTitle.setText("Announcement");
 		announcement.getAnnouncement().setVisible(true);
 		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
-		teammateReview.getTeamReview().setVisible(false);
+		teammateReview.setVisible(false);
 		findTeammate.getFindTeammate().setVisible(false);
 
 		
@@ -373,25 +378,24 @@ public class MainPage {
 	private void CheckProfileUIAction() {
 		frame.getContentPane().add(checkProfile.getCheckProfile());
 		lblTitle.setText("Check Profile");
+		teammateReview.setVisible(false);
 		announcement.getAnnouncement().setVisible(false);
 		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(true);
 		checkProfile.CheckProfileTableProject();
+		checkProfile.showCheckprofileMyProject();
 		checkProfile.CheckProfileTableReview();
-		teammateReview.getTeamReview().setVisible(false);
+		checkProfile.showCheckprofileTeammateReview();
 		findTeammate.getFindTeammate().setVisible(false);
 	}
 	
 	private void checkFindTeammateUIAction() {
-		frame.getContentPane().add(teamStatus.getTeamStatus());
-		frame.getContentPane().add(checkProfile.getCheckProfile());
-		frame.getContentPane().add(teammateReview.getTeamReview());
 		frame.getContentPane().add(findTeammate.getFindTeammate());
 		lblTitle.setText("Find Teammate");
+		teammateReview.setVisible(false);
 		announcement.getAnnouncement().setVisible(false);
 		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
-		teammateReview.getTeamReview().setVisible(false);
 		findTeammate.FindTeammateTableFindTeammate();
 		findTeammate.FindTeammateTableYouPickedBy();
 		findTeammate.FindTeammateTableMyPick();
@@ -400,24 +404,23 @@ public class MainPage {
 		
 	}
 	private void checkTeamReviewAction(){
-		frame.getContentPane().add(findTeammate.getFindTeammate());
+		frame.getContentPane().add(teammateReview);
 		lblTitle.setText("Team Review");
+		teammateReview.initialiser();
+		teammateReview.setVisible(true);
 		announcement.getAnnouncement().setVisible(false);
 		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
-		teammateReview.getTeamReview().setVisible(true);
-		teammateReview.teammateReviewTableProject();
-		teammateReview.teammateReviewTableReview();
 		findTeammate.getFindTeammate().setVisible(false);
 
 	}
 	private void checkTeammateStatusAction(){
 		frame.getContentPane().add(teamStatus.getTeamStatus());
 		lblTitle.setText("Teammate Status");
+		teammateReview.setVisible(false);
 		announcement.getAnnouncement().setVisible(false);
 		teamStatus.getTeamStatus().setVisible(true);
 		checkProfile.getCheckProfile().setVisible(false);
-		teammateReview.getTeamReview().setVisible(false);
 		findTeammate.getFindTeammate().setVisible(false);
 		teamStatus.showTeammateStatusAction();
 		
