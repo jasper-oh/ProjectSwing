@@ -1,3 +1,4 @@
+// 21.04.29 hyokyeong ------------
 package com.swing.findteammate;
 
 import java.sql.Blob;
@@ -16,6 +17,8 @@ public class Bean {
 	String introduce;
 	String teamName;
 	int diptargetCount;
+	String sender;
+	String target;
 	
 
 	
@@ -30,8 +33,23 @@ public class Bean {
 		super();
 		this.id = id;
 	}
+	
+	public Bean(String sender, String target) {
+		super();
+		this.sender = sender;
+		this.target = target;
+	}
 
+	// FindTeammate - My Pick and You Picked by tabel column --------
+	public Bean(String id, String name, String teamName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.teamName = teamName;
+	}// -------- FindTeammate - My Pick and You Picked by tabel column 
 
+	
+	// FindTeammate and Student List의 Profile ----------------------
 	public Bean(String id, String name, Blob photo, String mbti, String github_id, String subway, String phone,
 			String strength, String introduce) {
 		super();
@@ -44,8 +62,10 @@ public class Bean {
 		this.phone = phone;
 		this.strength = strength;
 		this.introduce = introduce;
-	}
-
+	}// ---------------------- FindTeammate and Student List의 Profile 
+	
+	
+	// FindTeammate and Admin Student List Table ----------------------
 	public Bean(String id, String name, String teamName, String mbti, int diptargetCount) {
 		super();
 		this.id = id;
@@ -53,7 +73,8 @@ public class Bean {
 		this.teamName = teamName;
 		this.mbti = mbti;
 		this.diptargetCount = diptargetCount;
-	}
+	}// ---------------------- FindTeammate and Admin Student List Table
+	
 	
 	// method
 	
@@ -158,6 +179,22 @@ public class Bean {
 
 	public void setDiptargetCount(int diptargetCount) {
 		this.diptargetCount = diptargetCount;
+	}
+
+	public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 	
 }

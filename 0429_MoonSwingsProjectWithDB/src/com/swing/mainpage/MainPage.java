@@ -14,6 +14,7 @@ import javax.swing.table.TableColumn;
 import com.swing.announcement.Announcement;
 import com.swing.checkprofile.CheckProfile;
 import com.swing.findteammate.FindTeammate;
+import com.swing.findteammate.OthersProfile;
 import com.swing.login.Login;
 import com.swing.teammatereview.TeammateReview;
 import com.swing.teamstatus.TeamStatus;
@@ -52,7 +53,7 @@ public class MainPage {
 	private JLabel lblShowGithub;
 	public static JLabel lblShowName;
 	private JLabel lblShowMbti;
-	private JLabel lblShowId;
+	public static JLabel lblShowId;
 	private JButton btnAnnounce;
 	private JButton btnCheckProfile;
 	private JButton btnFindTeammate;
@@ -72,7 +73,7 @@ public class MainPage {
 	
 	TeamStatus teamStatus = new TeamStatus();
 	TeammateReview teammateReview = new TeammateReview(Login.tfLoginUserId.getText());	
-	FindTeammate findTeammate = new FindTeammate();
+	FindTeammate findTeammate = new FindTeammate(Login.tfLoginUserId.getText());
 	CheckProfile checkProfile = new CheckProfile();
 	Announcement announcement = new Announcement();
 	
@@ -396,11 +397,13 @@ public class MainPage {
 		announcement.getAnnouncement().setVisible(false);
 		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
-		findTeammate.FindTeammateTableFindTeammate();
-		findTeammate.FindTeammateTableYouPickedBy();
-		findTeammate.FindTeammateTableMyPick();
+//		findTeammate.FindTeammateTableFindTeammate();
+//		findTeammate.FindTeammateTableYouPickedBy();
+//		findTeammate.FindTeammateTableMyPick();
 		findTeammate.getFindTeammate().setVisible(true);
 		findTeammate.searchAction();
+		findTeammate.showYouPickedby();
+		findTeammate.showMyPick();
 		
 	}
 	private void checkTeamReviewAction(){

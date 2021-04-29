@@ -12,6 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import com.swing.adminannouncement.DbAction;
+import com.swing.mainpage.MainPage;
+
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -25,6 +30,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class OthersProfile {
 
@@ -62,8 +68,8 @@ public class OthersProfile {
 	private JTextField tfStudentPhone;
 	private JButton btnClose;
 	private JLabel lblStudentProfile;
-	String id;
-	String name;
+	private String id;
+	private String name;
 
 	/**
 	 * Launch the application.
@@ -87,7 +93,6 @@ public class OthersProfile {
 	public OthersProfile(String id, String name) {
 		this.id = id;
 		this.name = name;
-		
 		initialize();
 	}
 
@@ -339,6 +344,14 @@ public class OthersProfile {
 	private JButton getBtnPTWMOtherProfile() {
 		if (btnPTWMOtherProfile == null) {
 			btnPTWMOtherProfile = new JButton("Please Team with Me!");
+			btnPTWMOtherProfile.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					checkDipAction();
+//					pleaseTeamWithMe();
+//					FindTeammate ft = new FindTeammate();
+//					ft.showMyPick();
+				}
+			});
 			btnPTWMOtherProfile.setBackground(new Color(0, 102, 204));
 			btnPTWMOtherProfile.setForeground(Color.WHITE);
 			btnPTWMOtherProfile.setOpaque(true);
@@ -423,5 +436,63 @@ public class OthersProfile {
 		tfStudentPhone.setText(bean.getPhone());
 		tfStudentStrength.setText(bean.getStrength());
 		tfStudentIntroduce.setText(bean.getIntroduce());
+	} // setText end
+	
+	
+	//----------------------
+	// 21.04.29 hyokyeong - pick (dip)
+	//----------------------
+	
+	/*
+	 * btnPTWMOtherProfile click 시 action insert into Dip
+	 */
+	private void pleaseTeamWithMe() {
+		MainPage mp = new MainPage();
+		String loginedId = mp.lblShowId.getText();
+		DbAction2 dbAction = new DbAction2(loginedId, id); // testLogin id change to Login Id***
+		
+		boolean msg = dbAction.insertDip();
+		
+		if(msg == true) {
+			JOptionPane.showMessageDialog(null, tfStudentName.getText()+ "님이 My Pick에 등록되었습니다.");
+			frmProfile.dispose();
+			
+		}else {
+			JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!",
+					"Critical Error!", 
+					JOptionPane.ERROR_MESSAGE);                    
+		}
 	}
+	
+	/*
+	 * Dip 현황 체크, 이미 pick한 학생 중복 pick 불가
+	 */
+	private void checkDipAction() {
+		
+		MainPage mp = new MainPage();
+		String loginedId = mp.lblShowId.getText();
+		
+		DbAction2 dbAction = new DbAction2();
+		ArrayList<Bean> beanDipList = dbAction.checkDipList();
+		
+		int listCount = beanDipList.size();
+		
+		String wkSender = "";
+		String wkTarget = "";
+		
+		for(int j = 0; j < listCount; j++) {
+			wkSender = beanDipList.get(j).getSender();
+			wkTarget = beanDipList.get(j).getTarget();
+			
+			if(loginedId.equals(wkSender) && id.equals(wkTarget)) {
+				JOptionPane.showMessageDialog(null, "이미 Pick한 사람입니다.");
+				return;
+			}
+			
+		}
+		pleaseTeamWithMe();
+		
+	}
+	
+	
 } // End Line

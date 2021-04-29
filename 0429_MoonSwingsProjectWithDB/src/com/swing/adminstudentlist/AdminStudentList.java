@@ -24,6 +24,7 @@ import javax.swing.table.TableColumn;
 
 import com.swing.findteammate.Bean;
 import com.swing.findteammate.DbAction;
+import com.swing.findteammate.DbAction3;
 
 
 //Need To Change 
@@ -172,7 +173,7 @@ public class AdminStudentList extends JPanel {
 	
 	//DB to Table
 	public void searchAction(){
-        DbAction dbAction = new DbAction();
+        DbAction3 dbAction = new DbAction3();
         ArrayList<Bean> beanFTList = dbAction.selectStudentList();
         
         int listCount = beanFTList.size();
