@@ -26,6 +26,7 @@ import javax.swing.table.TableColumn;
 
 import com.swing.adminteamstatus.AdminTeamStatusBean;
 import com.swing.adminteamstatus.AdminTeamStatusDBAction;
+import com.swing.mainpage.MainPage;
 
 public class AdminTeamStatus extends JPanel {
 	public AdminTeamStatus() {
@@ -138,6 +139,7 @@ public class AdminTeamStatus extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					selectedrdb = 1;
 					checkFull(selectedrdb);
+					checkLow(selectedrdb);
 				}
 			});
 		}
@@ -155,6 +157,7 @@ public class AdminTeamStatus extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					selectedrdb = 2;
 					checkFull(selectedrdb);
+					checkLow(selectedrdb);
 				}
 			});
 		}
@@ -171,6 +174,7 @@ public class AdminTeamStatus extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					selectedrdb = 3;
 					checkFull(selectedrdb);
+					checkLow(selectedrdb);
 				}
 			});
 		}
@@ -187,6 +191,7 @@ public class AdminTeamStatus extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					selectedrdb = 4;
 					checkFull(selectedrdb);
+					checkLow(selectedrdb);
 				}
 			});
 		}
@@ -203,6 +208,7 @@ public class AdminTeamStatus extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					selectedrdb = 5;
 					checkFull(selectedrdb);
+					checkLow(selectedrdb);
 				}
 			});
 		}
@@ -219,6 +225,7 @@ public class AdminTeamStatus extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					selectedrdb = 6;
 					checkFull(selectedrdb);
+					checkLow(selectedrdb);
 				}
 			});
 		}
@@ -640,7 +647,7 @@ public class AdminTeamStatus extends JPanel {
 					showTeammateStatusAction();
 			        JOptionPane.showMessageDialog(null, selectedrdb + " 팀에 추가 되었습니다.!"); 
 				}else{
-					JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!");
+					JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 학생을 클릭해주세요!!! \n 그래도 안되면 시스템관리자에 문의하세요!");
 				}
 				buttonGroup.clearSelection();
 				dbAction = new AdminTeamStatusDBAction();
@@ -651,6 +658,7 @@ public class AdminTeamStatus extends JPanel {
 	
 	//out버튼 클릭 delete 쿼리 호출
 	public void clickOutAction() {
+		
 		boolean aaa = dbAction.teamStatusOutAction(selectedrdb);
 		
 		if(aaa == true){
@@ -667,11 +675,13 @@ public class AdminTeamStatus extends JPanel {
 		TSStudentListTable();
 		showTeammateStatusAction();
 		SearchAction();
+		dbAction = new AdminTeamStatusDBAction();
 	}
 	
 	// 텍스트 필드 집합에 저장하고 쿼리로 빈을 채움
 	public void showTeammateStatusAction(){
 		
+		buttonGroup.clearSelection();
 		btnInTeamStatus.setEnabled(false);
 		btnOutTeamStatus.setEnabled(false);
 		
@@ -715,24 +725,41 @@ public class AdminTeamStatus extends JPanel {
 				return;
 			}
 		}
-
 	}
 	
 	//텍스트필드 확인하고 버튼 비활성화
 	public void checkFull(int num) {
 		
 		JTextField[] tfs =  tfbeanList.get(num-1);
-		
+
 		for(int i=0;i<tfs.length;i++) {
 			
 			if(tfs[i].getText().equals("")) {
 				btnInTeamStatus.setEnabled(true);
-				btnOutTeamStatus.setEnabled(true);
 				return;
 			}
 		}
 		btnInTeamStatus.setEnabled(false);
-		btnOutTeamStatus.setEnabled(true);
+	}
+		
+	//필드에 값있는지 확인하고 out버튼 활성화
+	public void checkLow(int num) {
+		
+		int count = 0;
+		JTextField[] tfs =  tfbeanList.get(num-1);
+		
+		for(int i=0;i<tfs.length;i++) {
+			if(tfs[i].getText().equals("")) {
+				count++;
+			}
+		}
+		
+		if(count==tfs.length) {
+			btnOutTeamStatus.setEnabled(false);
+		}else {
+			btnOutTeamStatus.setEnabled(true);
+		}
+			
 	}
 	
 	//텍스트필드 지워주기 위한 친구

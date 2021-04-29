@@ -63,7 +63,6 @@ public class AdminTeamStatusDBAction {
 			
 			conn_mysql.close();// 사용후 데이터베이스 연결 끊음
 			
-//			JOptionPane.showMessageDialog(null, name + "님의 정보가 입력되었습니다.");
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -74,6 +73,12 @@ public class AdminTeamStatusDBAction {
 	//TeamStatus Out Action
 	public boolean teamStatusOutAction(int selectedrdb) {
 		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get ( cal.YEAR );
+		int month = cal.get ( cal.MONTH ) + 1 ;
+		int date = cal.get ( cal.DATE ) ;
+		String now = year + "-" + month + "-" + date ;
+		
 		PreparedStatement ps = null;
 		
 		try{
@@ -82,9 +87,10 @@ public class AdminTeamStatusDBAction {
 			@SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 			//수정하기
-			String A = "DELETE FROM joining WHERE team_no = " + selectedrdb;
-
+			String A = "update joining set secession = ? where team_no =" + selectedrdb;
 			ps = conn_mysql.prepareStatement(A);
+			
+			ps.setString(1, now);
 			ps.executeUpdate();
 			
 			conn_mysql.close();
@@ -129,9 +135,9 @@ public class AdminTeamStatusDBAction {
 		
 		ArrayList<AdminTeamStatusBean> BeanList = new ArrayList<AdminTeamStatusBean>();
 		
-		String WhereDefault = "SELECT s.id, s.name, s.mbti, count(d.taget) picked\n"
+		String WhereDefault = "SELECT s.id, s.name, s.mbti, count(d.target) picked\n"
 				+ "FROM student s\n"
-				+ "LEFT JOIN dip d on s.id = d.taget\n"
+				+ "LEFT JOIN dip d on s.id = d.target\n"
 				+ "WHERE NOT EXISTS (SELECT s.id FROM joining j WHERE s.id = j.student_id)\n"
 				+ "group by s.id;";
 		
