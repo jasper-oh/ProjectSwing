@@ -426,7 +426,7 @@ public class SignUp {
 			char[] pw = tfSignUpPw.getPassword();
 			String strPw = String.copyValueOf(pw);
 			String name = tfSignUpName.getText().trim();
-			String mbti = tfSignUpMbti.getText().trim();
+			String mbti = tfSignUpMbti.getText().toUpperCase().trim();
 			String phone = tfSignUpPhone.getText().trim();
 			String github_id = tfSignUpGithub.getText().trim();
 			String introduce = tfSignUpBriefInfo.getText();
@@ -544,6 +544,9 @@ public class SignUp {
 				tfSignUpPw.setText("");
 				tfSignUpPwConfirm.setText("");
 			}
+			
+			
+			
 			
 		}
 	}
