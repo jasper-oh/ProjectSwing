@@ -509,8 +509,11 @@ public class SignUp {
 			
 		} else if(strFirstPw.equals(strSecondPw)) {
 			
-			String pwPattern = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{5,12}$";
-			Matcher matcher = Pattern.compile(pwPattern).matcher(strFirstPw);
+
+			String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{5,12}$";
+			Boolean passwordCorrect = Pattern.matches(pwPattern,strFirstPw);
+			
+			
 			
 			if(strFirstPw.contains(id)){
 				
@@ -529,8 +532,10 @@ public class SignUp {
 			}
 			
 			
-			if(!matcher.matches()){
-				btnPwCheck.setText("Check!");
+			if(passwordCorrect){
+				btnPwCheck.setText("Check");
+				tfSignUpPw.setEditable(false);
+				tfSignUpPwConfirm.setEditable(false);
 				return;
 				
 			}else {
