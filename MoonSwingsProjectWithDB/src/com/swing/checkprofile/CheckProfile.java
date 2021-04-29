@@ -410,7 +410,6 @@ public class CheckProfile extends JPanel {
 	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
 	    width = 200;
 	    col.setPreferredWidth(width);
-	    
 	}
 	@SuppressWarnings("static-access")
 	public void CheckProfileTableReview(){
@@ -560,7 +559,6 @@ public class CheckProfile extends JPanel {
 	}
 	
 	public void importImageAction() {
-		
 		
 		JFileChooser browseImageFile = new JFileChooser();
 		

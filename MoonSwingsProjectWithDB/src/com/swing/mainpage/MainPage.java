@@ -112,6 +112,7 @@ public class MainPage {
 			public void windowActivated(WindowEvent e) {
 				
 				announcement.AnnouncementTable();
+				announcement.searchAction();
 				announcement.setVisible(true);
 				teamStatus.setVisible(false);
 				teammateReview.setVisible(false);
@@ -391,10 +392,11 @@ public class MainPage {
 		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
 		teammateReview.getTeamReview().setVisible(false);
-		findTeammate.getFindTeammate().setVisible(true);
 		findTeammate.FindTeammateTableFindTeammate();
 		findTeammate.FindTeammateTableYouPickedBy();
 		findTeammate.FindTeammateTableMyPick();
+		findTeammate.getFindTeammate().setVisible(true);
+		findTeammate.searchAction();
 		
 	}
 	private void checkTeamReviewAction(){
