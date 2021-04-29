@@ -34,13 +34,15 @@ public class CommentPanelItem extends JPanel {
 	
 	//패널의 정보들을 저장
 	String sender;
+	int selectedTeamNo;
 	String taget;
 	String name;
 	BufferedImage bufferedImage;
 	String content = "";
 
 	//생성시 패널의 아이템을 부착하고 id, name, photo, content를 저장
-	public CommentPanelItem(String sender, String taget, String name, BufferedImage photo, String content) {
+	public CommentPanelItem(String sender, int selectedTeamNo, String taget, String name, BufferedImage photo, String content) {
+		setBackground(Color.WHITE);
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -48,6 +50,7 @@ public class CommentPanelItem extends JPanel {
 			}
 		});
 		this.sender = sender;
+		this.selectedTeamNo = selectedTeamNo;
 		this.taget = taget;
 		this.name = name;
 		this.bufferedImage = photo;
@@ -65,6 +68,7 @@ public class CommentPanelItem extends JPanel {
 	private JLabel getLblName() {
 		if (lblName == null) {
 			lblName = new JLabel(name);
+			lblName.setForeground(new Color(0, 102, 204));
 			lblName.setHorizontalAlignment(SwingConstants.CENTER);
 			lblName.setBounds(14, 58, 61, 16);
 		}
@@ -84,6 +88,7 @@ public class CommentPanelItem extends JPanel {
 	private JTextField getTfContent() {
 		if (tfContent == null) {
 			tfContent = new JTextField();
+			tfContent.setForeground(new Color(0, 102, 204));
 			tfContent.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -99,13 +104,16 @@ public class CommentPanelItem extends JPanel {
 	private JButton getBtnSubmit() {
 		if (btnSubmit == null) {
 			btnSubmit = new JButton("등록");
+			btnSubmit.setForeground(Color.WHITE);
 			btnSubmit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					submitComment();
 				}
 			});
-			btnSubmit.setBackground(Color.DARK_GRAY);
-			btnSubmit.setBounds(335, 53, 45, 21);
+			btnSubmit.setOpaque(true);
+			btnSubmit.setBorderPainted(false);
+			btnSubmit.setBackground(new Color(0, 102, 204));
+			btnSubmit.setBounds(305, 52, 75, 22);
 			btnSubmit.setVisible(false);
 		}
 		return btnSubmit;
@@ -123,8 +131,7 @@ public class CommentPanelItem extends JPanel {
 		btnSubmit.setVisible(false);
 	}
 	
-	//등록바튼 클릭시, 저장된 content값이 없다면 Insert, 있다면 update
-	//* 조이름 받아오게 수정하도록
+	//등록바튼 클릭시, 저장된 content값이 없다면 Insert, 있다면 update=
 	private void submitComment() {
 		DBAction gi = new DBAction();
 		String input = tfContent.getText();
@@ -132,22 +139,16 @@ public class CommentPanelItem extends JPanel {
 		
 		if (content == null) {
 			System.out.println("run insert");
-			//* 조이름 받아오게 수정하도록
-			if (gi.commentInsert(taget, sender, input.trim())) {
-				JOptionPane.showMessageDialog(null, "코멘트 등록이 완료되었습니다.");
-			} else {
-				JOptionPane.showMessageDialog(null, "코멘트 등록에 실패했습니다.");
-			}
+			gi.commentInsert(selectedTeamNo, taget, sender, input.trim());
+			content = input.trim();
+			tfContent.setText(input.trim());
+			
 		} else {
 			System.out.println("[run update]");
-			//*조이름 받아오게 수정하도록
-			if(gi.commentUpdate(taget, sender, input.trim())) {
-				JOptionPane.showMessageDialog(null, "코멘트 등록이 완료되었습니다.");
-				content = input.trim();
-				tfContent.setText(input.trim());
-			} else {
-				JOptionPane.showMessageDialog(null, "코멘트 등록에 실패했습니다.");
-			}
+			gi.commentUpdate(selectedTeamNo, taget, sender, input.trim());
+			content = input.trim();
+			tfContent.setText(input.trim());
+			
 		}
 	}
 }

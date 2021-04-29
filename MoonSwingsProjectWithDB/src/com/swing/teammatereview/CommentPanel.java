@@ -18,13 +18,15 @@ public class CommentPanel extends JPanel {
 	String loginedId;
 	//bean 갯수 카운트
 	int panelItemCount = 0;
+	int selectedTeamNol;
 	
 	//최초 생성시 db에서 데이터를 받아와 bean의 갯수대로 CommentPanelItem을 생성, 부착
-	public CommentPanel(String loginedId) {
+	public CommentPanel(String loginedId, int selectedTeamNo) {
 		this.loginedId = loginedId;
+		this.selectedTeamNol = selectedTeamNo;
 		//bean 배열 생성 및 db로부터 데이터 가져와 채움
 		DBAction dba = new DBAction();
-		ArrayList<CommentBean> cbs = dba.getCommentPanelData(loginedId);
+		ArrayList<CommentBean> cbs = dba.getCommentPanelData(loginedId, selectedTeamNo);
 		panelItemCount = cbs.size();
 		
 		//반환된 bean 개수에 맞춰 row 생성
@@ -33,7 +35,7 @@ public class CommentPanel extends JPanel {
 		//반환된 bean으로 CommentPanelItem 생성
 	    for (int i = 0; i < panelItemCount; i++) {
 	    	CommentPanelItem customListViewItem 
-	    		= new CommentPanelItem(loginedId, cbs.get(i).id, cbs.get(i).name, cbs.get(i).photo, cbs.get(i).content);
+	    		= new CommentPanelItem(loginedId, selectedTeamNo, cbs.get(i).id, cbs.get(i).name, cbs.get(i).photo, cbs.get(i).content);
 	    	add(customListViewItem);
 	    }
 	}
