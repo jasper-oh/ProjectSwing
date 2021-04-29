@@ -81,8 +81,8 @@ public class DbAction {
 		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
 		String query1 = "SELECT s.id, s.name, ";
 		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
-		String query3 = "s.mbti, count(d.taget) FROM student s ";
-		String query4 =	"LEFT JOIN dip d on s.id = d.taget GROUP BY s.id";
+		String query3 = "s.mbti, count(d.target) FROM student s ";
+		String query4 =	"LEFT JOIN dip d on s.id = d.target GROUP BY s.id";
 		
 	    try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -96,9 +96,9 @@ public class DbAction {
 				String wkName = rs.getString(2);
 				String wkTeamName = rs.getString(3);
 				String wkMbti =rs.getString(4);
-				int wkDipTagetCount =rs.getInt(5);
+				int wkDiptargetCount =rs.getInt(5);
 				  
-				Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDipTagetCount);
+				Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDiptargetCount);
 				beanFTList.add(bean);
 				}
 			
@@ -118,7 +118,7 @@ public class DbAction {
 
 		String query1 = "SELECT s.id, s.name, ";
 		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
-		String query3 = "s.mbti, count(d.taget) FROM student s LEFT JOIN dip d on s.id = d.taget ";
+		String query3 = "s.mbti, count(d.target) FROM student s LEFT JOIN dip d on s.id = d.target ";
 		String query4 =	"WHERE " + ConditionQueryColumn + " like '%"+ selection +"%' GROUP BY s.id";
 		
         try{
@@ -133,9 +133,9 @@ public class DbAction {
 				String wkName = rs.getString(2);
 				String wkTeamName = rs.getString(3);
 				String wkMbti =rs.getString(4);
-				int wkDipTagetCount =rs.getInt(5);
+				int wkDiptargetCount =rs.getInt(5);
 				  
-				Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDipTagetCount);
+				Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDiptargetCount);
 				beanFTList.add(bean);
             }
             conn_mysql.close();
@@ -155,8 +155,8 @@ public class DbAction {
 		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
 		String query1 = "SELECT s.id, s.name, ";
 		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
-		String query3 = "s.mbti, count(d.taget) FROM student s ";
-		String query4 =	"LEFT JOIN dip d on s.id = d.taget GROUP BY s.id";
+		String query3 = "s.mbti, count(d.target) FROM student s ";
+		String query4 =	"LEFT JOIN dip d on s.id = d.target GROUP BY s.id";
 		
 	    try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -170,12 +170,12 @@ public class DbAction {
 				String wkName = rs.getString(2);
 				String wkTeamName = rs.getString(3);
 				String wkMbti =rs.getString(4);
-				int wkDipTagetCount =rs.getInt(5);
+				int wkDiptargetCount =rs.getInt(5);
 				
 				if(wkTeamName == null) {
 					continue;
 				}else if(wkTeamName.equals(selection)) {
-					Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDipTagetCount);
+					Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDiptargetCount);
 					beanFTList.add(bean);					
 				}
 			}

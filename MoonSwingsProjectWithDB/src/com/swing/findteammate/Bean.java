@@ -15,7 +15,7 @@ public class Bean {
 	String strength;
 	String introduce;
 	String teamName;
-	int dipTagetCount;
+	int diptargetCount;
 	
 
 	
@@ -46,13 +46,13 @@ public class Bean {
 		this.introduce = introduce;
 	}
 
-	public Bean(String id, String name, String teamName, String mbti, int dipTagetCount) {
+	public Bean(String id, String name, String teamName, String mbti, int diptargetCount) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.teamName = teamName;
 		this.mbti = mbti;
-		this.dipTagetCount = dipTagetCount;
+		this.diptargetCount = diptargetCount;
 	}
 	
 	// method
@@ -152,12 +152,12 @@ public class Bean {
 		this.teamName = teamName;
 	}
 
-	public int getDipTagetCount() {
-		return dipTagetCount;
+	public int getDiptargetCount() {
+		return diptargetCount;
 	}
 
-	public void setDipTagetCount(int dipTagetCount) {
-		this.dipTagetCount = dipTagetCount;
+	public void setDiptargetCount(int diptargetCount) {
+		this.diptargetCount = diptargetCount;
 	}
 	
 }

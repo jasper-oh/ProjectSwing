@@ -10,10 +10,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import com.swing.DB.ShareVar;
+import com.swing.login.Login;
+
 
 public class CheckProfileDBAction {
 	
@@ -193,7 +196,7 @@ public boolean makeNullUserPhoto() {
         ps = conn_mysql.prepareStatement(A);
         
         
-        ps.setString(1, id);
+        ps.setString(1, id.trim());
         ps.executeUpdate();
         
         System.out.println("Now Your Photo is null");
@@ -245,7 +248,89 @@ public boolean updateUserPhoto() {
 
 }
 
+public ArrayList<CheckProfileBean> selectCheckProfileMyProjectList(){
+	
+	ArrayList<CheckProfileBean> beanList = new ArrayList<CheckProfileBean>();
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	
+    try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+        Statement stmt_mysql = conn_mysql.createStatement();
+//        do.project_no = project.no
+//         team.no = do.team_no
+        String selectDefault = "select p.name, t.name, t.project_git_address from joining j, team t, do d, project p where j.student_id = ? and j.team_no = t.no and t.no = d.team_no and d.project_no = p.no";
+        
+        
+        
+        
+        ps = conn_mysql.prepareStatement(selectDefault);
+        
+        ps.setString(1, id);
+        
+        rs = ps.executeQuery();
+        
+		while(rs.next()){
+			String projectName = rs.getString(1);
+			int teamName = rs.getInt(2);
+			String teamGitAddress= rs.getString(3);
+			
+			System.out.println("this is DB thing in project");
+			CheckProfileBean bean = new CheckProfileBean(projectName,teamName,teamGitAddress);
+			beanList.add(bean);
+			}
+		
+		conn_mysql.close();
+    }
+    catch (Exception e){
+        e.printStackTrace();
+    }
+    return beanList;
+	
+}
 
+public ArrayList<CheckProfileBean> selectCheckProfileReviewList(){
+	
+	ArrayList<CheckProfileBean> beanList = new ArrayList<CheckProfileBean>();
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	
+    try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+        Statement stmt_mysql = conn_mysql.createStatement();
+//        do.project_no = project.no
+//         team.no = do.team_no
+        String selectDefault = "select c.sender, c.content, (Select p.name from do d, project p where c.team_no and d.project_no = p.no limit 1) project_name from comment c where c.target = ?";
+        
+        System.out.println(selectDefault);
+        
+        
+        ps = conn_mysql.prepareStatement(selectDefault);
+        
+        ps.setString(1, id);
+        
+        rs = ps.executeQuery();
+        
+		while(rs.next()){
+			String senderName = rs.getString(1);
+			String comment = rs.getString(2);
+			String projectName = rs.getString(3);
+			
+			System.out.println("this is CheckTeam REVIEW DB thing in project");
+			CheckProfileBean bean = new CheckProfileBean(senderName,projectName,comment);
+			beanList.add(bean);
+			}
+		
+		conn_mysql.close();
+    }
+    catch (Exception e){
+        e.printStackTrace();
+    }
+    return beanList;
+	
+}
 
 
 

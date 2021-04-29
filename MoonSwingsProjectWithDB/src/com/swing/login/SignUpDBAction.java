@@ -38,7 +38,7 @@ public class SignUpDBAction {
 	}
 	
 	public SignUpDBAction(String id, String pw, String name, String mbti, String phone, String github_id,
-			String introduce, String subway,String photo) {
+			String introduce, String subway, String strength,String photo) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -48,6 +48,7 @@ public class SignUpDBAction {
 		this.github_id = github_id;
 		this.introduce = introduce;
 		this.subway = subway;
+		this.strength = strength;
 		this.photo = photo;
 //		this.status = status;
 //		this.phone = phone;
@@ -67,8 +68,8 @@ public boolean insertAction(){
             @SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-            String A = "INSERT INTO student (id, pw, name, mbti, phone, github_id, introduce, subway, photo";
-            String B = ") VALUES (?, ?, ?, ?, ?,?, ?, ?,?)";
+            String A = "INSERT INTO student (id, pw, name, mbti, phone, github_id, introduce, subway, strength, photo";
+            String B = ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             
             InputStream inputStream = new FileInputStream(new File(photo));
@@ -83,7 +84,8 @@ public boolean insertAction(){
             ps.setString(6, github_id.trim());
             ps.setString(7, introduce.trim());
             ps.setString(8, subway.trim());
-            ps.setBlob(9, inputStream);
+            ps.setString(9, strength.trim());
+            ps.setBlob(10, inputStream);
             
             ps.executeUpdate();
 

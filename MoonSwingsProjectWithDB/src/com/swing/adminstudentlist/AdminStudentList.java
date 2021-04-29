@@ -179,7 +179,7 @@ public class AdminStudentList extends JPanel {
         
         for(int i=0; i<listCount; i++) {
         	
-        	String stDipCount = Integer.toString(beanFTList.get(i).getDipTagetCount());
+        	String stDipCount = Integer.toString(beanFTList.get(i).getDiptargetCount());
         	String teamStatus = beanFTList.get(i).getTeamName();
 //        	
 //        	if(teamStatus == null) {
@@ -241,7 +241,7 @@ public class AdminStudentList extends JPanel {
         
         for(int i=0; i<listCount; i++) {
         	
-        	String stDipCount = Integer.toString(beanFTList.get(i).getDipTagetCount());
+        	String stDipCount = Integer.toString(beanFTList.get(i).getDiptargetCount());
         	String teamStatus = beanFTList.get(i).getTeamName();
 
         	
@@ -265,7 +265,7 @@ public class AdminStudentList extends JPanel {
 
         for(int i=0; i<listCount; i++) {
         	
-        	String stDipCount = Integer.toString(beanFTList.get(i).getDipTagetCount());
+        	String stDipCount = Integer.toString(beanFTList.get(i).getDiptargetCount());
         	String teamStatus = beanFTList.get(i).getTeamName();
 //        	
 //        	if(teamStatus == null) {

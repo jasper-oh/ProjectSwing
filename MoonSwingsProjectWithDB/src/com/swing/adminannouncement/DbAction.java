@@ -57,7 +57,7 @@ public class DbAction {
 	// Announcement table의 db값 전부 불러오기~
 	public ArrayList<Bean> selectAnnouncementList(){
 		ArrayList<Bean> beanList = new ArrayList<Bean>();
-		String WhereDefault = "select no, writing, title, views from Announcement order by no desc ";
+		String WhereDefault = "select no, writing, title, views from Announcement where delete_date is null order by no desc ";
 		
 	    try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -185,7 +185,7 @@ public class DbAction {
             @SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-            String A = "delete from Announcement where no = ? ";
+            String A = "update announcement set delete_date = now() where no = ?";
 
             ps = conn_mysql.prepareStatement(A);
             
