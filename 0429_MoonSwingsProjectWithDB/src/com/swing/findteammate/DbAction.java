@@ -59,7 +59,7 @@ public class DbAction {
 			while(rs.next()){
 				String wkId = rs.getString(1);
 				String wkName = rs.getString(2);
-				String wkTeamName = rs.getString(3);
+				int wkTeamName = rs.getInt(3);
 				String wkMbti =rs.getString(4);
 				int wkDiptargetCount =rs.getInt(5);
 				  
@@ -79,8 +79,10 @@ public class DbAction {
 		Student List combo_bax -> team status로 search시
 		data 전부 가져와서, selection 값 == (TextField값) 만 beanFTList에 저장.
 	 */
-	public ArrayList<Bean> selectSearchTeamStatusList(){
+	public ArrayList<ArrayList<Bean>> selectSearchTeamStatusList(){
+		ArrayList<ArrayList<Bean>> beanList = new ArrayList<ArrayList<Bean>>();
 		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
+		ArrayList<Bean> beanUnteamed = new ArrayList<Bean>();
 		String query1 = "SELECT s.id, s.name, ";
 		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
 		String query3 = "s.mbti, count(d.target) FROM student s ";
@@ -96,24 +98,29 @@ public class DbAction {
 			while(rs.next()){
 				String wkId = rs.getString(1);
 				String wkName = rs.getString(2);
-				String wkTeamName = rs.getString(3);
+				int wkTeamName = rs.getInt(3);
 				String wkMbti =rs.getString(4);
 				int wkDiptargetCount =rs.getInt(5);
 				
-				if(wkTeamName == null) {
-					continue;
-				}else if(wkTeamName.equals(selection)) {
+				String stTeamName = Integer.toString(wkTeamName);
+
+				if(wkTeamName == 0) {
+					Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDiptargetCount);
+					beanUnteamed.add(bean);
+				}else if(stTeamName.equals(selection)) {
 					Bean bean = new Bean(wkId, wkName, wkTeamName, wkMbti, wkDiptargetCount);
 					beanFTList.add(bean);					
 				}
 			}
+			beanList.add(beanUnteamed);
+			beanList.add(beanFTList);
 			
 			conn_mysql.close();
 	    }
 	    catch (Exception e){
 	        e.printStackTrace();
 	    }
-	    return beanFTList;
+	    return beanList;
 	}
 	
 }// end line

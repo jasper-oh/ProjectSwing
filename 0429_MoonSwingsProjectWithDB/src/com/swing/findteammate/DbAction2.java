@@ -1,5 +1,6 @@
 package com.swing.findteammate;
 
+import java.awt.image.BufferedImage;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +9,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 import com.swing.DB.ShareVar;
+import com.swing.checkprofile.CheckProfileBean;
 
 public class DbAction2 {
 	
@@ -19,7 +23,7 @@ public class DbAction2 {
 	
 	String loginId;
 	String id;
-	String teamName;
+	int teamName;
 
 	public DbAction2() {
 		// TODO Auto-generated constructor stub
@@ -66,7 +70,7 @@ public class DbAction2 {
             if(rs.next()){
             	String wkId = rs.getString(1);
             	String wkName = rs.getString(2);
-            	Blob wkPhoto = rs.getBlob(3);
+            	BufferedImage wkPhoto = ImageIO.read(rs.getBinaryStream(3));
             	String wkMbti = rs.getString(4);
             	String wkGithub_id = rs.getString(5);
             	String wkSubway = rs.getString(6);
@@ -116,7 +120,7 @@ public class DbAction2 {
 			while(rs.next()){
 				String wkId = rs.getString(1);
 				String wkName = rs.getString(2);
-				String wkTeamName = rs.getString(3);
+				int wkTeamName = rs.getInt(3);
 				  
 				Bean bean = new Bean(wkId, wkName, wkTeamName);
 				beanPickedList.add(bean);
@@ -158,7 +162,7 @@ public class DbAction2 {
 			while(rs.next()){
 				String wkId = rs.getString(1);
 				String wkName = rs.getString(2);
-				String wkTeamName = rs.getString(3);
+				int wkTeamName = rs.getInt(3);
 				  
 				Bean bean = new Bean(wkId, wkName, wkTeamName);
 				beanMyPickList.add(bean);
@@ -259,6 +263,84 @@ public class DbAction2 {
 	        e.printStackTrace();
 	    }
 	    return beanDipList;
+	} // checkDipList End
+	
+	// Table Column : ProjectName, TeamName, GitAddress
+	public ArrayList<Bean> selectStudentProjectList(){
+		
+		ArrayList<Bean> beanList = new ArrayList<Bean>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+	    try{
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	        Statement stmt_mysql = conn_mysql.createStatement();
+	        String selectDefault = "select p.name, t.name, t.project_git_address "
+	        		+ "from joining j, team t, do d, project p "
+	        		+ "where j.student_id = ? and j.team_no = t.no and t.no = d.team_no "
+	        		+ "and d.project_no = p.no";
+
+	        ps = conn_mysql.prepareStatement(selectDefault);
+	        ps.setString(1, id);
+	        rs = ps.executeQuery();
+	        
+			while(rs.next()){
+				String projectName = rs.getString(1);
+				int teamName = rs.getInt(2);
+				String teamGitAddress= rs.getString(3);
+				
+				Bean bean = new Bean(projectName,teamName,teamGitAddress);
+				beanList.add(bean);
+				
+				}
+			
+			conn_mysql.close();
+	    }
+	    catch (Exception e){
+	        e.printStackTrace();
+	    }
+	    return beanList;
+		
+	}
+	
+	// review Table column = Teammate Name, ProjectName, Review
+	public ArrayList<Bean> selectStudentReviewList(){
+		
+		ArrayList<Bean> beanList = new ArrayList<Bean>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+	    try{
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	        Statement stmt_mysql = conn_mysql.createStatement();
+
+	        String selectDefault =  "select (Select p.name from do d, project p "
+	        		+ "where c.team_no and d.project_no = p.no limit 1) project_name, c.sender, c.content "
+	        		+ "from comment c where c.target = ? ";
+	        ps = conn_mysql.prepareStatement(selectDefault);
+	        
+	        ps.setString(1, id);
+	        
+	        rs = ps.executeQuery();
+	        
+			while(rs.next()){
+				String projectName = rs.getString(1);
+				String sender = rs.getString(2);
+				String comment = rs.getString(3);
+				
+				Bean bean = new Bean(projectName, sender, comment);
+				beanList.add(bean);
+				}
+			
+			conn_mysql.close();
+	    }
+	    catch (Exception e){
+	        e.printStackTrace();
+	    }
+	    return beanList;
+		
 	}
 	
 	

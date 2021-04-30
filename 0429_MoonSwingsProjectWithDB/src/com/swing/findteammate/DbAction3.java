@@ -19,7 +19,7 @@ public class DbAction3 {
 	String id;
 	String name;
 	String github_id;
-	String teamName;
+	int teamName;
 	String loginedId;
 
 	
@@ -57,7 +57,7 @@ public class DbAction3 {
 			while(rs.next()){
 				String wkId = rs.getString(1);
 				String wkName = rs.getString(2);
-				String wkTeamName = rs.getString(3);
+				int wkTeamName = rs.getInt(3);
 				String wkMbti =rs.getString(4);
 				int wkDiptargetCount =rs.getInt(5);
 				  

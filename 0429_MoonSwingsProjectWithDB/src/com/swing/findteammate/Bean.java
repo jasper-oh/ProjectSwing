@@ -1,13 +1,14 @@
 // 21.04.29 hyokyeong ------------
 package com.swing.findteammate;
 
-import java.sql.Blob;
+import java.awt.image.BufferedImage;
 
 public class Bean {
 
 	// field
 	String id ;
-	Blob photo;
+	BufferedImage photo;
+//	Blob photo;
 	String name;
 	String mbti;
 	String github_id;
@@ -15,10 +16,14 @@ public class Bean {
 	String phone;
 	String strength;
 	String introduce;
-	String teamName;
+	int teamName;
+//	String teamName;
 	int diptargetCount;
 	String sender;
 	String target;
+	String projectName;
+	String comment;
+	String teamGitAddress;
 	
 
 	
@@ -28,6 +33,17 @@ public class Bean {
 	public Bean() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Bean(String projectName, String sender, String comment) {
+		super();
+		this.sender = sender;
+		this.projectName = projectName;
+		this.comment = comment;
+	}
+
+
 
 	public Bean(String id) {
 		super();
@@ -39,9 +55,19 @@ public class Bean {
 		this.sender = sender;
 		this.target = target;
 	}
+	
+	
+	
+
+	public Bean(String projectName, int teamName, String teamGitAddress) {
+		super();
+		this.teamName = teamName;
+		this.projectName = projectName;
+		this.teamGitAddress = teamGitAddress;
+	}
 
 	// FindTeammate - My Pick and You Picked by tabel column --------
-	public Bean(String id, String name, String teamName) {
+	public Bean(String id, String name, int teamName) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -50,7 +76,7 @@ public class Bean {
 
 	
 	// FindTeammate and Student List의 Profile ----------------------
-	public Bean(String id, String name, Blob photo, String mbti, String github_id, String subway, String phone,
+	public Bean(String id, String name, BufferedImage photo, String mbti, String github_id, String subway, String phone,
 			String strength, String introduce) {
 		super();
 		this.id = id;
@@ -66,7 +92,7 @@ public class Bean {
 	
 	
 	// FindTeammate and Admin Student List Table ----------------------
-	public Bean(String id, String name, String teamName, String mbti, int diptargetCount) {
+	public Bean(String id, String name, int teamName, String mbti, int diptargetCount) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -153,23 +179,23 @@ public class Bean {
 	}
 
 
+	public BufferedImage getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(BufferedImage photo) {
+		this.photo = photo;
+	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public Blob getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(Blob photo) {
-		this.photo = photo;
-	}
-
-	public String getTeamName() {
+	public int getTeamName() {
 		return teamName;
 	}
 
-	public void setTeamName(String teamName) {
+	public void setTeamName(int teamName) {
 		this.teamName = teamName;
 	}
 
@@ -195,6 +221,30 @@ public class Bean {
 
 	public void setTarget(String target) {
 		this.target = target;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getTeamGitAddress() {
+		return teamGitAddress;
+	}
+
+	public void setTeamGitAddress(String teamGitAddress) {
+		this.teamGitAddress = teamGitAddress;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 }
