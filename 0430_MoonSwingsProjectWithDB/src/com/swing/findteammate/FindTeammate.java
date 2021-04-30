@@ -328,7 +328,6 @@ public class FindTeammate extends JPanel {
         for(int i=0; i<listCount; i++) {
         	
         	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());//        	
-        	
         	if(teamStatus.equals("0")) {
         		teamStatus = "UNTEAMED";
         	}
@@ -395,10 +394,10 @@ public class FindTeammate extends JPanel {
         if(unteam == 'u') {
         	for(int i=0; i<unTeamListCount; i++) {
             	
-	        	String teamStatus = Integer.toString(beanUnteamedList.get(i).getTeamName());
-	        	if(teamStatus.equals("0")) {
-	        		teamStatus = "UNTEAMED";
-	        	}
+        		String teamStatus = Integer.toString(beanUnteamedList.get(i).getTeamName());//        	
+            	if(teamStatus.equals("0")) {
+            		teamStatus = "UNTEAMED";
+            	}
 	        	
 	        	String[] qTxt = {beanUnteamedList.get(i).getId(),
 	        			beanUnteamedList.get(i).getName(), 
@@ -434,11 +433,9 @@ public class FindTeammate extends JPanel {
         for(int i=0; i<listCount; i++) {
         	
         	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());//        	
-        	
         	if(teamStatus.equals("0")) {
         		teamStatus = "UNTEAMED";
         	}
-        	
         	String[] qTxt = {beanFTList.get(i).getId(),
         			beanFTList.get(i).getName(), 
         			teamStatus, 
@@ -482,7 +479,6 @@ public class FindTeammate extends JPanel {
         for(int i=0; i<listCount; i++) {
         	
         	String teamStatus = Integer.toString(beanPickedList.get(i).getTeamName());//        	
-        	
         	if(teamStatus.equals("0")) {
         		teamStatus = "UNTEAMED";
         	}
@@ -509,7 +505,6 @@ public class FindTeammate extends JPanel {
         for(int i=0; i<listCount; i++) {
         	
         	String teamStatus = Integer.toString(beanMyPickList.get(i).getTeamName());//        	
-        	
         	if(teamStatus.equals("0")) {
         		teamStatus = "UNTEAMED";
         	}

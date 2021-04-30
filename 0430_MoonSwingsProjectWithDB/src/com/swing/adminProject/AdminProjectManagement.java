@@ -1,4 +1,3 @@
-
 //------- Manage Project UI --------//
 
 package com.swing.adminProject;

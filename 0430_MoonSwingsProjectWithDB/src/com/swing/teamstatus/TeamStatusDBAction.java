@@ -141,5 +141,40 @@ public class TeamStatusDBAction {
 		return beanList;
 	}
 	
+	public String getIdInTeamStatus() {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		
+		try{
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
+	        @SuppressWarnings("unused")
+			Statement stmt_mysql = conn_mysql.createStatement();
+
+	        String A = "select name";
+	        String B = " from makeavengers.student where id = ?"  ;
+	        
+	        System.out.println(A+B);
+
+	        ps = conn_mysql.prepareStatement(A+B);
+	        
+	        ps.setString(1, id.trim());        
+	        rs = ps.executeQuery();
+	        
+	        rs.next();
+	        
+	        String name = rs.getString(1);
+	        
+	        conn_mysql.close();
+	        
+	        return name;
+	    } catch (Exception e){                    
+	        e.printStackTrace();
+	        return name;
+	    }
+		
+	}
+	
 
 }

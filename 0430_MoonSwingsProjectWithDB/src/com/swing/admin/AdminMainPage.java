@@ -124,9 +124,6 @@ public class AdminMainPage {
 		frame.getContentPane().add(getfixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(adminAnnouncement.getAnnouncement());
-//		frame.getContentPane().add(adminProjectManagement);
-//		frame.getContentPane().add(adminStudentList.getStudentList());
-//		frame.getContentPane().add(adminTeamStatus.getTeamStatusWithScrollPanel());
 
 		
 
