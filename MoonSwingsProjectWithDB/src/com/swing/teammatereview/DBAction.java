@@ -50,7 +50,6 @@ public class DBAction {
 		
 		String select = "SELECT t.no, p.name, t.name, t.project_git_address ";
 		String from = "FROM joining j, team t, do d, project p ";
-		//id는 나중에 수정을 해야 합니다.
 		String where = "WHERE j.student_id = '" + loginedId + "' AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no ";
 		String orderBy = "ORDER BY t.no ASC";
 		
@@ -66,6 +65,7 @@ public class DBAction {
 				String projectGitAddress = rs.getString(4);
 				
 				String[] result = {teamNo, projectName, teamName, projectGitAddress};
+				
 				rsSet.add(result);
 			}
 			System.out.println("[searchAll] 불러오기 성공");
@@ -80,8 +80,7 @@ public class DBAction {
 	}
 	
 	//패널에 사용할 같은 조원의 아이디, 이름, 사진, 코멘트를 가져온다.
-	//** team.no도 받아오도록 수정해야 
-	public ArrayList<CommentBean> getCommentPanelData(String loginedId) {
+	public ArrayList<CommentBean> getCommentPanelData(String loginedId, int selectedTeamNo) {
 		System.out.println("[getStudentImage] 실행");
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -93,8 +92,7 @@ public class DBAction {
 	        String select = "SELECT s.id, s.name, s.photo, t.content ";
 	        String from = "FROM student s ";
 	        String leftJoin = "LEFT JOIN (SELECT * FROM comment WHERE comment.sender = '" + loginedId + "') t ON s.id = t.target ";
-	    	//** team.no도 받아오도록 수정해야
-	        String where = "WHERE s.id IN (SELECT s.id FROM joining j, student s WHERE j.team_no = 1 AND j.student_id = s.id)";
+	        String where = "WHERE s.id IN (SELECT s.id FROM joining j, student s WHERE j.team_no = " + selectedTeamNo + " AND j.student_id = s.id)";
 	       
 	        ps = conn_mysql.prepareStatement(select + from + leftJoin + where);
 	        
@@ -102,6 +100,7 @@ public class DBAction {
 			while(rs.next()) {
 				CommentBean bean = new CommentBean();
 				bean.id = rs.getString(1);
+				if(bean.id.equals(loginedId)) continue;
 				bean.name = rs.getString(2);
 				bean.photo = ImageIO.read(rs.getBinaryStream(3));
 				bean.content = rs.getString(4);
@@ -121,7 +120,7 @@ public class DBAction {
 	
 	//코멘트 최초 추가
     //*팀넘버 받아오도록 수정해야
-	public boolean commentInsert(String target, String sender, String content){
+	public boolean commentInsert(int selectedTeamNo, String target, String sender, String content){
 		
         PreparedStatement ps = null;
         Statement stmt_mysql = null;
@@ -141,7 +140,7 @@ public class DBAction {
             ps.setString(3, content);
             ps.setString(4, getDate());
             //*팀넘버 받아오도록 수정해야
-            ps.setInt(5, 1);
+            ps.setInt(5, selectedTeamNo);
             
             ps.executeUpdate();
             System.out.println("[commentInsert] 수행완료");
@@ -156,14 +155,13 @@ public class DBAction {
 	
 	//코멘트 수정
     //*팀넘버 받아오도록 수정해야
-	public boolean commentUpdate(String target, String sender, String content) {
+	public boolean commentUpdate(int selectedTeamNo, String target, String sender, String content) {
 		Connection conn_mysql = mysqlConnect();
 		Statement stmt_myslq = null; 
 		
 		try {
-		    //*팀넘버 받아오도록 수정해야
-			String update = "UPDATE comment SET content = '" + content + "', modify = '" + getDate() + "', team_no = '1' " ;
-			String where = "WHERE target = '"+ target + "' AND sender = '" + sender + "'";
+			String update = "UPDATE comment SET content = '" + content + "', modify = '" + getDate() + "', team_no = " + selectedTeamNo + " ";
+			String where = "WHERE target = '"+ target + "' AND sender = '" + sender + "' ";
 			System.out.println("[commentUpdate]query = " + update + where);
 
 			stmt_myslq = conn_mysql.createStatement();
@@ -177,6 +175,29 @@ public class DBAction {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public void updateProjectGitAddress(int selectedTeamNo, String address) {
+		String update = "UPDATE team SET project_git_address = '" + address + "' ";
+		String where = "WHERE no =  " + selectedTeamNo;
+		
+		Connection conn_mysql = mysqlConnect();
+		Statement stmt_myslq = null; 
+		
+		try {
+			System.out.println("[updateProjectGitAddress]query = " + update + where);
+
+			stmt_myslq = conn_mysql.createStatement();
+			stmt_myslq.executeUpdate(update + where);
+			System.out.println("[updateProjectGitAddress] 업데이트 성공");
+			conn_mysql.close();
+			System.out.println("[updateProjectGitAddress] mysql연결 종료");
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
 	}
 	
 	// return yyyy-mm-dd

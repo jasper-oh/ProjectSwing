@@ -208,8 +208,13 @@ public class Login {
 						SignUp signUp = new SignUp();
 						signUp.run();
 					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
-						AdminSignUp adminSignUp = new AdminSignUp();
-						adminSignUp.run();
+						if(JOptionPane.showInputDialog("Please Input Manager number").equals("1234")) {
+							AdminSignUp adminSignUp = new AdminSignUp();
+							adminSignUp.run();	
+						}else {
+							JOptionPane.showMessageDialog(null, "Please Contact to system manager");
+						}
+						
 					}
 				}
 			});
@@ -233,8 +238,12 @@ public class Login {
 						FindIdPw findIdPw = new FindIdPw();
 						findIdPw.run();
 					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
-						AdminFindIdPw adminFindIdPw = new AdminFindIdPw();
-						adminFindIdPw.run();
+						if(JOptionPane.showInputDialog("Please Input Manager number").equals("1234")) {
+							AdminFindIdPw adminFindIdPw = new AdminFindIdPw();
+							adminFindIdPw.run();
+						}else {
+							JOptionPane.showMessageDialog(null, "Please contac to system manager");
+						}
 					}
 				}
 			});

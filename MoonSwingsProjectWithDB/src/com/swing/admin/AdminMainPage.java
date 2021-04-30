@@ -357,9 +357,7 @@ public class AdminMainPage {
 		adminTeamStatus.SearchAction();
 		adminTeamStatus.showTeammateStatusAction();
 		adminTeamStatus.dbAction = new AdminTeamStatusDBAction();
-		
-		
-	
+
 	}
 
 }
