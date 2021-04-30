@@ -87,7 +87,7 @@ public class AdminTeamStatusDBAction {
 			@SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 			//수정하기
-			String A = "update joining set secession = ? where team_no =" + selectedrdb;
+			String A = "UPDATE joining SET secession = ? WHERE team_no =" + selectedrdb;
 			ps = conn_mysql.prepareStatement(A);
 			
 			ps.setString(1, now);
@@ -105,7 +105,9 @@ public class AdminTeamStatusDBAction {
 	public ArrayList<AdminTeamStatusBean> ShowTeammateStatus(){
 		
 		ArrayList<AdminTeamStatusBean> beanList = new ArrayList<AdminTeamStatusBean>();
-		String WhereDefault = "SELECT t.name, s.name FROM student s, joining j, team t WHERE s.id = j.student_id AND j.team_no = t.no";
+		String WhereDefault = "SELECT t.name, s.name "
+								+ "FROM student s, joining j, team t "
+								+ "WHERE s.id = j.student_id AND j.team_no = t.no AND j.secession IS NULL;";
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -135,11 +137,11 @@ public class AdminTeamStatusDBAction {
 		
 		ArrayList<AdminTeamStatusBean> BeanList = new ArrayList<AdminTeamStatusBean>();
 		
-		String WhereDefault = "SELECT s.id, s.name, s.mbti, count(d.target) picked\n"
-				+ "FROM student s\n"
-				+ "LEFT JOIN dip d on s.id = d.target\n"
-				+ "WHERE NOT EXISTS (SELECT s.id FROM joining j WHERE s.id = j.student_id)\n"
-				+ "group by s.id;";
+		String WhereDefault = "SELECT s.id, s.name, s.mbti, count(d.target) picked "
+								+ "FROM student s "
+								+ "LEFT JOIN dip d on s.id = d.target "
+								+ "WHERE NOT EXISTS (SELECT s.id FROM joining j WHERE s.id = j.student_id AND j.secession is null) "
+								+ "group by s.id;";
 		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
