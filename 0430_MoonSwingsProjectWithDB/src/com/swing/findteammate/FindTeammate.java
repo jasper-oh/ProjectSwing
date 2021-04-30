@@ -327,16 +327,15 @@ public class FindTeammate extends JPanel {
         
         for(int i=0; i<listCount; i++) {
         	
-        	int teamStatus = beanFTList.get(i).getTeamName();
-        	String stTeamStatus = Integer.toString(teamStatus);
-//        	
-//        	if(teamStatus == null) {
-//        		teamStatus = "NONE";
-//        	}
+        	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());//        	
+        	
+        	if(teamStatus.equals("0")) {
+        		teamStatus = "UNTEAMED";
+        	}
         	
         	String[] qTxt = {beanFTList.get(i).getId(),
         			beanFTList.get(i).getName(), 
-        			stTeamStatus, 
+        			teamStatus, 
         			beanFTList.get(i).getMbti()};
         	
         	Outer_Table_FindTeammate.addRow(qTxt);	
@@ -397,6 +396,9 @@ public class FindTeammate extends JPanel {
         	for(int i=0; i<unTeamListCount; i++) {
             	
 	        	String teamStatus = Integer.toString(beanUnteamedList.get(i).getTeamName());
+	        	if(teamStatus.equals("0")) {
+	        		teamStatus = "UNTEAMED";
+	        	}
 	        	
 	        	String[] qTxt = {beanUnteamedList.get(i).getId(),
 	        			beanUnteamedList.get(i).getName(), 
@@ -431,16 +433,15 @@ public class FindTeammate extends JPanel {
 
         for(int i=0; i<listCount; i++) {
         	
-        	int teamStatus = beanFTList.get(i).getTeamName();
-        	String stTeamStatus = Integer.toString(teamStatus);
-//        	
-//        	if(teamStatus == null) {
-//        		teamStatus = "NONE";
-//        	}
+        	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());//        	
+        	
+        	if(teamStatus.equals("0")) {
+        		teamStatus = "UNTEAMED";
+        	}
         	
         	String[] qTxt = {beanFTList.get(i).getId(),
         			beanFTList.get(i).getName(), 
-        			stTeamStatus, 
+        			teamStatus, 
         			beanFTList.get(i).getMbti()};
         	Outer_Table_FindTeammate.addRow(qTxt);
 		}
@@ -480,16 +481,15 @@ public class FindTeammate extends JPanel {
         
         for(int i=0; i<listCount; i++) {
         	
-        	int teamStatus = beanPickedList.get(i).getTeamName();
-        	String stTeamStatus = Integer.toString(teamStatus);
-//        	
-//        	if(teamStatus == null) {
-//        		teamStatus = "NONE";
-//        	}
+        	String teamStatus = Integer.toString(beanPickedList.get(i).getTeamName());//        	
+        	
+        	if(teamStatus.equals("0")) {
+        		teamStatus = "UNTEAMED";
+        	}
         	
         	String[] qTxt = {beanPickedList.get(i).getId() , 
         			beanPickedList.get(i).getName(), 
-        			stTeamStatus};
+        			teamStatus};
         	Outer_Table_YouPickedBy.addRow(qTxt);	
         	
         }
@@ -508,15 +508,15 @@ public class FindTeammate extends JPanel {
         
         for(int i=0; i<listCount; i++) {
         	
-        	int teamStatus = beanMyPickList.get(i).getTeamName();
-        	String stTeamStatus = Integer.toString(teamStatus);//        	
-//        	if(teamStatus == null) {
-//        		teamStatus = "NONE";
-//        	}
+        	String teamStatus = Integer.toString(beanMyPickList.get(i).getTeamName());//        	
+        	
+        	if(teamStatus.equals("0")) {
+        		teamStatus = "UNTEAMED";
+        	}
         	
         	String[] qTxt = {beanMyPickList.get(i).getId(), 
         			beanMyPickList.get(i).getName(), 
-        			stTeamStatus};
+        			teamStatus};
         	Outer_Table_MyPick.addRow(qTxt);	
         	
         }
