@@ -102,7 +102,7 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.sender, sender.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.sender = j.student_id "
-						+ "AND j.team_no = t.no) as team_name "
+						+ "AND j.team_no = t.no and j.secession is null) as team_name "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "
@@ -143,7 +143,7 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.target, target.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.target = j.student_id "
-						+ "AND j.team_no = t.no) as team_name "
+						+ "AND j.team_no = t.no and j.secession is null) as team_name "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "

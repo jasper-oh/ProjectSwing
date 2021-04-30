@@ -50,9 +50,9 @@ public class MainPage {
 	private JLabel lblMbti;
 	private JLabel lblGithub;
 	private JLabel lblShowGithub;
-	public static JLabel lblShowName;
+	private JLabel lblShowName;
 	private JLabel lblShowMbti;
-	public static JLabel lblShowId;
+	private JLabel lblShowId;
 	private JButton btnAnnounce;
 	private JButton btnCheckProfile;
 	private JButton btnFindTeammate;
@@ -61,6 +61,9 @@ public class MainPage {
 	private JLabel lblImageDefaultLabel;
 	private JLabel lblTitle;
 	private JLabel lblBgLeftPanel;
+	private String userId;
+	private String userName;
+	
 	
 	Login getBrief = new Login();
 	
@@ -75,6 +78,7 @@ public class MainPage {
 	FindTeammate findTeammate = new FindTeammate(Login.tfLoginUserId.getText());
 	CheckProfile checkProfile = new CheckProfile();
 	Announcement announcement = new Announcement();
+	
 	
 	
 	
@@ -101,7 +105,6 @@ public class MainPage {
 	 */
 	public MainPage() {
 		initialize();
-		
 	}
 
 	/**
@@ -240,6 +243,7 @@ public class MainPage {
 			lblShowName = new JLabel(getBriefInfo[1]);
 			lblShowName.setForeground(Color.WHITE);
 			lblShowName.setBounds(183, 98, 61, 16);
+			
 		}
 		return lblShowName;
 	}
@@ -256,6 +260,7 @@ public class MainPage {
 			lblShowId = new JLabel(getBriefInfo[0]);
 			lblShowId.setForeground(Color.WHITE);
 			lblShowId.setBounds(186, 70, 114, 16);
+			
 		}
 		return lblShowId;
 	}
@@ -349,10 +354,13 @@ public class MainPage {
 	
 	private void logoutActionEvent() {
 		
+		
+		
 		Login login = new Login();
 		login.run();
+		frame.dispose();
 		
-		frame.setVisible(false);
+		
 		
 	}
 	
@@ -396,9 +404,6 @@ public class MainPage {
 		announcement.getAnnouncement().setVisible(false);
 		teamStatus.getTeamStatus().setVisible(false);
 		checkProfile.getCheckProfile().setVisible(false);
-//		findTeammate.FindTeammateTableFindTeammate();
-//		findTeammate.FindTeammateTableYouPickedBy();
-//		findTeammate.FindTeammateTableMyPick();
 		findTeammate.getFindTeammate().setVisible(true);
 		findTeammate.searchAction();
 		findTeammate.showYouPickedby();
@@ -426,6 +431,9 @@ public class MainPage {
 		findTeammate.getFindTeammate().setVisible(false);
 		teamStatus.showTeammateStatusAction();
 		
+	}
+	public String lblName() {
+		return userName;
 	}
 
 } 
