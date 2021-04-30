@@ -43,7 +43,7 @@ public class DbAction3 {
 	public ArrayList<Bean> selectStudentList(){
 		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
 		String query1 = "SELECT s.id, s.name, ";
-		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no), ";
+		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no and secession is null), ";
 		String query3 = "s.mbti, count(d.target) FROM student s ";
 		String query4 =	"LEFT JOIN dip d on s.id = d.target WHERE s.id != '"+ loginedId +"' GROUP BY s.id";
 		

@@ -298,7 +298,6 @@ public class Login {
 		FixedPanelDBAction fixedPanelInfo = new FixedPanelDBAction(logInId);
 		
 		String[] briefInfo = fixedPanelInfo.getFixedPanelInfo();
-		System.out.println("GetBriefInfo");
 
 		return briefInfo;
 	}

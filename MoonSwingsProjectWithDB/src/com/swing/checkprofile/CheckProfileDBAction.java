@@ -260,7 +260,7 @@ public ArrayList<CheckProfileBean> selectCheckProfileMyProjectList(){
         Statement stmt_mysql = conn_mysql.createStatement();
 //        do.project_no = project.no
 //         team.no = do.team_no
-        String selectDefault = "select p.name, t.name, t.project_git_address from joining j, team t, do d, project p where j.student_id = ? and j.team_no = t.no and t.no = d.team_no and d.project_no = p.no";
+        String selectDefault = "select p.name, t.name, t.project_git_address from joining j, team t, do d, project p where j.student_id = ? and j.team_no = t.no and t.no = d.team_no and d.project_no = p.no AND j.secession is null";
         
         
         
@@ -302,7 +302,7 @@ public ArrayList<CheckProfileBean> selectCheckProfileReviewList(){
         Statement stmt_mysql = conn_mysql.createStatement();
 //        do.project_no = project.no
 //         team.no = do.team_no
-        String selectDefault = "select c.sender, c.content, (Select p.name from do d, project p where c.team_no and d.project_no = p.no limit 1) project_name from comment c where c.target = ?";
+        String selectDefault = "select c.sender, c.content, (Select p.name from do d, project p where d.project_no = p.no and secession is null) project_name from comment c where c.target = ?";
         
         System.out.println(selectDefault);
         

@@ -76,6 +76,7 @@ public class TeamStatus extends JPanel {
 	//들어갈 팀의 번호를 저장하기 위한 객체
 	int selectedrdb = 999;
 	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -522,7 +523,6 @@ public class TeamStatus extends JPanel {
 			btnInTeamStatus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					clickInAction();
-					System.out.println(MainPage.lblShowName.getText());
 				}
 			});
 		}
@@ -585,7 +585,7 @@ public class TeamStatus extends JPanel {
 		for(int i=0;i<tfs.length;i++) {
 			if(tfs[i].getText().equals("")) {
 				tfs[i].setText(name);
-				if(name.equals(MainPage.lblShowName.getText())) {
+				if(name.equals(tsdbAction.getIdInTeamStatus())) {
 					rdbs.get(rdbcount).setSelected(true);
 					btnInTeamStatus.setVisible(false);
 					btnOutTeamStatus.setEnabled(true);
@@ -615,7 +615,8 @@ public class TeamStatus extends JPanel {
 		
 		JTextField[] tfs =  tfbeanList.get(num-1);
 		for(int i=0;i<tfs.length;i++) {
-			if(tfs[i].getText().equals(MainPage.lblShowName.getText())) {
+			
+			if(tfs[i].getText().equals(tsdbAction.getIdInTeamStatus())) {
 				btnInTeamStatus.setEnabled(false);
 				btnOutTeamStatus.setEnabled(true);
 				return;
@@ -628,7 +629,8 @@ public class TeamStatus extends JPanel {
 	public void clickOutAction() {
 		JTextField[] tfs = tfbeanList.get(myteamcount);
 		for(int i=0;i<tfs.length;i++) {
-			if(tfs[i].getText().equals(MainPage.lblShowName.getText())) {
+			
+			if(tfs[i].getText().equals(tsdbAction.getIdInTeamStatus())) {
 				tsdbAction.teamStatusOutAction();
 				showTeammateStatusAction();
 				btnInTeamStatus.setVisible(true);

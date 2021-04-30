@@ -507,9 +507,9 @@ public class OthersProfile {
 	 * btnPTWMOtherProfile click 시 action insert into Dip
 	 */
 	private void pleaseTeamWithMe() {
-		MainPage mp = new MainPage();
-		String loginedId = mp.lblShowId.getText();
-		DbAction2 dbAction = new DbAction2(loginedId, id); // testLogin id change to Login Id***
+//		MainPage mp = new MainPage();
+//		String loginedId = mp.lblId();
+		DbAction2 dbAction = new DbAction2(Login.tfLoginUserId.getText(), id); // testLogin id change to Login Id***
 		
 		boolean msg = dbAction.insertDip();
 		
@@ -527,11 +527,13 @@ public class OthersProfile {
 	/*
 	 * Dip 현황 체크, 이미 pick한 학생 중복 pick 불가
 	 */
+	
+	
+	
 	private void checkDipAction() {
 		
-		MainPage mp = new MainPage();
-		String loginedId = mp.lblShowId.getText();
 		
+		String loginedId = Login.tfLoginUserId.getText();		
 		DbAction2 dbAction = new DbAction2();
 		ArrayList<Bean> beanDipList = dbAction.checkDipList();
 		
