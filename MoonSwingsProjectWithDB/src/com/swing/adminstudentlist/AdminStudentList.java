@@ -24,6 +24,7 @@ import javax.swing.table.TableColumn;
 
 import com.swing.findteammate.Bean;
 import com.swing.findteammate.DbAction;
+import com.swing.findteammate.DbAction3;
 
 
 //Need To Change 
@@ -172,7 +173,7 @@ public class AdminStudentList extends JPanel {
 	
 	//DB to Table
 	public void searchAction(){
-        DbAction dbAction = new DbAction();
+        DbAction3 dbAction = new DbAction3();
         ArrayList<Bean> beanFTList = dbAction.selectStudentList();
         
         int listCount = beanFTList.size();
@@ -180,11 +181,11 @@ public class AdminStudentList extends JPanel {
         for(int i=0; i<listCount; i++) {
         	
         	String stDipCount = Integer.toString(beanFTList.get(i).getDiptargetCount());
-        	String teamStatus = beanFTList.get(i).getTeamName();
+        	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());
 //        	
-//        	if(teamStatus == null) {
-//        		teamStatus = "NONE";
-//        	}
+        	if(teamStatus.equals("0")) {
+        		teamStatus = "UNTEAMED";
+        	}
         	
         	String[] qTxt = {beanFTList.get(i).getId(),
         			beanFTList.get(i).getName(), 
@@ -233,25 +234,45 @@ public class AdminStudentList extends JPanel {
 	Student List combo_bax -> team status로 search시
 	 */
 	private void searchTeamStatus(String selection) {
-		
         DbAction dbAction = new DbAction(selection);
-        ArrayList<Bean> beanFTList = dbAction.selectSearchTeamStatusList();
+        
+        ArrayList<ArrayList<Bean>> beanList = dbAction.selectSearchTeamStatusList();
+        ArrayList<Bean> beanFTList = beanList.get(1);
+        ArrayList<Bean> beanUnteamedList = beanList.get(0);
         
         int listCount = beanFTList.size();
-        
-        for(int i=0; i<listCount; i++) {
-        	
-        	String stDipCount = Integer.toString(beanFTList.get(i).getDiptargetCount());
-        	String teamStatus = beanFTList.get(i).getTeamName();
+        int unTeamListCount = beanUnteamedList.size();
 
+        char unteam = selection.toLowerCase().charAt(0);
+
+        
+        if(unteam == 'u') {
+        	for(int i=0; i<unTeamListCount; i++) {
+            	
+	        	String stDipCount = Integer.toString(beanUnteamedList.get(i).getDiptargetCount());
+	        	String teamStatus = Integer.toString(beanUnteamedList.get(i).getTeamName());
+	        	
+	        	String[] qTxt = {beanUnteamedList.get(i).getId(),
+	        			beanUnteamedList.get(i).getName(), 
+	        			teamStatus, 
+	        			beanUnteamedList.get(i).getMbti(), stDipCount};
+	        		        	
+	        	Outer_Table_StudentList.addRow(qTxt);
+        	}
         	
-        	String[] qTxt = {beanFTList.get(i).getId(),
-        			beanFTList.get(i).getName(), 
-        			teamStatus, 
-        			beanFTList.get(i).getMbti(), stDipCount};
+        }else{
+        	for(int i=0; i<listCount; i++) {
         	
-        	Outer_Table_StudentList.addRow(qTxt);	
-        	
+	        	String stDipCount = Integer.toString(beanFTList.get(i).getDiptargetCount());
+	        	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());
+	        	
+	        	String[] qTxt = {beanFTList.get(i).getId(),
+	        			beanFTList.get(i).getName(), 
+	        			teamStatus, 
+	        			beanFTList.get(i).getMbti(), stDipCount};
+	        	
+	        	Outer_Table_StudentList.addRow(qTxt);	
+        	}
         }
 	}
 	
@@ -266,11 +287,11 @@ public class AdminStudentList extends JPanel {
         for(int i=0; i<listCount; i++) {
         	
         	String stDipCount = Integer.toString(beanFTList.get(i).getDiptargetCount());
-        	String teamStatus = beanFTList.get(i).getTeamName();
-//        	
-//        	if(teamStatus == null) {
-//        		teamStatus = "NONE";
-//        	}
+        	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());//        	
+        	
+        	if(teamStatus.equals("0")) {
+        		teamStatus = "UNTEAMED";
+        	}
         	
         	String[] qTxt = {beanFTList.get(i).getId(),
         			beanFTList.get(i).getName(), 

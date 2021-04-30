@@ -5,6 +5,7 @@ import java.awt.Color;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import com.swing.checkprofile.CheckProfileBean;
+import com.swing.checkprofile.CheckProfileDBAction;
+import com.swing.login.Login;
+import com.swing.mainpage.MainPage;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -25,12 +34,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class OthersProfile {
 
 	private JFrame frmProfile;
-//	private JPanel panelOtherProfile;
-	private JPanel Panel_Ima_otherProfile;
 	private JLabel lblOtherProfileId;
 	private JLabel lblOtherProfileName;
 	private JLabel lblOtherProfileMbti;
@@ -62,8 +70,9 @@ public class OthersProfile {
 	private JTextField tfStudentPhone;
 	private JButton btnClose;
 	private JLabel lblStudentProfile;
-	String id;
-	String name;
+	private JLabel lblPhoto;
+	private String id;
+	private String name;
 
 	/**
 	 * Launch the application.
@@ -87,7 +96,6 @@ public class OthersProfile {
 	public OthersProfile(String id, String name) {
 		this.id = id;
 		this.name = name;
-		
 		initialize();
 	}
 
@@ -101,6 +109,8 @@ public class OthersProfile {
 		frmProfile.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
+				showStudentProject();
+				showTeammateReview();
 				setText();
 				
 			}
@@ -109,7 +119,6 @@ public class OthersProfile {
 		
 //		frmProfile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProfile.getContentPane().setLayout(null);
-		frmProfile.getContentPane().add(getPanel_Ima_otherProfile());
 		frmProfile.getContentPane().add(getLblOtherProfileId());
 		frmProfile.getContentPane().add(getLblOtherProfileName());
 		frmProfile.getContentPane().add(getLblOtherProfileMbti());
@@ -133,18 +142,8 @@ public class OthersProfile {
 		frmProfile.getContentPane().add(getTfStudentPhone());
 		frmProfile.getContentPane().add(getBtnClose());
 		frmProfile.getContentPane().add(getLblStudentProfile());
+		frmProfile.getContentPane().add(getLblPhoto());
 
-	}
-
-	
-	private JPanel getPanel_Ima_otherProfile() {
-		if (Panel_Ima_otherProfile == null) {
-			Panel_Ima_otherProfile = new JPanel();
-			Panel_Ima_otherProfile.setBackground(new Color(245, 245, 245));
-			Panel_Ima_otherProfile.setLayout(null);
-			Panel_Ima_otherProfile.setBounds(30, 59, 102, 136);
-		}
-		return Panel_Ima_otherProfile;
 	}
 	private JLabel getLblOtherProfileId() {
 		if (lblOtherProfileId == null) {
@@ -339,6 +338,14 @@ public class OthersProfile {
 	private JButton getBtnPTWMOtherProfile() {
 		if (btnPTWMOtherProfile == null) {
 			btnPTWMOtherProfile = new JButton("Please Team with Me!");
+			btnPTWMOtherProfile.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					checkDipAction();
+//					pleaseTeamWithMe();
+//					FindTeammate ft = new FindTeammate();
+//					ft.showMyPick();
+				}
+			});
 			btnPTWMOtherProfile.setBackground(new Color(0, 102, 204));
 			btnPTWMOtherProfile.setForeground(Color.WHITE);
 			btnPTWMOtherProfile.setOpaque(true);
@@ -405,6 +412,68 @@ public class OthersProfile {
 		}
 		return lblStudentProfile;
 	}
+	private JLabel getLblPhoto() {
+		if (lblPhoto == null) {
+			lblPhoto = new JLabel("");
+			lblPhoto.setIcon(null);
+			lblPhoto.setBounds(30, 59, 102, 136);
+		}
+		return lblPhoto;
+	}
+	
+// Student Profile Project and teammate review table
+	public void studentProjectTable(){
+	    int i = Outer_Table_ProjectTable.getRowCount();
+	    Outer_Table_ProjectTable.addColumn("Project Name");
+	    Outer_Table_ProjectTable.addColumn("TeamName");
+	    Outer_Table_ProjectTable.addColumn("결과물-Git Address");
+	    Outer_Table_ProjectTable.setColumnCount(3);
+	    for(int j = 0 ; j < i ; j++){
+	    	Outer_Table_ProjectTable.removeRow(0);
+	    }
+	    ProjectTable.setAutoResizeMode(ProjectTable.AUTO_RESIZE_OFF);
+	    int vColIndex = 0;
+	    TableColumn col = ProjectTable.getColumnModel().getColumn(vColIndex);
+	    int width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 1;
+	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
+	    width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 2;
+	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
+	    width = 200;
+	    col.setPreferredWidth(width);
+	}
+	@SuppressWarnings("static-access")
+	public void studentReviewTable(){
+	    int i = Outer_Table_TeammateReviewTable.getRowCount();
+	    Outer_Table_TeammateReviewTable.addColumn("Project Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Teammate Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Review");
+	    Outer_Table_TeammateReviewTable.setColumnCount(3);
+	    for(int j = 0 ; j < i ; j++){
+	    	Outer_Table_TeammateReviewTable.removeRow(0);
+	    }
+	    TeammateReviewTable.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
+	    int vColIndex = 0;
+	    TableColumn col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
+	    int width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 1;
+	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
+	    width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 2;
+	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
+	    width = 200;
+	    col.setPreferredWidth(width);
+
+	}// Student Profile Project and teammate review table end
+	
+	
+	
+	
 	//----------------------
 	// 21.04.28 hyokyeong
 	//----------------------
@@ -416,12 +485,116 @@ public class OthersProfile {
 		DbAction2 dbAction = new DbAction2(tfStudentId.getText());
 		Bean bean = dbAction.TableClick();
 		
+		
 //		lblPhoto.setIcon(bean.getPhoto());
+		Image image = bean.photo.getScaledInstance(lblPhoto.getWidth()+17, lblPhoto.getHeight(), Image.SCALE_SMOOTH);
+		lblPhoto.setIcon(new ImageIcon(image));
 		tfStudentMbti.setText(bean.getMbti());
 		tfStudentGithub.setText(bean.getGithub_id());
 		tfStudentAddress.setText(bean.getSubway());
 		tfStudentPhone.setText(bean.getPhone());
 		tfStudentStrength.setText(bean.getStrength());
 		tfStudentIntroduce.setText(bean.getIntroduce());
+		
+	} // setText end
+	
+	
+	//----------------------
+	// 21.04.29 hyokyeong - pick (dip)
+	//----------------------
+	
+	/*
+	 * btnPTWMOtherProfile click 시 action insert into Dip
+	 */
+	private void pleaseTeamWithMe() {
+		MainPage mp = new MainPage();
+		String loginedId = mp.lblShowId.getText();
+		DbAction2 dbAction = new DbAction2(loginedId, id); // testLogin id change to Login Id***
+		
+		boolean msg = dbAction.insertDip();
+		
+		if(msg == true) {
+			JOptionPane.showMessageDialog(null, tfStudentName.getText()+ "님이 My Pick에 등록되었습니다.");
+			frmProfile.dispose();
+			
+		}else {
+			JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!",
+					"Critical Error!", 
+					JOptionPane.ERROR_MESSAGE);                    
+		}
 	}
+	
+	/*
+	 * Dip 현황 체크, 이미 pick한 학생 중복 pick 불가
+	 */
+	private void checkDipAction() {
+		
+		MainPage mp = new MainPage();
+		String loginedId = mp.lblShowId.getText();
+		
+		DbAction2 dbAction = new DbAction2();
+		ArrayList<Bean> beanDipList = dbAction.checkDipList();
+		
+		int listCount = beanDipList.size();
+		
+		String wkSender = "";
+		String wkTarget = "";
+		
+		for(int j = 0; j < listCount; j++) {
+			wkSender = beanDipList.get(j).getSender();
+			wkTarget = beanDipList.get(j).getTarget();
+			
+			if(loginedId.equals(wkSender) && id.equals(wkTarget)) {
+				JOptionPane.showMessageDialog(null, "이미 Pick한 사람입니다.");
+				return;
+			}
+			
+		}
+		pleaseTeamWithMe();
+		
+	}
+	
+	// Student Project Tabel 보여주기
+	public void showStudentProject(){
+		studentProjectTable();
+        
+		DbAction2 dbAction  = new DbAction2(id);
+		ArrayList<Bean> projectList = dbAction.selectStudentProjectList();
+		
+		int listCount = projectList.size();
+		
+		for(int i =0 ; i < listCount;i++) {
+			
+			String teamName = Integer.toString(projectList.get(i).getTeamName());
+			
+			String[] qTxt = {projectList.get(i).getProjectName(), 
+							teamName , 
+							projectList.get(i).getTeamGitAddress()};
+			
+			Outer_Table_ProjectTable.addRow(qTxt);
+			
+		}
+
+	}
+	// Project Teammate들의 review 보여주기
+	public void showTeammateReview(){
+		studentReviewTable();
+		DbAction2 dbAction = new DbAction2(id);
+		
+		ArrayList<Bean> teamReviewList = dbAction.selectStudentReviewList();
+		
+		int listCount = teamReviewList.size();
+		
+		for( int i =0 ; i < listCount;i++) {
+			
+			String[] qTxt = {teamReviewList.get(i).getProjectName(),
+							teamReviewList.get(i).getSender(), 
+							teamReviewList.get(i).getComment()};
+
+			Outer_Table_TeammateReviewTable.addRow(qTxt);
+
+		}
+	}
+	
+	
 } // End Line

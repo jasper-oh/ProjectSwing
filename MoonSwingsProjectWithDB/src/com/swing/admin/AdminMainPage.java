@@ -14,6 +14,7 @@ import javax.swing.table.TableColumn;
 import com.swing.adminannouncement.AdminAnnouncement;
 import com.swing.adminstudentlist.AdminStudentList;
 import com.swing.adminteamstatus.AdminTeamStatus;
+import com.swing.adminteamstatus.AdminTeamStatusDBAction;
 import com.swing.login.Login;
 import com.swing.mainpage.FixedPanelDBAction;
 import com.swing.mainpage.MainPage;
@@ -349,14 +350,14 @@ public class AdminMainPage {
 		frame.getContentPane().add(adminTeamStatus.getTeamStatus());
 		
 		lblTitle.setText("Team Status");
-		adminTeamStatus.TSStudentListTable();
 		adminTeamStatus.getTeamStatus().setVisible(true);
-		
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(false);
-		
-		
-	
+		adminTeamStatus.TSStudentListTable();
+		adminTeamStatus.SearchAction();
+		adminTeamStatus.showTeammateStatusAction();
+		adminTeamStatus.dbAction = new AdminTeamStatusDBAction();
+
 	}
 
 }

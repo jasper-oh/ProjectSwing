@@ -632,7 +632,8 @@ public class TeamStatus extends JPanel {
 				tsdbAction.teamStatusOutAction();
 				showTeammateStatusAction();
 				btnInTeamStatus.setVisible(true);
-				btnInTeamStatus.setEnabled(true);
+				btnInTeamStatus.setEnabled(false);
+				
 			}
 		}
 	}
