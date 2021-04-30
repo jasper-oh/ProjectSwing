@@ -165,7 +165,7 @@ public class AdminCreateAnnouncement {
 		String title = dtrpnTitle.getText().trim();
 		String content = textArea.getText().trim();
 		
-		if(title.length() == i && content.length() ==i) {
+		if(title.length() == i || content.length() ==i) {
 			i++;
 		}
 		return i;

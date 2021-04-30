@@ -79,6 +79,12 @@ public class TeamStatusDBAction {
 	//TeamStatus Out Action
 	public boolean teamStatusOutAction() {
 		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get ( cal.YEAR );
+		int month = cal.get ( cal.MONTH ) + 1 ;
+		int date = cal.get ( cal.DATE ) ;
+		String now = year + "-" + month + "-" + date ;
+		
 		PreparedStatement ps = null;
 		
 		try{
@@ -87,11 +93,11 @@ public class TeamStatusDBAction {
 			@SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 			//수정하기
-			String A = "DELETE FROM joining WHERE student_id = ?";
-
+			String A = "UPDATE joining SET secession = ? WHERE student_id = ?";
 			ps = conn_mysql.prepareStatement(A);
 			//수정하기
-	        ps.setString(1, id.trim());
+			ps.setString(1, now);
+	        ps.setString(2, id.trim());
 			ps.executeUpdate();
 			
 			conn_mysql.close();
@@ -108,7 +114,9 @@ public class TeamStatusDBAction {
 	public ArrayList<TeamStatusBean> ShowTeammateStatus(){
 		
 		ArrayList<TeamStatusBean> beanList = new ArrayList<TeamStatusBean>();
-		String WhereDefault = "SELECT t.name, s.name FROM student s, joining j, team t WHERE s.id = j.student_id AND j.team_no = t.no";
+		String WhereDefault = "SELECT t.name, s.name "
+								+ "FROM student s, joining j, team t "
+								+ "WHERE s.id = j.student_id AND j.team_no = t.no AND j.secession IS NULL;";
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");

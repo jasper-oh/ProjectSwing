@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,9 +26,11 @@ import javax.swing.table.TableColumn;
 import com.swing.adminstudentlist.AdminStudentProfile;
 import com.swing.findteammate.Bean;
 import com.swing.findteammate.DbAction;
+import com.swing.mainpage.MainPage;
 
 public class FindTeammate extends JPanel {
-
+	
+	private String loginedId;
 	private JPanel panelFindTeammate;
 	private JScrollPane scrollPane_FindTeammate;
 	private JTable TableFindTeammate;
@@ -44,9 +49,15 @@ public class FindTeammate extends JPanel {
 	private JLabel lblFindTeammateMyPick;
 	private JButton btnDelete;
 	
+	
 	/**
 	 * Create the panel.
 	 */
+	public FindTeammate(String loginedId) {
+		this.loginedId = loginedId;
+		// TODO Auto-generated constructor stub
+	}
+	
 	public JPanel getFindTeammate() {
 		if (panelFindTeammate == null) {
 			panelFindTeammate = new JPanel();
@@ -162,22 +173,27 @@ public class FindTeammate extends JPanel {
 		return tableYouPickedBy;
 	}
 	public void FindTeammateTableYouPickedBy(){
-			int i = Outer_Table_FindTeammate.getRowCount();
+			int i = Outer_Table_YouPickedBy.getRowCount();
+			Outer_Table_YouPickedBy.addColumn("ID");
 			Outer_Table_YouPickedBy.addColumn("Name");
 			Outer_Table_YouPickedBy.addColumn("TeamStatus");
 			
-			Outer_Table_YouPickedBy.setColumnCount(2);
+			Outer_Table_YouPickedBy.setColumnCount(3);
 			for(int j = 0 ; j < i ; j++){
 				Outer_Table_YouPickedBy.removeRow(0);
 			}
-			tableYouPickedBy.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
+			tableYouPickedBy.setAutoResizeMode(tableYouPickedBy.AUTO_RESIZE_OFF);
 			int vColIndex = 0;
 			TableColumn col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
-			int width = 120;
+			int width = 75;
 			col.setPreferredWidth(width);
 			vColIndex = 1;
 			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
-			width = 120;
+			width = 75;
+			col.setPreferredWidth(width);
+			vColIndex = 2;
+			col = tableYouPickedBy.getColumnModel().getColumn(vColIndex);
+			width = 75;
 			col.setPreferredWidth(width);
 	}
 //	 25 340 430 120 
@@ -202,6 +218,14 @@ public class FindTeammate extends JPanel {
 	private JTable getTableMyPick() {
 		if (tableMyPick == null) {
 			tableMyPick = new JTable();
+			TableFindTeammate.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (e.getButton() == 1){
+						
+					}
+				}
+			});
 			tableMyPick.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tableMyPick.setModel(Outer_Table_MyPick); // <--***************************************************
 			tableMyPick.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
@@ -211,23 +235,28 @@ public class FindTeammate extends JPanel {
 	}
 	public void FindTeammateTableMyPick(){
 		int i = Outer_Table_MyPick.getRowCount();
+		Outer_Table_MyPick.addColumn("ID");
 		Outer_Table_MyPick.addColumn("Name");
 		Outer_Table_MyPick.addColumn("Team Status");
 		
-		Outer_Table_MyPick.setColumnCount(2);
+		Outer_Table_MyPick.setColumnCount(3);
 		for(int j = 0 ; j < i ; j++){
 			Outer_Table_MyPick.removeRow(0);
 		}
-		tableMyPick.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
+		tableMyPick.setAutoResizeMode(tableMyPick.AUTO_RESIZE_OFF);
 		int vColIndex = 0;
 		TableColumn col = tableMyPick.getColumnModel().getColumn(vColIndex);
-		int width = 120;
+		int width = 75;
 		col.setPreferredWidth(width);
 		vColIndex = 1;
 		col = tableMyPick.getColumnModel().getColumn(vColIndex);
-		width = 120;
+		width = 75;
 		col.setPreferredWidth(width);
-}
+		vColIndex = 2;
+		col = tableMyPick.getColumnModel().getColumn(vColIndex);
+		width = 75;
+		col.setPreferredWidth(width);
+	}
 	
 	private JComboBox getSearchComboBox() {
 		if (searchComboBox == null) {
@@ -270,6 +299,13 @@ public class FindTeammate extends JPanel {
 			btnDelete= new JButton("Delete");
 			btnDelete.setForeground(new Color(0, 102, 204));
 			btnDelete.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+//			btnDelete.setEnabled(false);
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					deleteMyPick();
+				}
+			});
 			btnDelete.setBounds(378, 455 , 70, 35);
 		}
 		return btnDelete;
@@ -281,14 +317,18 @@ public class FindTeammate extends JPanel {
 	
 	//DB to Table
 	public void searchAction(){
-        DbAction dbAction = new DbAction();
+		
+		FindTeammateTableFindTeammate();
+		
+        DbAction3 dbAction = new DbAction3(loginedId);
         ArrayList<Bean> beanFTList = dbAction.selectStudentList();
         
         int listCount = beanFTList.size();
         
         for(int i=0; i<listCount; i++) {
         	
-        	String teamStatus = beanFTList.get(i).getTeamName();
+        	int teamStatus = beanFTList.get(i).getTeamName();
+        	String stTeamStatus = Integer.toString(teamStatus);
 //        	
 //        	if(teamStatus == null) {
 //        		teamStatus = "NONE";
@@ -296,7 +336,7 @@ public class FindTeammate extends JPanel {
         	
         	String[] qTxt = {beanFTList.get(i).getId(),
         			beanFTList.get(i).getName(), 
-        			teamStatus, 
+        			stTeamStatus, 
         			beanFTList.get(i).getMbti()};
         	
         	Outer_Table_FindTeammate.addRow(qTxt);	
@@ -338,27 +378,46 @@ public class FindTeammate extends JPanel {
 	}
 	
 	/*
-	Student List combo_bax -> team status로 search시
+	Student List combo_box -> team status로 search시
 	 */
 	private void searchTeamStatus(String selection) {
-		
         DbAction dbAction = new DbAction(selection);
-        ArrayList<Bean> beanFTList = dbAction.selectSearchTeamStatusList();
+        
+        ArrayList<ArrayList<Bean>> beanList = dbAction.selectSearchTeamStatusList();
+        ArrayList<Bean> beanFTList = beanList.get(1);
+        ArrayList<Bean> beanUnteamedList = beanList.get(0);
         
         int listCount = beanFTList.size();
-        
-        for(int i=0; i<listCount; i++) {
-        	
-        	String teamStatus = beanFTList.get(i).getTeamName();
+        int unTeamListCount = beanUnteamedList.size();
 
+        char unteam = selection.toLowerCase().charAt(0);
+
+        
+        if(unteam == 'u') {
+        	for(int i=0; i<unTeamListCount; i++) {
+            	
+	        	String teamStatus = Integer.toString(beanUnteamedList.get(i).getTeamName());
+	        	
+	        	String[] qTxt = {beanUnteamedList.get(i).getId(),
+	        			beanUnteamedList.get(i).getName(), 
+	        			teamStatus, 
+	        			beanUnteamedList.get(i).getMbti()};
+	        		        	
+	        	Outer_Table_FindTeammate.addRow(qTxt);
+        	}
         	
-        	String[] qTxt = {beanFTList.get(i).getId(),
-        			beanFTList.get(i).getName(), 
-        			teamStatus, 
-        			beanFTList.get(i).getMbti()};
+        }else{
+        	for(int i=0; i<listCount; i++) {
         	
-        	Outer_Table_FindTeammate.addRow(qTxt);	
-        	
+	        	String teamStatus = Integer.toString(beanFTList.get(i).getTeamName());
+	        	
+	        	String[] qTxt = {beanFTList.get(i).getId(),
+	        			beanFTList.get(i).getName(), 
+	        			teamStatus, 
+	        			beanFTList.get(i).getMbti()};
+	        	
+	        	Outer_Table_FindTeammate.addRow(qTxt);	
+        	}
         }
 	}
 	
@@ -372,7 +431,8 @@ public class FindTeammate extends JPanel {
 
         for(int i=0; i<listCount; i++) {
         	
-        	String teamStatus = beanFTList.get(i).getTeamName();
+        	int teamStatus = beanFTList.get(i).getTeamName();
+        	String stTeamStatus = Integer.toString(teamStatus);
 //        	
 //        	if(teamStatus == null) {
 //        		teamStatus = "NONE";
@@ -380,14 +440,14 @@ public class FindTeammate extends JPanel {
         	
         	String[] qTxt = {beanFTList.get(i).getId(),
         			beanFTList.get(i).getName(), 
-        			teamStatus, 
+        			stTeamStatus, 
         			beanFTList.get(i).getMbti()};
         	Outer_Table_FindTeammate.addRow(qTxt);
 		}
 		
 	}
 	
-//	 tableClick
+	//	 FindTeammatetableClick
 	private void tableClick() {
 		
 		int i = TableFindTeammate.getSelectedRow();
@@ -398,6 +458,96 @@ public class FindTeammate extends JPanel {
 		studentProfile.run(ckId, ckName);
 		
 	}// table Click End
+	
+	
+	//--------------------
+	// 21.04.29 hyogang
+	// Pick Method
+	//--------------------
+	// 현재 testId "ohoh9900"으로 진행중. 병합 후 testId 삭제하기!!!!!!
+//	String testId = "ohoh9900"; // 병합 후 삭제할 변수 !!!!!!!!!!
+	
+	
+	// You picked by list -- beanPickedList
+	//DB to Table
+	public void showYouPickedby(){
+		
+		FindTeammateTableYouPickedBy();
+        DbAction2 dbAction = new DbAction2(loginedId); // login id로 보내기************
+        ArrayList<Bean> beanPickedList = dbAction.selectYouPickedByList();
+        
+        int listCount = beanPickedList.size();
+        
+        for(int i=0; i<listCount; i++) {
+        	
+        	int teamStatus = beanPickedList.get(i).getTeamName();
+        	String stTeamStatus = Integer.toString(teamStatus);
+//        	
+//        	if(teamStatus == null) {
+//        		teamStatus = "NONE";
+//        	}
+        	
+        	String[] qTxt = {beanPickedList.get(i).getId() , 
+        			beanPickedList.get(i).getName(), 
+        			stTeamStatus};
+        	Outer_Table_YouPickedBy.addRow(qTxt);	
+        	
+        }
+	}
+	
+	// You picked by list -- beanPickedList
+	//DB to Table
+	public void showMyPick(){
+		
+		FindTeammateTableMyPick();
+		
+        DbAction2 dbAction = new DbAction2(loginedId); // login id로 보내기************
+        ArrayList<Bean> beanMyPickList = dbAction.selectMyPickList();
+        
+        int listCount = beanMyPickList.size();
+        
+        for(int i=0; i<listCount; i++) {
+        	
+        	int teamStatus = beanMyPickList.get(i).getTeamName();
+        	String stTeamStatus = Integer.toString(teamStatus);//        	
+//        	if(teamStatus == null) {
+//        		teamStatus = "NONE";
+//        	}
+        	
+        	String[] qTxt = {beanMyPickList.get(i).getId(), 
+        			beanMyPickList.get(i).getName(), 
+        			stTeamStatus};
+        	Outer_Table_MyPick.addRow(qTxt);	
+        	
+        }
+	}// showMyPick End
+	
+	
+	// delete button Action
+	/*
+	 * update dip cancellation date
+	 */
+	private void deleteMyPick() {
+		
+		String clickId = "";
+		int i = tableMyPick.getSelectedRow();
+		if(i == -1) {
+			clickId = "";
+		}else {
+			clickId = (String)tableMyPick.getValueAt(i, 0);
+		}
+		
+		if(!clickId.equals("")) {
+			DbAction2 dbAction = new DbAction2(loginedId, clickId);
+			dbAction.deleteMyDip();
+			showMyPick();
+			return;
+		}else {
+			JOptionPane.showMessageDialog(null, "MY PICK에서 Delete 할 사람을 선택해 주세요.");
+			return;
+		}
+	}
+	
 	
 	
 } // End Line

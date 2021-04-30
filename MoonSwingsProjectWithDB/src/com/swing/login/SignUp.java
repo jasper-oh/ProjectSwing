@@ -66,7 +66,7 @@ public class SignUp {
 	private JLabel lblSignUpPasswordCheck;
 	String imagePath = "";
 	
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -243,9 +243,20 @@ public class SignUp {
 		}
 		return lblSignUpIntroduce;
 	}
+	
+//	tfSignUpId
+//	tfSignUpPw
+//	tfSignUpPwConfirm
 	private JTextField getTfSignUpId() {
 		if (tfSignUpId == null) {
 			tfSignUpId = new TextFieldHint("Enter Your ID");
+			tfSignUpId.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnSignUpIdCheck.setText("ID Check");
+					tfSignUpId.setEditable(true);
+				}
+			});
 			tfSignUpId.setForeground(new Color(0, 102, 204));
 			tfSignUpId.setBounds(239, 68, 150, 30);
 			tfSignUpId.setColumns(10);
@@ -255,6 +266,14 @@ public class SignUp {
 	private JPasswordField getTfSignUpPw() {
 		if (tfSignUpPw == null) {
 			tfSignUpPw = new JPasswordField();
+			tfSignUpPw.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnPwCheck.setText("PW Check");
+					tfSignUpPw.setEditable(true);
+					tfSignUpPwConfirm.setEditable(true);
+				}
+			});
 			tfSignUpPw.setForeground(new Color(0, 102, 204));
 			tfSignUpPw.setBounds(239, 98, 150, 30);
 			
@@ -264,6 +283,14 @@ public class SignUp {
 	private JPasswordField getTfSignUpPwConfirm() {
 		if (tfSignUpPwConfirm == null) {
 			tfSignUpPwConfirm = new JPasswordField();
+			tfSignUpPwConfirm.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnPwCheck.setText("PW Check");
+					tfSignUpPw.setEditable(true);
+					tfSignUpPwConfirm.setEditable(true);
+				}
+			});
 			tfSignUpPwConfirm.setForeground(new Color(0, 102, 204));
 			tfSignUpPwConfirm.setBounds(239, 128, 150, 30);
 		}
@@ -523,6 +550,7 @@ public class SignUp {
 				return;
 				
 			}
+			
 			if(strFirstPw.contains(" ")){
 				 JOptionPane.showMessageDialog(null, "Password 에 공백이 포함되었습니다. 비밀번호를 다시 입력해주세요");
 				 tfSignUpPw.setText("");
