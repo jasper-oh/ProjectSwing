@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Calendar;
+//import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -88,6 +88,7 @@ public class AdminAnnouncement extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getButton() == 1){
+						
 						clickCount();
 						TableClick();
 						AdminAnnouncementTable();
@@ -226,17 +227,8 @@ public class AdminAnnouncement extends JPanel {
 			btnUpdate.addActionListener(new ActionListener() {
 				
 				public void actionPerformed(ActionEvent e) {
-					String stno = lblAnnoucementNo.getText();
-					String no = stno.substring(0, stno.length()-1);
-
-					String writing = lblAnnoucementDate.getText();
-					String title = lblAnnoucementTitle.getText();
-					String content = txtrAnnouncementContent.getText();
-
-					AdminUpdateAnnouncement update = new AdminUpdateAnnouncement(no, writing, title, content) ;
-					update.run(no, writing, title, content);
 					
-					clearColumn();
+					updateAction();
 				
 				}
 			});
@@ -309,19 +301,34 @@ public class AdminAnnouncement extends JPanel {
 	}
 	
 	// delete Announcement
-	private void deleteAction() {
+	private void deleteAction() {		
 		
-		int i = tableAnnouncement.getSelectedRow();
-		String anNo = (String)tableAnnouncement.getValueAt(i, 0);
-		int wkNo = Integer.parseInt(anNo);
+		String stno = lblAnnoucementNo.getText();
+		String no = stno.substring(0, stno.length()-1);
+		int wkNo = Integer.parseInt(no);
 		
 		DbAction dbAction = new DbAction(wkNo);
-		
 		dbAction.deleteAction();
 		
 		JOptionPane.showMessageDialog(this, "게시글을 삭제하였습니다. ",
 				"Delete Announcement", 
 				JOptionPane.INFORMATION_MESSAGE);  
+	}
+	
+	public void updateAction() {
+		
+		String stno = lblAnnoucementNo.getText();
+		String no = stno.substring(0, stno.length()-1);
+
+		String writing = lblAnnoucementDate.getText();
+		String title = lblAnnoucementTitle.getText();
+		String content = txtrAnnouncementContent.getText();
+
+		AdminUpdateAnnouncement update = new AdminUpdateAnnouncement(no, writing, title, content) ;
+		update.run(no, writing, title, content);
+		
+		clearColumn();
+		
 	}
 	
 	

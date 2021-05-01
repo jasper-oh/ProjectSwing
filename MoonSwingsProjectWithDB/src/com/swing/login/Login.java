@@ -118,7 +118,7 @@ public class Login {
 			lblSignIn = new JLabel("SIGN IN");
 			lblSignIn.setForeground(new Color(128, 128, 128));
 			lblSignIn.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-			lblSignIn.setBounds(434, 50, 83, 31);
+			lblSignIn.setBounds(410, 50, 83, 31);
 		}
 		return lblSignIn;
 	}
@@ -126,7 +126,7 @@ public class Login {
 		if (lblLoginUserId == null) {
 			lblLoginUserId = new JLabel("User ID");
 			lblLoginUserId.setForeground(Color.GRAY);
-			lblLoginUserId.setBounds(434, 146, 61, 16);
+			lblLoginUserId.setBounds(410, 146, 61, 16);
 		}
 		return lblLoginUserId;
 	}
@@ -136,7 +136,7 @@ public class Login {
 			tfLoginUserId.setHorizontalAlignment(SwingConstants.LEFT);
 			tfLoginUserId.setForeground(new Color(0, 102, 204));
 			tfLoginUserId.setBackground(Color.WHITE);
-			tfLoginUserId.setBounds(434, 174, 319, 52);
+			tfLoginUserId.setBounds(410, 174, 319, 52);
 			tfLoginUserId.setColumns(10);
 		}
 		return tfLoginUserId;
@@ -145,7 +145,7 @@ public class Login {
 		if (lblLoginPassword == null) {
 			lblLoginPassword = new JLabel("Password");
 			lblLoginPassword.setForeground(Color.GRAY);
-			lblLoginPassword.setBounds(434, 258, 61, 16);
+			lblLoginPassword.setBounds(410, 258, 61, 16);
 		}
 		return lblLoginPassword;
 	}
@@ -154,18 +154,21 @@ public class Login {
 			pfLoginPassword = new JPasswordField();
 			pfLoginPassword.setForeground(new Color(0, 102, 204));
 			pfLoginPassword.setBackground(Color.WHITE);
-			pfLoginPassword.setBounds(434, 286, 319, 52);
+			pfLoginPassword.setBounds(410, 286, 319, 52);
 		}
 		return pfLoginPassword;
 	}
 	private JComboBox getCBCheckStudentTeacher() {
 		if (cbCheckStudentTeacher == null) {
 			cbCheckStudentTeacher = new JComboBox();
+			cbCheckStudentTeacher.setForeground(new Color(0, 102,204));
 			cbCheckStudentTeacher.setModel(new DefaultComboBoxModel(new String[] {"Student", "Teacher"}));
-			cbCheckStudentTeacher.setBounds(434, 104, 105, 30);
+			cbCheckStudentTeacher.setBounds(624, 140, 105, 30);
 		}
 		return cbCheckStudentTeacher;
 	}
+	
+	
 	private JButton getBtnLoginSignIn() {
 		if (btnLoginSignIn == null) {
 			btnLoginSignIn = new JButton("Sign In");
@@ -190,10 +193,12 @@ public class Login {
 			btnLoginSignIn.setBackground(new Color(0, 102, 204));
 			btnLoginSignIn.setOpaque(true);
 			btnLoginSignIn.setBorderPainted(false);
-			btnLoginSignIn.setBounds(434, 399, 319, 43);
+			btnLoginSignIn.setBounds(410, 399, 319, 43);
 		}
 		return btnLoginSignIn;
 	}
+	
+	
 	private JButton getBtnLoginSignUp() {
 		if (btnLoginSignUp == null) {
 			btnLoginSignUp = new JButton("Sign Up");
@@ -204,17 +209,24 @@ public class Login {
 						SignUp signUp = new SignUp();
 						signUp.run();
 					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
-						AdminSignUp adminSignUp = new AdminSignUp();
-						adminSignUp.run();
+						if(JOptionPane.showInputDialog("Please Input Manager number").equals("1234")) {
+							AdminSignUp adminSignUp = new AdminSignUp();
+							adminSignUp.run();	
+						}else {
+							JOptionPane.showMessageDialog(null, "Please Contact to system manager");
+						}
+						
 					}
 				}
 			});
 			btnLoginSignUp.setForeground(new Color(0, 102, 204));
 			btnLoginSignUp.setBackground(Color.WHITE);
-			btnLoginSignUp.setBounds(434, 454, 159, 43);
+			btnLoginSignUp.setBounds(410, 454, 159, 43);
 		}
 		return btnLoginSignUp;
 	}
+	
+	
 	private JButton getBtnLoginFindIdPw() {
 		if (btnLoginFindIdPw == null) {
 			btnLoginFindIdPw = new JButton("Find ID / PW");
@@ -227,15 +239,21 @@ public class Login {
 						FindIdPw findIdPw = new FindIdPw();
 						findIdPw.run();
 					}else if(cbCheckStudentTeacher.getSelectedIndex() == 1) {
-						AdminFindIdPw adminFindIdPw = new AdminFindIdPw();
-						adminFindIdPw.run();
+						if(JOptionPane.showInputDialog("Please Input Manager number").equals("1234")) {
+							AdminFindIdPw adminFindIdPw = new AdminFindIdPw();
+							adminFindIdPw.run();
+						}else {
+							JOptionPane.showMessageDialog(null, "Please contac to system manager");
+						}
 					}
 				}
 			});
-			btnLoginFindIdPw.setBounds(594, 454, 159, 43);
+			btnLoginFindIdPw.setBounds(570, 454, 159, 43);
 		}
 		return btnLoginFindIdPw;
 	}
+	
+	
 	private void loginAction() {
 		
 		String logInId = tfLoginUserId.getText();
@@ -255,6 +273,8 @@ public class Login {
 			pfLoginPassword.setText("");
 		}
 	}
+	
+	
 	private void teacherLoginAction() {
 		String logInId = tfLoginUserId.getText();
 		char[] logInPw = pfLoginPassword.getPassword();
@@ -279,7 +299,6 @@ public class Login {
 		FixedPanelDBAction fixedPanelInfo = new FixedPanelDBAction(logInId);
 		
 		String[] briefInfo = fixedPanelInfo.getFixedPanelInfo();
-		System.out.println("GetBriefInfo");
 
 		return briefInfo;
 	}
@@ -293,14 +312,4 @@ public class Login {
 
 		return adminBriefInfo;
 	}
-	
-//	public String[] getCheckProfileInfo(String loginId) {
-//		
-//		CheckProfileDBAction checkProfileInfo = new CheckProfileDBAction(loginId);
-//		
-//		String[] arrCheckProfileInfo = checkProfileInfo.insertAction();
-//		
-//		return arrCheckProfileInfo;
-//	}
-
 }

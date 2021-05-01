@@ -66,7 +66,7 @@ public class SignUp {
 	private JLabel lblSignUpPasswordCheck;
 	String imagePath = "";
 	
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -98,7 +98,7 @@ public class SignUp {
 		frmSignUp.getContentPane().setBackground(Color.WHITE);
 		frmSignUp.setTitle("Sign Up");
 		frmSignUp.setBounds(100, 100, 500, 560);
-		frmSignUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frmSignUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSignUp.getContentPane().setLayout(null);
 		frmSignUp.setResizable(false);
 		frmSignUp.getContentPane().add(getPanelSignUpImage());
@@ -243,9 +243,20 @@ public class SignUp {
 		}
 		return lblSignUpIntroduce;
 	}
+	
+//	tfSignUpId
+//	tfSignUpPw
+//	tfSignUpPwConfirm
 	private JTextField getTfSignUpId() {
 		if (tfSignUpId == null) {
 			tfSignUpId = new TextFieldHint("Enter Your ID");
+			tfSignUpId.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnSignUpIdCheck.setText("ID Check");
+					tfSignUpId.setEditable(true);
+				}
+			});
 			tfSignUpId.setForeground(new Color(0, 102, 204));
 			tfSignUpId.setBounds(239, 68, 150, 30);
 			tfSignUpId.setColumns(10);
@@ -255,6 +266,14 @@ public class SignUp {
 	private JPasswordField getTfSignUpPw() {
 		if (tfSignUpPw == null) {
 			tfSignUpPw = new JPasswordField();
+			tfSignUpPw.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnPwCheck.setText("PW Check");
+					tfSignUpPw.setEditable(true);
+					tfSignUpPwConfirm.setEditable(true);
+				}
+			});
 			tfSignUpPw.setForeground(new Color(0, 102, 204));
 			tfSignUpPw.setBounds(239, 98, 150, 30);
 			
@@ -264,6 +283,14 @@ public class SignUp {
 	private JPasswordField getTfSignUpPwConfirm() {
 		if (tfSignUpPwConfirm == null) {
 			tfSignUpPwConfirm = new JPasswordField();
+			tfSignUpPwConfirm.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					btnPwCheck.setText("PW Check");
+					tfSignUpPw.setEditable(true);
+					tfSignUpPwConfirm.setEditable(true);
+				}
+			});
 			tfSignUpPwConfirm.setForeground(new Color(0, 102, 204));
 			tfSignUpPwConfirm.setBounds(239, 128, 150, 30);
 		}
@@ -272,7 +299,7 @@ public class SignUp {
 	private JTextField getTfSignUpName() {
 		if (tfSignUpName == null) {
 			tfSignUpName = new TextFieldHint("Enter Your Name");
-			tfSignUpName.setForeground(new Color(0, 102, 204));
+			tfSignUpName.setForeground(Color.LIGHT_GRAY);
 			tfSignUpName.setBounds(86, 236, 127, 30);
 			tfSignUpName.setColumns(10);
 		}
@@ -281,7 +308,7 @@ public class SignUp {
 	private JTextField getTfSignUpPhone() {
 		if (tfSignUpPhone == null) {
 			tfSignUpPhone = new TextFieldHint("01011112222");
-			tfSignUpPhone.setForeground(new Color(0, 102, 204));
+			tfSignUpPhone.setForeground(Color.LIGHT_GRAY);
 			tfSignUpPhone.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -307,7 +334,7 @@ public class SignUp {
 	private JTextField getTfSignUpAddress() {
 		if (tfSignUpAddress == null) {
 			tfSignUpAddress = new TextFieldHint("Nearby Subway Station");
-			tfSignUpAddress.setForeground(new Color(0, 102, 204));
+			tfSignUpAddress.setForeground(Color.LIGHT_GRAY);
 			tfSignUpAddress.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -323,7 +350,7 @@ public class SignUp {
 	private JTextField getTfSignUpBriefInfo() {
 		if (tfSignUpBriefInfo == null) {
 			tfSignUpBriefInfo = new TextFieldHint("One sentence to know about you!");
-			tfSignUpBriefInfo.setForeground(new Color(0, 102, 204));
+			tfSignUpBriefInfo.setForeground(Color.LIGHT_GRAY);
 			tfSignUpBriefInfo.setBackground(Color.WHITE);
 			tfSignUpBriefInfo.setBounds(35, 405, 430, 45);
 			tfSignUpBriefInfo.setColumns(10);
@@ -343,7 +370,7 @@ public class SignUp {
 	private JTextField getTfSignUpStrength() {
 		if (tfSignUpStrength == null) {
 			tfSignUpStrength = new TextFieldHint("Java, Python, Kotlin..Max 5 Min 1");
-			tfSignUpStrength.setForeground(new Color(0, 102, 204));
+			tfSignUpStrength.setForeground(Color.LIGHT_GRAY);
 			tfSignUpStrength.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -403,7 +430,7 @@ public class SignUp {
 	}
 	private JLabel getLblSignUpPasswordCheck() {
 		if (lblSignUpPasswordCheck == null) {
-			lblSignUpPasswordCheck = new JLabel("Password에 Id 포함불가, 9~12자리 비밀번호 , 공백 사용불가");
+			lblSignUpPasswordCheck = new JLabel("Password에 Id 포함불가,대소문자 포함,특수기호 포함, 5~12자리 비밀번호 , 공백 사용불가");
 			lblSignUpPasswordCheck.setForeground(Color.LIGHT_GRAY);
 			lblSignUpPasswordCheck.setFont(new Font("Lucida Grande", Font.BOLD, 12));
 			lblSignUpPasswordCheck.setBounds(147, 163, 322, 16);
@@ -426,16 +453,19 @@ public class SignUp {
 			char[] pw = tfSignUpPw.getPassword();
 			String strPw = String.copyValueOf(pw);
 			String name = tfSignUpName.getText().trim();
-			String mbti = tfSignUpMbti.getText().trim();
+			String mbti = tfSignUpMbti.getText().toUpperCase().trim();
 			String phone = tfSignUpPhone.getText().trim();
 			String github_id = tfSignUpGithub.getText().trim();
 			String introduce = tfSignUpBriefInfo.getText();
 			String subway = tfSignUpAddress.getText();
+			
+//			Strength 받아오기
+			String strength = tfSignUpStrength.getText();
 			String photo = imagePath;
 			
 			System.out.println(photo);
 
-			SignUpDBAction signUpDbAction = new SignUpDBAction(id, strPw , name, mbti,  phone, github_id, introduce, subway, photo);
+			SignUpDBAction signUpDbAction = new SignUpDBAction(id, strPw , name, mbti,  phone, github_id, introduce, subway, strength ,photo);
 		
 			boolean msg = signUpDbAction.insertAction();
 		
@@ -487,6 +517,7 @@ public class SignUp {
 		}else {
 			btnSignUpIdCheck.setText("Check");
 			tfSignUpId.setEditable(false);
+			btnSignUpIdCheck.setForeground(Color.GRAY);
 		}
 		
 	}
@@ -506,11 +537,11 @@ public class SignUp {
 			
 		} else if(strFirstPw.equals(strSecondPw)) {
 			
-			String pwPattern = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{9,12}$";
-			Matcher matcher = Pattern.compile(pwPattern).matcher(strFirstPw);
+
+			String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{5,12}$";
+			Boolean passwordCorrect = Pattern.matches(pwPattern,strFirstPw);
 			
-			pwPattern = "(.)\\1\\1\\1";
-			Matcher matcher2 = Pattern.compile(pwPattern).matcher(strFirstPw);
+			
 			
 			if(strFirstPw.contains(id)){
 				
@@ -520,6 +551,7 @@ public class SignUp {
 				return;
 				
 			}
+			
 			if(strFirstPw.contains(" ")){
 				 JOptionPane.showMessageDialog(null, "Password 에 공백이 포함되었습니다. 비밀번호를 다시 입력해주세요");
 				 tfSignUpPw.setText("");
@@ -527,24 +559,21 @@ public class SignUp {
 				 return;
 				
 			}
-			if(!matcher.matches() || matcher2.find()){
+			
+			
+			if(passwordCorrect){
 				btnPwCheck.setText("Check");
 				tfSignUpPw.setEditable(false);
 				tfSignUpPwConfirm.setEditable(false);
-			
-			}
-			
-			if(matcher.matches() == true) {
-				JOptionPane.showMessageDialog(null,"영문, 숫자, 특수문자 조합, 9~12자리로 비밀번호를 작성해주세요");
+				btnPwCheck.setForeground(Color.GRAY);
+				return;
+				
+			}else {
+				JOptionPane.showMessageDialog(null,"영문, 숫자, 특수문자 조합, 5~12자리로 비밀번호를 작성해주세요");
 				tfSignUpPw.setText("");
 				tfSignUpPwConfirm.setText("");
 			}
-			if(matcher2.find()) {
-				JOptionPane.showMessageDialog(null,"같은 문자 4개이상 사용 불가입니다.");
-				tfSignUpPw.setText("");
-				tfSignUpPwConfirm.setText("");
-			}
-			
+
 		}
 	}
 	public void importImageAction() {

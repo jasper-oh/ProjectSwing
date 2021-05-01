@@ -55,7 +55,7 @@ public class FixedPanelDBAction {
 	        github_id = rs.getString(4);
 	        
 	    
-	        System.out.println(searchId + name + mbti + github_id);
+	        
 	        conn_mysql.close();
 	        briefInfo[0] = searchId;
 	        briefInfo[1] = name;

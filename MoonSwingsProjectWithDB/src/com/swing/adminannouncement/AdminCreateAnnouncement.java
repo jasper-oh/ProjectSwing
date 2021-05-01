@@ -73,7 +73,7 @@ public class AdminCreateAnnouncement {
 	 */
 	private void initialize() {
 		frmCreate = new JFrame();
-		frmCreate.setTitle("Create Annoucement");
+		frmCreate.setTitle("Create Announcement");
 		frmCreate.getContentPane().setBackground(Color.WHITE);
 		frmCreate.setBounds(100, 100, 500, 350);
 		
@@ -121,10 +121,15 @@ public class AdminCreateAnnouncement {
 			btnCreate = new JButton("Create");
 			btnCreate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-									
-					insertAction();
-					AdminAnnouncement adminAnnouncement = new AdminAnnouncement();
-					adminAnnouncement.searchAction();
+					
+					int i_chk = insertFieldCheck();
+					if(i_chk == 0) {
+						insertAction();
+						AdminAnnouncement adminAnnouncement = new AdminAnnouncement();
+						adminAnnouncement.searchAction();
+					}else {
+						JOptionPane.showMessageDialog(null, "내용을 입력해주세요.");
+					}
 //					adminAnnouncement.clearColumn();
 
 				}
@@ -138,17 +143,9 @@ public class AdminCreateAnnouncement {
 	
 	private void insertAction() {
 		
-//		Calendar cal = Calendar.getInstance();
-//		int year = cal.get ( cal.YEAR );
-//		int month = cal.get ( cal.MONTH ) + 1 ;
-//		int date = cal.get ( cal.DATE ) ;
-//		
-//		String writing = year + "-" + month + "-" + date ;
 		String title = dtrpnTitle.getText();
 		String content = textArea.getText();
-
 		
-//		DbAction dbAction = new DbAction(writing, title, content);
 		DbAction dbAction = new DbAction(title, content);
 		boolean msg = dbAction.insertAction();
 		
@@ -162,4 +159,16 @@ public class AdminCreateAnnouncement {
 		}
 		
 	}
+	
+	private int insertFieldCheck() {
+		int i = 0;
+		String title = dtrpnTitle.getText().trim();
+		String content = textArea.getText().trim();
+		
+		if(title.length() == i || content.length() ==i) {
+			i++;
+		}
+		return i;
+	}
+	
 } // End Line

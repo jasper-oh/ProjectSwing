@@ -24,6 +24,7 @@ import javax.swing.table.TableColumn;
 
 import com.swing.login.Login;
 import com.swing.mainpage.FixedPanelDBAction;
+import com.swing.mainpage.MainPage;
 
 public class CheckProfile extends JPanel {
 	public CheckProfile() {
@@ -68,6 +69,8 @@ public class CheckProfile extends JPanel {
 	
 	FixedPanelDBAction fpdba = new FixedPanelDBAction(Login.tfLoginUserId.getText());
 	ImageIcon imageIcon = new ImageIcon(fpdba.getStudentImage());
+	
+	
 	
 	
 	
@@ -391,7 +394,7 @@ public class CheckProfile extends JPanel {
 	public void CheckProfileTableProject(){
 	    int i = Outer_Table_ProjectTable.getRowCount();
 	    Outer_Table_ProjectTable.addColumn("Project Name");
-	    Outer_Table_ProjectTable.addColumn("TeamName");
+	    Outer_Table_ProjectTable.addColumn("TeamName (조)");
 	    Outer_Table_ProjectTable.addColumn("결과물-Git Address");
 	    Outer_Table_ProjectTable.setColumnCount(3);
 	    for(int j = 0 ; j < i ; j++){
@@ -404,19 +407,19 @@ public class CheckProfile extends JPanel {
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
-	    width = 200;
+	    width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 2;
 	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
 	    width = 200;
 	    col.setPreferredWidth(width);
-	    
 	}
 	@SuppressWarnings("static-access")
 	public void CheckProfileTableReview(){
 	    int i = Outer_Table_TeammateReviewTable.getRowCount();
-	    Outer_Table_TeammateReviewTable.addColumn("Teammate Name");
+	    
 	    Outer_Table_TeammateReviewTable.addColumn("Project Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Teammate ID");
 	    Outer_Table_TeammateReviewTable.addColumn("Review");
 	    Outer_Table_TeammateReviewTable.setColumnCount(3);
 	    for(int j = 0 ; j < i ; j++){
@@ -429,7 +432,7 @@ public class CheckProfile extends JPanel {
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
-	    width = 200;
+	    width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 2;
 	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
@@ -475,6 +478,14 @@ public class CheckProfile extends JPanel {
 		btnImportImage.setVisible(false);
 		saveAllJTextfieldAction();
 		textFieldUnable();
+
+//		MainPage mainPage = new MainPage();
+//		mainPage.fixedPanel().setVisible(false);
+//		mainPage.fixedPanel().setVisible(true);
+		
+		
+		
+		
 	}
 	private void textFieldEnable() {
 		tfCheckProfileId.setEditable(false);
@@ -561,7 +572,6 @@ public class CheckProfile extends JPanel {
 	
 	public void importImageAction() {
 		
-		
 		JFileChooser browseImageFile = new JFileChooser();
 		
 		FileNameExtensionFilter fnef = new FileNameExtensionFilter("Image","png","jpg","jpeg");
@@ -615,5 +625,54 @@ public class CheckProfile extends JPanel {
 			return;
 		}
 	}
+	
+	public void showCheckprofileMyProject(){
+        
+		CheckProfileDBAction checkProfileProjectDBAction = new CheckProfileDBAction(Login.tfLoginUserId.getText());
+		
+//		DbAction dbAction = new DbAction(ABORT);
+		ArrayList<CheckProfileBean> projectList = checkProfileProjectDBAction.selectCheckProfileMyProjectList();
+		
+		int listCount = projectList.size();
+		
+		for( int i =0 ; i < listCount;i++) {
+			
+			String tmpTeamName = Integer.toString(projectList.get(i).getTeamName());
+			
+			String[] qTxt = { projectList.get(i).getProjectName(),  tmpTeamName , projectList.get(i).getTeamGitAddress()};
+			
+			System.out.println(qTxt[i]);
+			
+			Outer_Table_ProjectTable.addRow(qTxt);
+			
+		}
+		
+		
+	}
+
+	public void showCheckprofileTeammateReview(){
+        
+		CheckProfileDBAction checkProfileReviewDBAction = new CheckProfileDBAction(Login.tfLoginUserId.getText());
+		
+//		DbAction dbAction = new DbAction(ABORT);
+		ArrayList<CheckProfileBean> teamReviewList = checkProfileReviewDBAction.selectCheckProfileReviewList();
+		
+		int listCount = teamReviewList.size();
+		
+		
+		for( int i =0 ; i < listCount;i++) {
+			
+			String[] qTxt = { teamReviewList.get(i).getSenderName(), teamReviewList.get(i).getProjectName(), teamReviewList.get(i).getComment() };
+			
+			
+			
+			Outer_Table_TeammateReviewTable.addRow(qTxt);
+			
+		}
+		
+		
+	}
+	
+	
 
 }

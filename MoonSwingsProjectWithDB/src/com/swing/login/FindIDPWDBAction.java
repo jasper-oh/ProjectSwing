@@ -102,7 +102,7 @@ public class FindIDPWDBAction {
 	        
 	        
 	        while(rs.next()) {
-	        	searchPw = rs.getString("pw");
+	        	searchPw = rs.getString(1);
 	        }
 	        
 	        conn_mysql.close();
