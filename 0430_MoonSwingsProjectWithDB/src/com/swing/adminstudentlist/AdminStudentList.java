@@ -113,7 +113,6 @@ public class AdminStudentList extends JPanel {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					if (e.getButton() == 1){
-						
 						tableClick();
 //						AdminStudentProfile studentProfile = new AdminStudentProfile();
 //						studentProfile.run();
@@ -219,7 +218,11 @@ public class AdminStudentList extends JPanel {
 			break;
 		case 4:
 			SLStudentListTable();
-			searchTeamStatus(selection);
+			if(selection.equals("")) {
+				searchAction();
+			}else {
+				searchTeamStatus(selection);
+			}
 			return;
 			
 		default:

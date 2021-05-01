@@ -102,13 +102,13 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.sender, sender.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.sender = j.student_id "
-						+ "AND j.team_no = t.no and j.secession is null) as team_name "
+						+ "AND j.team_no = t.no and j.secession is null) as team_name, d.no "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "
 						+ "WHERE st.id = d.sender) as sender ";
 		String query4 =	"WHERE d.target = '" + id + "' AND d.sender = sender.id "
-						+"AND d.cancellation is null";
+						+"AND d.cancellation is null ORDER BY d.no ";
 		
 	    try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -143,13 +143,13 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.target, target.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.target = j.student_id "
-						+ "AND j.team_no = t.no and j.secession is null) as team_name "
+						+ "AND j.team_no = t.no and j.secession is null) as team_name , d.no "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "
 						+ "WHERE st.id = d.target) as target ";
 		String query4 =	"WHERE d.sender = '" + id + "' AND d.target = target.id "
-						+"AND d.cancellation is null";
+						+"AND d.cancellation is null ORDER BY d.no DESC " ;
 
 		
 	    try{

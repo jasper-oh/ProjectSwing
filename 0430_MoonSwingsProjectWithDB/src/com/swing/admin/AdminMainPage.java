@@ -109,11 +109,11 @@ public class AdminMainPage {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				adminAnnouncement.getAnnouncement().setVisible(true);
 				adminAnnouncement.AdminAnnouncementTable();
 				adminAnnouncement.searchAction();
-				adminStudentList.getStudentList().setVisible(false);
-				adminTeamStatus.getTeamStatus().setVisible(false);
+				adminAnnouncement.setVisible(true);
+				adminStudentList.setVisible(false);
+				adminTeamStatus.setVisible(false);
 				adminProjectManagement.setVisible(false);
 			}
 		});
@@ -333,6 +333,7 @@ public class AdminMainPage {
 		adminAnnouncement.clearColumn();
 		adminStudentList.getStudentList().setVisible(false);
 		adminTeamStatus.getTeamStatus().setVisible(false);
+		adminProjectManagement.setVisible(false);
 		
 	}
 	
@@ -342,6 +343,7 @@ public class AdminMainPage {
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(true);
 		adminTeamStatus.getTeamStatus().setVisible(false);
+		adminProjectManagement.setVisible(false);
 		adminStudentList.SLStudentListTable();
 		adminStudentList.searchAction();
 	}
@@ -354,6 +356,7 @@ public class AdminMainPage {
 		adminTeamStatus.getTeamStatus().setVisible(true);
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(false);
+		adminProjectManagement.setVisible(false);
 		adminTeamStatus.TSStudentListTable();
 		adminTeamStatus.SearchAction();
 		adminTeamStatus.showTeammateStatusAction();

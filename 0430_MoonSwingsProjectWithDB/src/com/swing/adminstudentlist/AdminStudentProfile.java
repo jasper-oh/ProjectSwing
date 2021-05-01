@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.swing.admin.AdminMainPage;
+import com.swing.adminannouncement.AdminAnnouncement;
 import com.swing.findteammate.Bean;
 import com.swing.findteammate.DbAction2;
 
@@ -117,7 +119,6 @@ public class AdminStudentProfile {
 				showStudentProject();
 				showTeammateReview();
 				setText();
-				
 			}
 		});
 		

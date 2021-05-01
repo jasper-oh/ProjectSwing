@@ -11,8 +11,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import com.swing.adminteamstatus.AdminTeamStatusDBAction;
 import com.swing.announcement.Announcement;
 import com.swing.checkprofile.CheckProfile;
+import com.swing.findteammate.DbAction2;
 import com.swing.findteammate.FindTeammate;
 import com.swing.login.Login;
 import com.swing.teammatereview.TeammateReview;
@@ -115,7 +117,7 @@ public class MainPage {
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowActivated(WindowEvent e) {
+			public void windowOpened(WindowEvent e) {
 				announcement.AnnouncementTable();
 				announcement.searchAction();
 				announcement.setVisible(true);
@@ -124,6 +126,10 @@ public class MainPage {
 				checkProfile.setVisible(false);
 				findTeammate.setVisible(false);
 			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+				findTeammate.showMyPick();
+			}
 		});
 		frame.setBounds(100, 100,790, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,6 +137,7 @@ public class MainPage {
 		frame.getContentPane().add(fixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(announcement.getAnnouncement());
+		
 
 	}
 	
@@ -407,7 +414,7 @@ public class MainPage {
 		findTeammate.getFindTeammate().setVisible(true);
 		findTeammate.searchAction();
 		findTeammate.showYouPickedby();
-		findTeammate.showMyPick();
+		findTeammate.showMyPick();		
 		
 	}
 	private void checkTeamReviewAction(){
