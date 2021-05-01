@@ -46,6 +46,7 @@ public class TeammateReview extends JPanel {
 	
 	
 	public void initialiser() {
+		scrollPane_TeammateReview_1.setViewportView(initPanel);
 		
 		teammateReviewTableProject();
 		projectTableSetItem();
@@ -193,7 +194,7 @@ public class TeammateReview extends JPanel {
 	    int i = Outer_Table_ProjectTable.getRowCount();
 	    Outer_Table_ProjectTable.addColumn("Team no");
 	    Outer_Table_ProjectTable.addColumn("Project name");
-	    Outer_Table_ProjectTable.addColumn("Team name");
+	    Outer_Table_ProjectTable.addColumn("Team name (조)");
 	    Outer_Table_ProjectTable.addColumn("project git Address");
 	    Outer_Table_ProjectTable.setColumnCount(4);
 	    for(int j = 0 ; j < i ; j++){
@@ -203,7 +204,6 @@ public class TeammateReview extends JPanel {
 	    int vColIndex = 0;
 	    TableColumn col = TRProjectTable.getColumnModel().getColumn(vColIndex);
 	    int width = 70;
-	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = TRProjectTable.getColumnModel().getColumn(vColIndex);
 	    width = 100;
@@ -211,6 +211,7 @@ public class TeammateReview extends JPanel {
 	    vColIndex = 2;
 	    col = TRProjectTable.getColumnModel().getColumn(vColIndex);
 	    width = 100;
+	    col.setPreferredWidth(width);
 	    vColIndex = 3;
 	    col = TRProjectTable.getColumnModel().getColumn(vColIndex);
 	    width = 300;
@@ -220,6 +221,13 @@ public class TeammateReview extends JPanel {
 	
 	//project table data 부착
 	public void projectTableSetItem() {
+		
+
+	    int rowCount = Outer_Table_ProjectTable.getRowCount();
+	    for(int i = 0 ; i < rowCount ; i++){
+	    	Outer_Table_ProjectTable.removeRow(0);
+	    }
+		
 		DBAction dba = new DBAction();
 		ArrayList<String[]> rsArr = dba.teamReviewProjectTableDataSelect(loginedId);
 		for (int i = 0; i <= rsArr.size() - 1; i++) {

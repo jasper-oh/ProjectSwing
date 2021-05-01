@@ -422,7 +422,7 @@ public class AdminStudentProfile {
 			btnClose = new JButton("Close");
 			btnClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					frmProfile.dispose();
+					frmProfile.setVisible(false);
 				}
 			});
 			btnClose.setForeground(new Color(0, 102, 204));

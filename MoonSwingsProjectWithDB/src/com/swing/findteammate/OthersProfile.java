@@ -340,10 +340,9 @@ public class OthersProfile {
 			btnPTWMOtherProfile = new JButton("Please Team with Me!");
 			btnPTWMOtherProfile.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 					checkDipAction();
-//					pleaseTeamWithMe();
-//					FindTeammate ft = new FindTeammate();
-//					ft.showMyPick();
+					
 				}
 			});
 			btnPTWMOtherProfile.setBackground(new Color(0, 102, 204));
@@ -524,12 +523,9 @@ public class OthersProfile {
 		}
 	}
 	
-	/*
-	 * Dip 현황 체크, 이미 pick한 학생 중복 pick 불가
-	 */
-	
-	
-	
+//	/*
+//	 * Dip 현황 체크, 이미 pick한 학생 중복 pick 불가
+//	 */
 	private void checkDipAction() {
 		
 		
@@ -553,6 +549,7 @@ public class OthersProfile {
 			
 		}
 		pleaseTeamWithMe();
+		
 		
 	}
 	

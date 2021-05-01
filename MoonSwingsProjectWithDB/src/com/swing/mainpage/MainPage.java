@@ -41,7 +41,7 @@ import java.awt.event.MouseEvent;
 
 public class MainPage {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JPanel fixedpanel;
 	private JPanel ImagePanel;
 	private JLabel lblLogout;
@@ -115,7 +115,7 @@ public class MainPage {
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowActivated(WindowEvent e) {
+			public void windowOpened(WindowEvent e) {
 				announcement.AnnouncementTable();
 				announcement.searchAction();
 				announcement.setVisible(true);
@@ -123,6 +123,10 @@ public class MainPage {
 				teammateReview.setVisible(false);
 				checkProfile.setVisible(false);
 				findTeammate.setVisible(false);
+			}
+			@Override
+			public void windowActivated(WindowEvent e) {
+				findTeammate.showMyPick();
 			}
 		});
 		frame.setBounds(100, 100,790, 570);

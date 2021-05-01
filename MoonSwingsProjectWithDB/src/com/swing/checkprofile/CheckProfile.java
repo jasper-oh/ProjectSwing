@@ -24,6 +24,7 @@ import javax.swing.table.TableColumn;
 
 import com.swing.login.Login;
 import com.swing.mainpage.FixedPanelDBAction;
+import com.swing.mainpage.MainPage;
 
 public class CheckProfile extends JPanel {
 	public CheckProfile() {
@@ -393,7 +394,7 @@ public class CheckProfile extends JPanel {
 	public void CheckProfileTableProject(){
 	    int i = Outer_Table_ProjectTable.getRowCount();
 	    Outer_Table_ProjectTable.addColumn("Project Name");
-	    Outer_Table_ProjectTable.addColumn("TeamName");
+	    Outer_Table_ProjectTable.addColumn("TeamName (조)");
 	    Outer_Table_ProjectTable.addColumn("결과물-Git Address");
 	    Outer_Table_ProjectTable.setColumnCount(3);
 	    for(int j = 0 ; j < i ; j++){
@@ -406,7 +407,7 @@ public class CheckProfile extends JPanel {
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
-	    width = 200;
+	    width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 2;
 	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
@@ -416,8 +417,9 @@ public class CheckProfile extends JPanel {
 	@SuppressWarnings("static-access")
 	public void CheckProfileTableReview(){
 	    int i = Outer_Table_TeammateReviewTable.getRowCount();
-	    Outer_Table_TeammateReviewTable.addColumn("Teammate Name");
+	    
 	    Outer_Table_TeammateReviewTable.addColumn("Project Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Teammate ID");
 	    Outer_Table_TeammateReviewTable.addColumn("Review");
 	    Outer_Table_TeammateReviewTable.setColumnCount(3);
 	    for(int j = 0 ; j < i ; j++){
@@ -430,7 +432,7 @@ public class CheckProfile extends JPanel {
 	    col.setPreferredWidth(width);
 	    vColIndex = 1;
 	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
-	    width = 200;
+	    width = 100;
 	    col.setPreferredWidth(width);
 	    vColIndex = 2;
 	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
@@ -476,6 +478,14 @@ public class CheckProfile extends JPanel {
 		btnImportImage.setVisible(false);
 		saveAllJTextfieldAction();
 		textFieldUnable();
+
+//		MainPage mainPage = new MainPage();
+//		mainPage.fixedPanel().setVisible(false);
+//		mainPage.fixedPanel().setVisible(true);
+		
+		
+		
+		
 	}
 	private void textFieldEnable() {
 		tfCheckProfileId.setEditable(false);

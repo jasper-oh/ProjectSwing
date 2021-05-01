@@ -219,7 +219,11 @@ public class AdminStudentList extends JPanel {
 			break;
 		case 4:
 			SLStudentListTable();
-			searchTeamStatus(selection);
+			if(selection.equals("")) {
+				searchAction();
+			}else {
+				searchTeamStatus(selection);
+			}
 			return;
 			
 		default:

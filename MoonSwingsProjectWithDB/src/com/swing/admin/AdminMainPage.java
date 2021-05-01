@@ -109,18 +109,18 @@ public class AdminMainPage {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				adminAnnouncement.getAnnouncement().setVisible(true);
 				adminAnnouncement.AdminAnnouncementTable();
 				adminAnnouncement.searchAction();
-				adminStudentList.getStudentList().setVisible(false);
-				adminTeamStatus.getTeamStatus().setVisible(false);
+				adminAnnouncement.setVisible(true);
+				adminStudentList.setVisible(false);
+				adminTeamStatus.setVisible(false);
 				adminProjectManagement.setVisible(false);
 			}
 		});
 		frame.setBounds(100, 100,790, 570);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
+//		frame.setResizable(false);
 		frame.getContentPane().add(getfixedPanel());
 		frame.getContentPane().add(getLblTitle());
 		frame.getContentPane().add(adminAnnouncement.getAnnouncement());
@@ -327,12 +327,13 @@ public class AdminMainPage {
 	// ---------------------
 	
 	private void CheckAnnouncementUIAction(){
-		frame.getContentPane().add(adminAnnouncement.getAnnouncement());
+//		frame.getContentPane().add(adminAnnouncement.getAnnouncement());
 		lblTitle.setText("Announcement");
 		adminAnnouncement.getAnnouncement().setVisible(true);
 		adminAnnouncement.clearColumn();
 		adminStudentList.getStudentList().setVisible(false);
 		adminTeamStatus.getTeamStatus().setVisible(false);
+		adminProjectManagement.setVisible(false);
 		
 	}
 	
@@ -342,6 +343,7 @@ public class AdminMainPage {
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(true);
 		adminTeamStatus.getTeamStatus().setVisible(false);
+		adminProjectManagement.setVisible(false);
 		adminStudentList.SLStudentListTable();
 		adminStudentList.searchAction();
 	}
@@ -349,11 +351,12 @@ public class AdminMainPage {
 	private void checkTeamStatusUIAction(){
 		
 		frame.getContentPane().add(adminTeamStatus.getTeamStatus());
-		
 		lblTitle.setText("Team Status");
+		
 		adminTeamStatus.getTeamStatus().setVisible(true);
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(false);
+		adminProjectManagement.setVisible(false);
 		adminTeamStatus.TSStudentListTable();
 		adminTeamStatus.SearchAction();
 		adminTeamStatus.showTeammateStatusAction();
@@ -378,18 +381,18 @@ public class AdminMainPage {
 		}
 		return btnProject;
 	}
+	
 	// Manage Project btn action
 	private void checkManageProjectUIAction() {
 		
+		lblTitle.setText("Project Management");
 		frame.getContentPane().add(adminProjectManagement); //-----> add projectUI 
 		
-		lblTitle.setText("Project Management");
-
 		adminAnnouncement.getAnnouncement().setVisible(false);
 		adminStudentList.getStudentList().setVisible(false);
 		adminTeamStatus.getTeamStatus().setVisible(false);
-		adminProjectManagement.tableManageProject();
-		adminProjectManagement.tableProjectDetails();
+		
+		adminProjectManagement.initialiser();
 		adminProjectManagement.setVisible(true);
 		
 	}
