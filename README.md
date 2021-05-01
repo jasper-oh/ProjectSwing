@@ -8,24 +8,12 @@ Java GUI Swing project with Git Collaboration
 
 
 ##### 🛠 Tool Eclipse
-> 2021.03 version
 
-##### ☕️ Java version 
-> JDK 11
-
-##### 🐬 MYSQL version 
-> mysql-8.0.23
-
-##### 🐬 Workbench version 
-> mysql-workbench-community-8.0.17
-
-##### 🌉 mysql-connector-java
-> 8.0.23
-
+##### ☕️ Java version : -
 
 <hr>
 
 git ignore => gitignore.io 🏷 eclipse, java, macOS
 
 
-
+🔖  [Reference](https://www.youtube.com/watch?v=Kmgo00avvEw)

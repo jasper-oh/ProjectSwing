@@ -71,6 +71,8 @@ public class CheckProfile extends JPanel {
 	
 	
 	
+	
+	
 	/**
 	 * Create the panel.
 	 */
@@ -410,7 +412,6 @@ public class CheckProfile extends JPanel {
 	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
 	    width = 200;
 	    col.setPreferredWidth(width);
-	    
 	}
 	@SuppressWarnings("static-access")
 	public void CheckProfileTableReview(){
@@ -561,7 +562,6 @@ public class CheckProfile extends JPanel {
 	
 	public void importImageAction() {
 		
-		
 		JFileChooser browseImageFile = new JFileChooser();
 		
 		FileNameExtensionFilter fnef = new FileNameExtensionFilter("Image","png","jpg","jpeg");
@@ -615,5 +615,54 @@ public class CheckProfile extends JPanel {
 			return;
 		}
 	}
+	
+	public void showCheckprofileMyProject(){
+        
+		CheckProfileDBAction checkProfileProjectDBAction = new CheckProfileDBAction(Login.tfLoginUserId.getText());
+		
+//		DbAction dbAction = new DbAction(ABORT);
+		ArrayList<CheckProfileBean> projectList = checkProfileProjectDBAction.selectCheckProfileMyProjectList();
+		
+		int listCount = projectList.size();
+		
+		for( int i =0 ; i < listCount;i++) {
+			
+			String tmpTeamName = Integer.toString(projectList.get(i).getTeamName());
+			
+			String[] qTxt = { projectList.get(i).getProjectName(),  tmpTeamName , projectList.get(i).getTeamGitAddress()};
+			
+			System.out.println(qTxt[i]);
+			
+			Outer_Table_ProjectTable.addRow(qTxt);
+			
+		}
+		
+		
+	}
+
+	public void showCheckprofileTeammateReview(){
+        
+		CheckProfileDBAction checkProfileReviewDBAction = new CheckProfileDBAction(Login.tfLoginUserId.getText());
+		
+//		DbAction dbAction = new DbAction(ABORT);
+		ArrayList<CheckProfileBean> teamReviewList = checkProfileReviewDBAction.selectCheckProfileReviewList();
+		
+		int listCount = teamReviewList.size();
+		
+		
+		for( int i =0 ; i < listCount;i++) {
+			
+			String[] qTxt = { teamReviewList.get(i).getSenderName(), teamReviewList.get(i).getProjectName(), teamReviewList.get(i).getComment() };
+			
+			
+			
+			Outer_Table_TeammateReviewTable.addRow(qTxt);
+			
+		}
+		
+		
+	}
+	
+	
 
 }

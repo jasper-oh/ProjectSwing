@@ -5,6 +5,7 @@ import java.awt.Color;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+
+import com.swing.checkprofile.CheckProfileBean;
+import com.swing.checkprofile.CheckProfileDBAction;
+import com.swing.login.Login;
+import com.swing.mainpage.MainPage;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -23,26 +32,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class OthersProfile {
 
 	private JFrame frmProfile;
-//	private JPanel panelOtherProfile;
-	private JPanel Panel_Ima_otherProfile;
 	private JLabel lblOtherProfileId;
 	private JLabel lblOtherProfileName;
 	private JLabel lblOtherProfileMbti;
 	private JLabel lblOtherProfileGithub;
 	private JLabel lblOtherProfileAddress;
-	private JTextField tfOtherProfileId;
-	private JTextField tfOtherProfileName;
-	private JTextField tfOtherProfileAddress;
-	private JTextField tfOtherProfileMbti;
-	private JTextField tfOtherProfileGithub;
+	private JTextField tfStudentId;
+	private JTextField tfStudentName;
+	private JTextField tfStudentAddress;
+	private JTextField tfStudentMbti;
+	private JTextField tfStudentGithub;
 	private JLabel lblOtherProfileStrength;
-	private JTextField tfOtherProfileStrength;
+	private JTextField tfStudentStrength;
 	private JLabel lblOtherProfileIntroduce;
-	private JTextField tfOtherProfileIntroduse;
+	private JTextField tfStudentIntroduce;
 	private JScrollPane scrollPane_Project;
 	private JTable ProjectTable;
 	
@@ -57,18 +67,21 @@ public class OthersProfile {
 	private JButton btnPTWMOtherProfile;
 	private JTable TeammateReviewTable;
 	private JLabel lblOtherProfilePhone;
-	private JTextField tfOtherProfilePhone;
-	private JButton btnCancel;
-	private JLabel lblOtherProfile;
+	private JTextField tfStudentPhone;
+	private JButton btnClose;
+	private JLabel lblStudentProfile;
+	private JLabel lblPhoto;
+	private String id;
+	private String name;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void run() {
+	public static void run(String id, String name) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OthersProfile window = new OthersProfile();
+					OthersProfile window = new OthersProfile(id, name);
 					window.frmProfile.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,7 +93,9 @@ public class OthersProfile {
 	/**
 	 * Create the application.
 	 */
-	public OthersProfile() {
+	public OthersProfile(String id, String name) {
+		this.id = id;
+		this.name = name;
 		initialize();
 	}
 
@@ -91,20 +106,29 @@ public class OthersProfile {
 		frmProfile = new JFrame();
 		frmProfile.getContentPane().setBackground(Color.WHITE);
 		frmProfile.setBounds(100, 100, 500, 600);
+		frmProfile.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				showStudentProject();
+				showTeammateReview();
+				setText();
+				
+			}
+		});
+		
 		
 //		frmProfile.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmProfile.getContentPane().setLayout(null);
-		frmProfile.getContentPane().add(getPanel_Ima_otherProfile());
 		frmProfile.getContentPane().add(getLblOtherProfileId());
 		frmProfile.getContentPane().add(getLblOtherProfileName());
 		frmProfile.getContentPane().add(getLblOtherProfileMbti());
 		frmProfile.getContentPane().add(getLblOtherProfileGithub());
 		frmProfile.getContentPane().add(getLblOtherProfileAddress());
-		frmProfile.getContentPane().add(getTfOtherProfileId());
-		frmProfile.getContentPane().add(getTfOtherProfileName());
-		frmProfile.getContentPane().add(getTfOtherProfileAddress());
-		frmProfile.getContentPane().add(getTfOtherProfileMbti());
-		frmProfile.getContentPane().add(getTfOtherProfileGithub());
+		frmProfile.getContentPane().add(getTfStudentId());
+		frmProfile.getContentPane().add(getTfStudentName());
+		frmProfile.getContentPane().add(getTfStudentAddress());
+		frmProfile.getContentPane().add(getTfStudentMbti());
+		frmProfile.getContentPane().add(getTfStudentGithub());
 		frmProfile.getContentPane().add(getLblOtherProfileStrength());
 		frmProfile.getContentPane().add(getTextField_4());
 		frmProfile.getContentPane().add(getLblOtherProfileIntroduce());
@@ -115,21 +139,11 @@ public class OthersProfile {
 		frmProfile.getContentPane().add(getScrollPane_TeammateReview());
 		frmProfile.getContentPane().add(getBtnPTWMOtherProfile());
 		frmProfile.getContentPane().add(getLblOtherProfilePhone());
-		frmProfile.getContentPane().add(getTfOtherProfilePhone());
-		frmProfile.getContentPane().add(getBtnCancel());
-		frmProfile.getContentPane().add(getLblOtherProfile());
+		frmProfile.getContentPane().add(getTfStudentPhone());
+		frmProfile.getContentPane().add(getBtnClose());
+		frmProfile.getContentPane().add(getLblStudentProfile());
+		frmProfile.getContentPane().add(getLblPhoto());
 
-	}
-
-	
-	private JPanel getPanel_Ima_otherProfile() {
-		if (Panel_Ima_otherProfile == null) {
-			Panel_Ima_otherProfile = new JPanel();
-			Panel_Ima_otherProfile.setBackground(new Color(245, 245, 245));
-			Panel_Ima_otherProfile.setLayout(null);
-			Panel_Ima_otherProfile.setBounds(30, 59, 102, 136);
-		}
-		return Panel_Ima_otherProfile;
 	}
 	private JLabel getLblOtherProfileId() {
 		if (lblOtherProfileId == null) {
@@ -177,55 +191,62 @@ public class OthersProfile {
 		}
 		return lblOtherProfileAddress;
 	}
-	private JTextField getTfOtherProfileId() {
-		if (tfOtherProfileId == null) {
-			tfOtherProfileId = new JTextField();
-			tfOtherProfileId.setForeground(new Color(0, 102, 204));
-			tfOtherProfileId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileId.setBounds(207, 59, 230, 21);
-			tfOtherProfileId.setColumns(10);
+	private JTextField getTfStudentId() {
+		if (tfStudentId == null) {
+			tfStudentId = new JTextField();
+			tfStudentId.setEditable(false);
+			tfStudentId.setForeground(new Color(0, 102, 204));
+			tfStudentId.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentId.setBounds(207, 59, 230, 21);
+			tfStudentId.setColumns(10);
+			tfStudentId.setText(id);
 		}
-		return tfOtherProfileId;
+		return tfStudentId;
 	}
-	private JTextField getTfOtherProfileName() {
-		if (tfOtherProfileName == null) {
-			tfOtherProfileName = new JTextField();
-			tfOtherProfileName.setForeground(new Color(0, 102, 204));
-			tfOtherProfileName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileName.setColumns(10);
-			tfOtherProfileName.setBounds(207, 87, 230, 21);
+	private JTextField getTfStudentName() {
+		if (tfStudentName == null) {
+			tfStudentName = new JTextField();
+			tfStudentName.setEditable(false);
+			tfStudentName.setForeground(new Color(0, 102, 204));
+			tfStudentName.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentName.setColumns(10);
+			tfStudentName.setBounds(207, 87, 230, 21);
+			tfStudentName.setText(name);
 		}
-		return tfOtherProfileName;
+		return tfStudentName;
 	}
-	private JTextField getTfOtherProfileAddress() {
-		if (tfOtherProfileAddress == null) {
-			tfOtherProfileAddress = new JTextField();
-			tfOtherProfileAddress.setForeground(new Color(0, 102, 204));
-			tfOtherProfileAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileAddress.setColumns(10);
-			tfOtherProfileAddress.setBounds(207, 171, 230, 21);
+	private JTextField getTfStudentAddress() {
+		if (tfStudentAddress == null) {
+			tfStudentAddress = new JTextField();
+			tfStudentAddress.setEditable(false);
+			tfStudentAddress.setForeground(new Color(0, 102, 204));
+			tfStudentAddress.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentAddress.setColumns(10);
+			tfStudentAddress.setBounds(207, 171, 230, 21);
 		}
-		return tfOtherProfileAddress;
+		return tfStudentAddress;
 	}
-	private JTextField getTfOtherProfileMbti() {
-		if (tfOtherProfileMbti == null) {
-			tfOtherProfileMbti = new JTextField();
-			tfOtherProfileMbti.setForeground(new Color(0, 102, 204));
-			tfOtherProfileMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileMbti.setColumns(10);
-			tfOtherProfileMbti.setBounds(207, 115, 230, 21);
+	private JTextField getTfStudentMbti() {
+		if (tfStudentMbti == null) {
+			tfStudentMbti = new JTextField();
+			tfStudentMbti.setEditable(false);
+			tfStudentMbti.setForeground(new Color(0, 102, 204));
+			tfStudentMbti.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentMbti.setColumns(10);
+			tfStudentMbti.setBounds(207, 115, 230, 21);
 		}
-		return tfOtherProfileMbti;
+		return tfStudentMbti;
 	}
-	private JTextField getTfOtherProfileGithub() {
-		if (tfOtherProfileGithub == null) {
-			tfOtherProfileGithub = new JTextField();
-			tfOtherProfileGithub.setForeground(new Color(0, 102, 204));
-			tfOtherProfileGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileGithub.setColumns(10);
-			tfOtherProfileGithub.setBounds(207, 143, 230, 21);
+	private JTextField getTfStudentGithub() {
+		if (tfStudentGithub == null) {
+			tfStudentGithub = new JTextField();
+			tfStudentGithub.setEditable(false);
+			tfStudentGithub.setForeground(new Color(0, 102, 204));
+			tfStudentGithub.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentGithub.setColumns(10);
+			tfStudentGithub.setBounds(207, 143, 230, 21);
 		}
-		return tfOtherProfileGithub;
+		return tfStudentGithub;
 	}
 	private JLabel getLblOtherProfileStrength() {
 		if (lblOtherProfileStrength == null) {
@@ -237,14 +258,15 @@ public class OthersProfile {
 		return lblOtherProfileStrength;
 	}
 	private JTextField getTextField_4() {
-		if (tfOtherProfileStrength == null) {
-			tfOtherProfileStrength = new JTextField();
-			tfOtherProfileStrength.setForeground(new Color(0, 102, 204));
-			tfOtherProfileStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileStrength.setBounds(126, 223, 311, 21);
-			tfOtherProfileStrength.setColumns(10);
+		if (tfStudentStrength == null) {
+			tfStudentStrength = new JTextField();
+			tfStudentStrength.setEditable(false);
+			tfStudentStrength.setForeground(new Color(0, 102, 204));
+			tfStudentStrength.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentStrength.setBounds(126, 223, 311, 21);
+			tfStudentStrength.setColumns(10);
 		}
-		return tfOtherProfileStrength;
+		return tfStudentStrength;
 	}
 	private JLabel getLblOtherProfileIntroduce() {
 		if (lblOtherProfileIntroduce == null) {
@@ -256,14 +278,15 @@ public class OthersProfile {
 		return lblOtherProfileIntroduce;
 	}
 	private JTextField getTextField_5() {
-		if (tfOtherProfileIntroduse == null) {
-			tfOtherProfileIntroduse = new JTextField();
-			tfOtherProfileIntroduse.setForeground(new Color(0, 102, 204));
-			tfOtherProfileIntroduse.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfileIntroduse.setColumns(10);
-			tfOtherProfileIntroduse.setBounds(126, 248, 311, 21);
+		if (tfStudentIntroduce == null) {
+			tfStudentIntroduce = new JTextField();
+			tfStudentIntroduce.setEditable(false);
+			tfStudentIntroduce.setForeground(new Color(0, 102, 204));
+			tfStudentIntroduce.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentIntroduce.setColumns(10);
+			tfStudentIntroduce.setBounds(126, 248, 311, 21);
 		}
-		return tfOtherProfileIntroduse;
+		return tfStudentIntroduce;
 	}
 	private JScrollPane getScrollPane_Project() {
 		if (scrollPane_Project == null) {
@@ -315,9 +338,18 @@ public class OthersProfile {
 	private JButton getBtnPTWMOtherProfile() {
 		if (btnPTWMOtherProfile == null) {
 			btnPTWMOtherProfile = new JButton("Please Team with Me!");
+			btnPTWMOtherProfile.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					checkDipAction();
+//					pleaseTeamWithMe();
+//					FindTeammate ft = new FindTeammate();
+//					ft.showMyPick();
+				}
+			});
 			btnPTWMOtherProfile.setBackground(new Color(0, 102, 204));
 			btnPTWMOtherProfile.setForeground(Color.WHITE);
 			btnPTWMOtherProfile.setOpaque(true);
+			btnPTWMOtherProfile.setBorderPainted(false);
 			btnPTWMOtherProfile.setBounds(36, 514, 190, 33);
 		}
 		return btnPTWMOtherProfile;
@@ -344,33 +376,227 @@ public class OthersProfile {
 		}
 		return lblOtherProfilePhone;
 	}
-	private JTextField getTfOtherProfilePhone() {
-		if (tfOtherProfilePhone == null) {
-			tfOtherProfilePhone = new JTextField();
-			tfOtherProfilePhone.setForeground(new Color(0, 102, 204));
-			tfOtherProfilePhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-			tfOtherProfilePhone.setColumns(10);
-			tfOtherProfilePhone.setBounds(126, 198, 311, 21);
+	private JTextField getTfStudentPhone() {
+		if (tfStudentPhone == null) {
+			tfStudentPhone = new JTextField();
+			tfStudentPhone.setEditable(false);
+			tfStudentPhone.setForeground(new Color(0, 102, 204));
+			tfStudentPhone.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+			tfStudentPhone.setColumns(10);
+			tfStudentPhone.setBounds(126, 198, 311, 21);
 		}
-		return tfOtherProfilePhone;
+		return tfStudentPhone;
 	}
-	private JButton getBtnCancel() {
-		if (btnCancel == null) {
-			btnCancel = new JButton("Cancel");
-			btnCancel.setOpaque(true);
-			btnCancel.setForeground(new Color(0, 102, 204));
-			btnCancel.setBackground(Color.WHITE);
-			btnCancel.setBounds(247, 514, 190, 33);
+	private JButton getBtnClose() {
+		if (btnClose == null) {
+			btnClose = new JButton("Close");
+			btnClose.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					frmProfile.dispose();
+				}
+			});
+			btnClose.setOpaque(true);
+			btnClose.setForeground(new Color(0, 102, 204));
+			btnClose.setBackground(Color.WHITE);
+			btnClose.setBounds(247, 514, 190, 33);
 		}
-		return btnCancel;
+		return btnClose;
 	}
-	private JLabel getLblOtherProfile() {
-		if (lblOtherProfile == null) {
-			lblOtherProfile = new JLabel("JaePill's Profile");
-			lblOtherProfile.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-			lblOtherProfile.setForeground(Color.GRAY);
-			lblOtherProfile.setBounds(30, 17, 401, 30);
+	private JLabel getLblStudentProfile() {
+		if (lblStudentProfile == null) {
+			lblStudentProfile = new JLabel();
+			lblStudentProfile.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+			lblStudentProfile.setForeground(Color.GRAY);
+			lblStudentProfile.setBounds(30, 17, 401, 30);
+			lblStudentProfile.setText(name + "'s Profile");
 		}
-		return lblOtherProfile;
+		return lblStudentProfile;
 	}
+	private JLabel getLblPhoto() {
+		if (lblPhoto == null) {
+			lblPhoto = new JLabel("");
+			lblPhoto.setIcon(null);
+			lblPhoto.setBounds(30, 59, 102, 136);
+		}
+		return lblPhoto;
+	}
+	
+// Student Profile Project and teammate review table
+	public void studentProjectTable(){
+	    int i = Outer_Table_ProjectTable.getRowCount();
+	    Outer_Table_ProjectTable.addColumn("Project Name");
+	    Outer_Table_ProjectTable.addColumn("TeamName");
+	    Outer_Table_ProjectTable.addColumn("결과물-Git Address");
+	    Outer_Table_ProjectTable.setColumnCount(3);
+	    for(int j = 0 ; j < i ; j++){
+	    	Outer_Table_ProjectTable.removeRow(0);
+	    }
+	    ProjectTable.setAutoResizeMode(ProjectTable.AUTO_RESIZE_OFF);
+	    int vColIndex = 0;
+	    TableColumn col = ProjectTable.getColumnModel().getColumn(vColIndex);
+	    int width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 1;
+	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
+	    width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 2;
+	    col = ProjectTable.getColumnModel().getColumn(vColIndex);
+	    width = 200;
+	    col.setPreferredWidth(width);
+	}
+	@SuppressWarnings("static-access")
+	public void studentReviewTable(){
+	    int i = Outer_Table_TeammateReviewTable.getRowCount();
+	    Outer_Table_TeammateReviewTable.addColumn("Project Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Teammate Name");
+	    Outer_Table_TeammateReviewTable.addColumn("Review");
+	    Outer_Table_TeammateReviewTable.setColumnCount(3);
+	    for(int j = 0 ; j < i ; j++){
+	    	Outer_Table_TeammateReviewTable.removeRow(0);
+	    }
+	    TeammateReviewTable.setAutoResizeMode(TeammateReviewTable.AUTO_RESIZE_OFF);
+	    int vColIndex = 0;
+	    TableColumn col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
+	    int width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 1;
+	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
+	    width = 100;
+	    col.setPreferredWidth(width);
+	    vColIndex = 2;
+	    col = TeammateReviewTable.getColumnModel().getColumn(vColIndex);
+	    width = 200;
+	    col.setPreferredWidth(width);
+
+	}// Student Profile Project and teammate review table end
+	
+	
+	
+	
+	//----------------------
+	// 21.04.28 hyokyeong
+	//----------------------
+	
+	// click 한 id의 data 보여주기
+	//photo, mbti, github_id, subway, phone, strength, introduce
+	private void setText() {
+		
+		DbAction2 dbAction = new DbAction2(tfStudentId.getText());
+		Bean bean = dbAction.TableClick();
+		
+		
+//		lblPhoto.setIcon(bean.getPhoto());
+		Image image = bean.photo.getScaledInstance(lblPhoto.getWidth()+17, lblPhoto.getHeight(), Image.SCALE_SMOOTH);
+		lblPhoto.setIcon(new ImageIcon(image));
+		tfStudentMbti.setText(bean.getMbti());
+		tfStudentGithub.setText(bean.getGithub_id());
+		tfStudentAddress.setText(bean.getSubway());
+		tfStudentPhone.setText(bean.getPhone());
+		tfStudentStrength.setText(bean.getStrength());
+		tfStudentIntroduce.setText(bean.getIntroduce());
+		
+	} // setText end
+	
+	
+	//----------------------
+	// 21.04.29 hyokyeong - pick (dip)
+	//----------------------
+	
+	/*
+	 * btnPTWMOtherProfile click 시 action insert into Dip
+	 */
+	private void pleaseTeamWithMe() {
+//		MainPage mp = new MainPage();
+//		String loginedId = mp.lblId();
+		DbAction2 dbAction = new DbAction2(Login.tfLoginUserId.getText(), id); // testLogin id change to Login Id***
+		
+		boolean msg = dbAction.insertDip();
+		
+		if(msg == true) {
+			JOptionPane.showMessageDialog(null, tfStudentName.getText()+ "님이 My Pick에 등록되었습니다.");
+			frmProfile.dispose();
+			
+		}else {
+			JOptionPane.showMessageDialog(null, "DB에 자료 입력중 에러가 발생했습니다! \n 시스템관리자에 문의하세요!",
+					"Critical Error!", 
+					JOptionPane.ERROR_MESSAGE);                    
+		}
+	}
+	
+	/*
+	 * Dip 현황 체크, 이미 pick한 학생 중복 pick 불가
+	 */
+	
+	
+	
+	private void checkDipAction() {
+		
+		
+		String loginedId = Login.tfLoginUserId.getText();		
+		DbAction2 dbAction = new DbAction2();
+		ArrayList<Bean> beanDipList = dbAction.checkDipList();
+		
+		int listCount = beanDipList.size();
+		
+		String wkSender = "";
+		String wkTarget = "";
+		
+		for(int j = 0; j < listCount; j++) {
+			wkSender = beanDipList.get(j).getSender();
+			wkTarget = beanDipList.get(j).getTarget();
+			
+			if(loginedId.equals(wkSender) && id.equals(wkTarget)) {
+				JOptionPane.showMessageDialog(null, "이미 Pick한 사람입니다.");
+				return;
+			}
+			
+		}
+		pleaseTeamWithMe();
+		
+	}
+	
+	// Student Project Tabel 보여주기
+	public void showStudentProject(){
+		studentProjectTable();
+        
+		DbAction2 dbAction  = new DbAction2(id);
+		ArrayList<Bean> projectList = dbAction.selectStudentProjectList();
+		
+		int listCount = projectList.size();
+		
+		for(int i =0 ; i < listCount;i++) {
+			
+			String teamName = Integer.toString(projectList.get(i).getTeamName());
+			
+			String[] qTxt = {projectList.get(i).getProjectName(), 
+							teamName , 
+							projectList.get(i).getTeamGitAddress()};
+			
+			Outer_Table_ProjectTable.addRow(qTxt);
+			
+		}
+
+	}
+	// Project Teammate들의 review 보여주기
+	public void showTeammateReview(){
+		studentReviewTable();
+		DbAction2 dbAction = new DbAction2(id);
+		
+		ArrayList<Bean> teamReviewList = dbAction.selectStudentReviewList();
+		
+		int listCount = teamReviewList.size();
+		
+		for( int i =0 ; i < listCount;i++) {
+			
+			String[] qTxt = {teamReviewList.get(i).getProjectName(),
+							teamReviewList.get(i).getSender(), 
+							teamReviewList.get(i).getComment()};
+
+			Outer_Table_TeammateReviewTable.addRow(qTxt);
+
+		}
+	}
+	
+	
 } // End Line

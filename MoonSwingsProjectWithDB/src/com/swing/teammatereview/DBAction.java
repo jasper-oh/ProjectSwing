@@ -139,7 +139,6 @@ public class DBAction {
             ps.setString(2, sender);
             ps.setString(3, content);
             ps.setString(4, getDate());
-            //*팀넘버 받아오도록 수정해야
             ps.setInt(5, selectedTeamNo);
             
             ps.executeUpdate();
@@ -154,7 +153,6 @@ public class DBAction {
 	}
 	
 	//코멘트 수정
-    //*팀넘버 받아오도록 수정해야
 	public boolean commentUpdate(int selectedTeamNo, String target, String sender, String content) {
 		Connection conn_mysql = mysqlConnect();
 		Statement stmt_myslq = null; 

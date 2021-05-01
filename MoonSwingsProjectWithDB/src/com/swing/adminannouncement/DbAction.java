@@ -1,5 +1,4 @@
 package com.swing.adminannouncement;
-
 import com.swing.DB.ShareVar;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,28 +27,15 @@ public class DbAction {
 
 	
 	public DbAction(int no) {
-		super();
 		this.no = no;
 	}
-	
-//	public DbAction(String writing, String title, String content) {
-//		super();
-//		this.writing = writing;
-//		this.title = title;
-//		this.content = content;
-//	}
+
 	public DbAction(String title, String content) {
 		super();
 		this.title = title;
 		this.content = content;
 	}
-//	public DbAction(int no, String writing, String title, String content) {
-//		super();
-//		this.no = no;
-//		this.writing = writing;
-//		this.title = title;
-//		this.content = content;
-//	}
+
 	public DbAction(int no, String title, String content) {
 		super();
 		this.no = no;
@@ -62,15 +48,7 @@ public class DbAction {
 		this.no = no;
 		this.views = views;
 	}
-	
-//	#############Announcement#############
-//	#Announcement table
-//	SELECT no, writing, title, content, views FROM announcement ORDER BY no;
-//	#Announcement detail
-//	SELECT title, content, writing FROM announcement WHERE no = 'int';
-	
-	
-	
+
 	// Method
 /*
  * select list => selectAnnouncementList should be changed 
@@ -79,7 +57,7 @@ public class DbAction {
 	// Announcement table의 db값 전부 불러오기~
 	public ArrayList<Bean> selectAnnouncementList(){
 		ArrayList<Bean> beanList = new ArrayList<Bean>();
-		String WhereDefault = "select no, writing, title, views from Announcement order by no desc ";
+		String WhereDefault = "select no, writing, title, views from Announcement where delete_date is null order by no desc ";
 		
 	    try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -200,13 +178,14 @@ public class DbAction {
 	// Delete Announcement
 	public void deleteAction() {
 		PreparedStatement ps = null;
+		
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
             @SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-            String A = "delete from Announcement where no = ? ";
+            String A = "update announcement set delete_date = now() where no = ?";
 
             ps = conn_mysql.prepareStatement(A);
             
@@ -214,10 +193,12 @@ public class DbAction {
             ps.executeUpdate();
 
             conn_mysql.close();
+            
         } catch (Exception e){
             e.printStackTrace();
         }
-	}//*delete Action end*
+        
+	}	//*delete Action end*
 	
 	// update Announcement
 	public void updateAction() {
