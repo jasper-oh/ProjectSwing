@@ -50,7 +50,7 @@ public class DBAction {
 		
 		String select = "SELECT t.no, p.name, t.name, t.project_git_address ";
 		String from = "FROM joining j, team t, do d, project p ";
-		String where = "WHERE j.student_id = '" + loginedId + "' AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no ";
+		String where = "WHERE j.student_id = '" + loginedId + "' AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no AND j.secession";
 		String orderBy = "ORDER BY t.no ASC";
 		
 		try {

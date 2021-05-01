@@ -356,7 +356,6 @@ public class AdminProjectManagement extends JPanel {
 		}
 	}
 	//인서트 버튼 클릭시
-	//*팝업창을 띄워서 해당 값으로 대체되게 수정해야 
 	public void insertProject() {
 		JOptionPane projectNameInputPane =new JOptionPane();
 		String name = projectNameInputPane.showInputDialog("추가할 프로젝트 이름을 입력하세요.");
@@ -372,7 +371,6 @@ public class AdminProjectManagement extends JPanel {
 	}
 	
 	//업데이트 버튼 클릭시
-	//*팝업창을 띄워서 해당 값으로 대체되게 수정해야 
 	public void updateProject(){
 		int row = tableManageProject.getSelectedRow();
 		//테이블에 선택된 아이템이 없을 
@@ -383,7 +381,7 @@ public class AdminProjectManagement extends JPanel {
 		String getProjectNoToString = (String) tableManageProject.getValueAt(row, 0);
 		int projectNoParsedInt = Integer.parseInt(getProjectNoToString);
 		System.out.println("선택된 열 : " + row + " // 프로젝트번호 :" + getProjectNoToString);
-		String getProjectNameToString = (String) tableManageProject.getValueAt(row, 0);
+		String getProjectNameToString = (String) tableManageProject.getValueAt(row, 1);
 		
 		
 		JOptionPane projectNameInputPane =new JOptionPane();
@@ -400,7 +398,7 @@ public class AdminProjectManagement extends JPanel {
 		}
 		
 		DBAction dba = new DBAction();
-		boolean result = dba.updateProject(projectNoParsedInt, "수정");
+		boolean result = dba.updateProject(projectNoParsedInt, changedName);
 		if(result) {
 			JOptionPane.showMessageDialog(null, "수정되었습니다.");
 		}else {

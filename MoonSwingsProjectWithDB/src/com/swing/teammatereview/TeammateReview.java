@@ -46,7 +46,8 @@ public class TeammateReview extends JPanel {
 	
 	
 	public void initialiser() {
-		
+		scrollPane_TeammateReview_1.setViewportView(initPanel);
+
 		teammateReviewTableProject();
 		projectTableSetItem();
 		btnInsert.setVisible(false);
@@ -220,6 +221,13 @@ public class TeammateReview extends JPanel {
 	
 	//project table data 부착
 	public void projectTableSetItem() {
+		
+
+	    int rowCount = Outer_Table_ProjectTable.getRowCount();
+	    for(int i = 0 ; i < rowCount ; i++){
+	    	Outer_Table_ProjectTable.removeRow(0);
+	    }
+		
 		DBAction dba = new DBAction();
 		ArrayList<String[]> rsArr = dba.teamReviewProjectTableDataSelect(loginedId);
 		for (int i = 0; i <= rsArr.size() - 1; i++) {
