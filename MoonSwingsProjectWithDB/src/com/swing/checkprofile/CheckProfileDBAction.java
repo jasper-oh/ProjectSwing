@@ -302,7 +302,9 @@ public ArrayList<CheckProfileBean> selectCheckProfileReviewList(){
         Statement stmt_mysql = conn_mysql.createStatement();
 //        do.project_no = project.no
 //         team.no = do.team_no
-        String selectDefault = "select c.sender, c.content, (Select p.name from do d, project p where d.project_no = p.no and secession is null) project_name from comment c where c.target = ?";
+        String selectDefault = "select c.sender, c.content, p.name "
+        		+ "from comment c, project p, joining j, team t "
+        		+ "where c.target = ? AND c.sender = j.student_id AND j.secession is null AND j.team_no = t.no AND t.project_no = p.no";
         
         System.out.println(selectDefault);
         
