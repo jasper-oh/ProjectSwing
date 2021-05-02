@@ -58,7 +58,7 @@ public class TeamStatusDBAction {
 			Statement stmt_mysql = conn_mysql.createStatement();
 			
 			//여기만 변경될거야
-			String query = "INSERT INTO joining (creation, student_id, team_no) VALUES (?, ?, ?)"; //? 쓰기위해 프리페어 선언 ?에 입력창에 들어갈것
+			String query = "INSERT INTO joining (creation, student_id, team_no) VALUES (?, ?, (SELECT no FROM team t WHERE t.project_no = (SELECT MAX(no) from project) AND name = ?))"; //? 쓰기위해 프리페어 선언 ?에 입력창에 들어갈것
 			ps = conn_mysql.prepareStatement(query); //컴파일전에 자바로 바꿔줘
 			
 			ps.setString(1, now);
@@ -93,7 +93,7 @@ public class TeamStatusDBAction {
 			@SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 			//수정하기
-			String A = "UPDATE joining SET secession = ? WHERE student_id = ?";
+			String A = "UPDATE joining SET secession = ? WHERE student_id = ? AND team_no IN (SELECT no FROM team WHERE project_no = (SELECT MAX(no) FROM project))";
 			ps = conn_mysql.prepareStatement(A);
 			//수정하기
 			ps.setString(1, now);
@@ -116,7 +116,7 @@ public class TeamStatusDBAction {
 		ArrayList<TeamStatusBean> beanList = new ArrayList<TeamStatusBean>();
 		String WhereDefault = "SELECT t.name, s.name "
 								+ "FROM student s, joining j, team t "
-								+ "WHERE s.id = j.student_id AND j.team_no = t.no AND j.secession IS NULL;";
+								+ "WHERE s.id = j.student_id AND j.team_no = t.no AND j.secession IS NULL AND t.project_no = (SELECT MAX(no) FROM project);;";
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -152,8 +152,8 @@ public class TeamStatusDBAction {
 	        @SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 
-	        String A = "select name";
-	        String B = " from makeavengers.student where id = ?"  ;
+	        String A = "select name ";
+	        String B = "from student where id = ?"  ;
 	        
 	        System.out.println(A+B);
 
@@ -167,7 +167,7 @@ public class TeamStatusDBAction {
 	        String name = rs.getString(1);
 	        
 	        conn_mysql.close();
-	        
+	        	
 	        return name;
 	    } catch (Exception e){                    
 	        e.printStackTrace();

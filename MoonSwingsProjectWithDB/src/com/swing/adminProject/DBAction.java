@@ -65,8 +65,36 @@ public class DBAction {
 				ps = conn_mysql.prepareStatement(query);
 				ps.setString(1, name);
 				ps.setString(2, getDate());
-				
 				ps.executeUpdate();
+				
+				if ( insertTeamByProject() ) {
+					System.out.println("[insertProject] 입력 성공");
+				}
+				
+				conn_mysql.close();
+				System.out.println("[insertProject] mysql연결 종료");
+				return true;
+			}catch (Exception e) {
+				System.out.println("[insertProject] 입력실패");
+				e.printStackTrace();
+				return false;
+			}
+		}
+	
+		//프로젝트 추가에 따른 팀 생성
+		public boolean insertTeamByProject() {
+			String query = "INSERT team (name, project_no) VALUES (?, (SELECT MAX(p.no) FROM project p));";
+			
+			try {
+				conn_mysql = mysqlConnect();
+				PreparedStatement[] pss = new PreparedStatement[6];
+				
+				for(int i = 1; i <= 6; i ++) {
+					pss[i - 1] = conn_mysql.prepareStatement(query);
+					pss[i - 1].setInt(1, i);
+					pss[i - 1].executeUpdate();
+				}
+	
 				System.out.println("[insertProject] 입력 성공");
 				conn_mysql.close();
 				System.out.println("[insertProject] mysql연결 종료");
@@ -100,7 +128,34 @@ public class DBAction {
 		
 		//프로젝트 삭제
 		public boolean deleteProject(int no) {
+			
+			deleteComment();
+			deleteJoining();
+			deleteTeam();
+			
 			String query = "DELETE FROM project WHERE no = " + no;
+		
+			try {
+				conn_mysql = mysqlConnect();
+				stmt_mysql = conn_mysql.createStatement();
+				stmt_mysql.executeUpdate(query);
+				System.out.println("[deleteProject]삭제 성공");
+				conn_mysql.close();
+				System.out.println("[deleteProject] mysql연결 종료");
+				
+				
+				return true;
+			} catch (Exception e) {
+				System.out.println("[deleteProject]삭제 실패");
+				e.printStackTrace();
+			}
+			
+			return false;
+		}
+		
+		//프로젝트 삭제에 따른 team 제거
+		public boolean deleteTeam() {
+			String query = "DELETE FROM team WHERE project_no = (SELECT MAX(no) FROM project)";
 			
 			try {
 				conn_mysql = mysqlConnect();
@@ -118,6 +173,48 @@ public class DBAction {
 			
 			return false;
 		}
+		
+		//팀 삭제에 따른 joining 제거
+		public boolean deleteJoining() {
+			String query = "DELETE FROM joining WHERE team_no IN (SELECT no FROM team WHERE project_no = (SELECT MAX(no) FROM project))";
+			
+			try {
+				conn_mysql = mysqlConnect();
+				stmt_mysql = conn_mysql.createStatement();
+				stmt_mysql.executeUpdate(query);
+				System.out.println("[deleteProject]삭제 성공");
+				conn_mysql.close();
+				System.out.println("[deleteProject] mysql연결 종료");
+				
+				return true;
+			} catch (Exception e) {
+				System.out.println("[deleteProject]삭제 실패");
+				e.printStackTrace();
+			}
+			
+			return false;
+		}
+		
+		//팀 삭제에 따른 comment 제거
+				public boolean deleteComment() {
+					String query = "DELETE FROM comment WHERE team_no IN (SELECT no FROM team WHERE project_no = (SELECT MAX(no) FROM project))";
+					
+					try {
+						conn_mysql = mysqlConnect();
+						stmt_mysql = conn_mysql.createStatement();
+						stmt_mysql.executeUpdate(query);
+						System.out.println("[deleteProject]삭제 성공");
+						conn_mysql.close();
+						System.out.println("[deleteProject] mysql연결 종료");
+						
+						return true;
+					} catch (Exception e) {
+						System.out.println("[deleteProject]삭제 실패");
+						e.printStackTrace();
+					}
+					
+					return false;
+				}
 		
 		//헤당 프로젝트의 팀 출력
 		public ArrayList<String[]> selectTeamOnProject(int projectNo) {

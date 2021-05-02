@@ -299,7 +299,7 @@ public class SignUp {
 	private JTextField getTfSignUpName() {
 		if (tfSignUpName == null) {
 			tfSignUpName = new TextFieldHint("Enter Your Name");
-			tfSignUpName.setForeground(new Color(0, 102, 204));
+			tfSignUpName.setForeground(Color.LIGHT_GRAY);
 			tfSignUpName.setBounds(86, 236, 127, 30);
 			tfSignUpName.setColumns(10);
 		}
@@ -308,7 +308,7 @@ public class SignUp {
 	private JTextField getTfSignUpPhone() {
 		if (tfSignUpPhone == null) {
 			tfSignUpPhone = new TextFieldHint("01011112222");
-			tfSignUpPhone.setForeground(new Color(0, 102, 204));
+			tfSignUpPhone.setForeground(Color.LIGHT_GRAY);
 			tfSignUpPhone.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -334,7 +334,7 @@ public class SignUp {
 	private JTextField getTfSignUpAddress() {
 		if (tfSignUpAddress == null) {
 			tfSignUpAddress = new TextFieldHint("Nearby Subway Station");
-			tfSignUpAddress.setForeground(new Color(0, 102, 204));
+			tfSignUpAddress.setForeground(Color.LIGHT_GRAY);
 			tfSignUpAddress.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -350,7 +350,7 @@ public class SignUp {
 	private JTextField getTfSignUpBriefInfo() {
 		if (tfSignUpBriefInfo == null) {
 			tfSignUpBriefInfo = new TextFieldHint("One sentence to know about you!");
-			tfSignUpBriefInfo.setForeground(new Color(0, 102, 204));
+			tfSignUpBriefInfo.setForeground(Color.LIGHT_GRAY);
 			tfSignUpBriefInfo.setBackground(Color.WHITE);
 			tfSignUpBriefInfo.setBounds(35, 405, 430, 45);
 			tfSignUpBriefInfo.setColumns(10);
@@ -370,7 +370,7 @@ public class SignUp {
 	private JTextField getTfSignUpStrength() {
 		if (tfSignUpStrength == null) {
 			tfSignUpStrength = new TextFieldHint("Java, Python, Kotlin..Max 5 Min 1");
-			tfSignUpStrength.setForeground(new Color(0, 102, 204));
+			tfSignUpStrength.setForeground(Color.LIGHT_GRAY);
 			tfSignUpStrength.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -517,6 +517,7 @@ public class SignUp {
 		}else {
 			btnSignUpIdCheck.setText("Check");
 			tfSignUpId.setEditable(false);
+			btnSignUpIdCheck.setForeground(Color.GRAY);
 		}
 		
 	}
@@ -564,6 +565,7 @@ public class SignUp {
 				btnPwCheck.setText("Check");
 				tfSignUpPw.setEditable(false);
 				tfSignUpPwConfirm.setEditable(false);
+				btnPwCheck.setForeground(Color.GRAY);
 				return;
 				
 			}else {

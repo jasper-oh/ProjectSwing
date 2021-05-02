@@ -102,13 +102,13 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.sender, sender.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.sender = j.student_id "
-						+ "AND j.team_no = t.no and j.secession is null) as team_name "
+						+ "AND j.team_no = t.no and j.secession is null) as team_name, d.no "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "
 						+ "WHERE st.id = d.sender) as sender ";
 		String query4 =	"WHERE d.target = '" + id + "' AND d.sender = sender.id "
-						+"AND d.cancellation is null";
+						+"AND d.cancellation is null ORDER BY d.no ";
 		
 	    try{
 	        Class.forName("com.mysql.cj.jdbc.Driver");
@@ -143,13 +143,13 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.target, target.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.target = j.student_id "
-						+ "AND j.team_no = t.no and j.secession is null) as team_name "
+						+ "AND j.team_no = t.no and j.secession is null) as team_name , d.no "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "
 						+ "WHERE st.id = d.target) as target ";
 		String query4 =	"WHERE d.sender = '" + id + "' AND d.target = target.id "
-						+"AND d.cancellation is null";
+						+"AND d.cancellation is null ORDER BY d.no DESC " ;
 
 		
 	    try{
@@ -278,8 +278,7 @@ public class DbAction2 {
 	        Statement stmt_mysql = conn_mysql.createStatement();
 	        String selectDefault = "select p.name, t.name, t.project_git_address "
 	        		+ "from joining j, team t, do d, project p "
-	        		+ "where j.student_id = ? and j.team_no = t.no and t.no = d.team_no "
-	        		+ "and d.project_no = p.no";
+	        		+ "where j.student_id = ? AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no and secession is null";
 
 	        ps = conn_mysql.prepareStatement(selectDefault);
 	        ps.setString(1, id);
@@ -316,9 +315,9 @@ public class DbAction2 {
 	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	        Statement stmt_mysql = conn_mysql.createStatement();
 
-	        String selectDefault =  "select (Select p.name from do d, project p "
-	        		+ "where c.team_no and d.project_no = p.no limit 1) project_name, c.sender, c.content "
-	        		+ "from comment c where c.target = ? ";
+	        String selectDefault =  "SELECT (SELECT p.name FROM team t, project p WHERE c.team_no = t.no AND t.project_no = p.no), c.sender, c.content "
+	        		+ "FROM comment c "
+	        		+ "WHERE c.target = ? AND c.team_no IN (SELECT team_no FROM joining WHERE student_id = c.target AND secession IS NULL)";
 	        ps = conn_mysql.prepareStatement(selectDefault);
 	        
 	        ps.setString(1, id);

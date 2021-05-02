@@ -53,11 +53,12 @@ public class AdminTeamStatusDBAction {
 			Statement stmt_mysql = conn_mysql.createStatement();
 			
 			//여기만 변경될거야
-			String query = "INSERT INTO joining (creation, student_id, team_no) VALUES (?, ?, ?)"; //? 쓰기위해 프리페어 선언 ?에 입력창에 들어갈것
+			String query = "INSERT INTO joining (creation, student_id, team_no) VALUES (?, ?, (SELECT no FROM team t WHERE t.project_no = (SELECT MAX(no) from project) AND name = ?))"; //? 쓰기위해 프리페어 선언 ?에 입력창에 들어갈것
 			ps = conn_mysql.prepareStatement(query); //컴파일전에 자바로 바꿔줘
 			
 			ps.setString(1, now);
 			ps.setString(2, id);
+//			ps.setString(3, "SELECT no FROM team t WHERE t.project_no = (SELECT MAX(no) from project) AND name = "+team_no);
 			ps.setInt(3, team_no);
 			ps.executeUpdate();//입력되면 업데이트된다
 			
@@ -87,7 +88,7 @@ public class AdminTeamStatusDBAction {
 			@SuppressWarnings("unused")
 			Statement stmt_mysql = conn_mysql.createStatement();
 			//수정하기
-			String A = "UPDATE joining SET secession = ? WHERE team_no =" + selectedrdb;
+			String A = "UPDATE joining SET secession = ? WHERE team_no = (SELECT no FROM team WHERE project_no = (SELECT MAX(no) FROM project) AND name = " + selectedrdb + ")";
 			ps = conn_mysql.prepareStatement(A);
 			
 			ps.setString(1, now);
@@ -107,7 +108,7 @@ public class AdminTeamStatusDBAction {
 		ArrayList<AdminTeamStatusBean> beanList = new ArrayList<AdminTeamStatusBean>();
 		String WhereDefault = "SELECT t.name, s.name "
 								+ "FROM student s, joining j, team t "
-								+ "WHERE s.id = j.student_id AND j.team_no = t.no AND j.secession IS NULL;";
+								+ "WHERE s.id = j.student_id AND j.team_no = t.no AND j.secession IS NULL AND t.project_no = (SELECT MAX(no) FROM project);";
 		
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -140,7 +141,7 @@ public class AdminTeamStatusDBAction {
 		String WhereDefault = "SELECT s.id, s.name, s.mbti, count(d.target) picked "
 								+ "FROM student s "
 								+ "LEFT JOIN dip d on s.id = d.target "
-								+ "WHERE NOT EXISTS (SELECT s.id FROM joining j WHERE s.id = j.student_id AND j.secession is null) "
+								+ "WHERE NOT EXISTS (SELECT s.id FROM joining j, team t WHERE s.id = j.student_id AND j.secession is null AND j.team_no = t.no and t.project_no = (SELECT MAX(no) FROM project))"
 								+ "group by s.id;";
 		
         try{

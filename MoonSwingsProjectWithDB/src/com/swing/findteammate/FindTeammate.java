@@ -49,10 +49,17 @@ public class FindTeammate extends JPanel {
 	private JLabel lblFindTeammateMyPick;
 	private JButton btnDelete;
 	
+	public DbAction2 dbAction = new DbAction2();
+	
+	
 	
 	/**
 	 * Create the panel.
 	 */
+	public FindTeammate() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public FindTeammate(String loginedId) {
 		this.loginedId = loginedId;
 		// TODO Auto-generated constructor stub
@@ -165,6 +172,7 @@ public class FindTeammate extends JPanel {
 	private JTable getTableYouPickedBy() {
 		if (tableYouPickedBy == null) {
 			tableYouPickedBy = new JTable();
+			tableYouPickedBy.setForeground(new Color(0,102,204)); 
 			tableYouPickedBy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			tableYouPickedBy.setModel(Outer_Table_YouPickedBy); // <--***************************************************
 			tableYouPickedBy.getTableHeader().setResizingAllowed(false);  // 컬럼 크기 조절 불가
@@ -218,6 +226,7 @@ public class FindTeammate extends JPanel {
 	private JTable getTableMyPick() {
 		if (tableMyPick == null) {
 			tableMyPick = new JTable();
+			tableMyPick.setForeground(new Color(0,102,204));
 			TableFindTeammate.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
@@ -364,7 +373,11 @@ public class FindTeammate extends JPanel {
 			break;
 		case 4:
 			FindTeammateTableFindTeammate();
-			searchTeamStatus(selection);
+			if(selection.equals("")) {
+				searchAction();
+			}else {
+				searchTeamStatus(selection);
+			}
 			return;
 			
 		default:
@@ -387,9 +400,8 @@ public class FindTeammate extends JPanel {
         
         int listCount = beanFTList.size();
         int unTeamListCount = beanUnteamedList.size();
-
+        
         char unteam = selection.toLowerCase().charAt(0);
-
         
         if(unteam == 'u') {
         	for(int i=0; i<unTeamListCount; i++) {
@@ -469,7 +481,6 @@ public class FindTeammate extends JPanel {
 	// You picked by list -- beanPickedList
 	//DB to Table
 	public void showYouPickedby(){
-		
 		FindTeammateTableYouPickedBy();
         DbAction2 dbAction = new DbAction2(loginedId); // login id로 보내기************
         ArrayList<Bean> beanPickedList = dbAction.selectYouPickedByList();

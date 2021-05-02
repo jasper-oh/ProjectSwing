@@ -39,7 +39,7 @@ public class TextFieldHint extends JTextField {
         } else {  
           setText(getText());  
           setFont(gainFont);  
-          setForeground(Color.BLACK);  
+          setForeground(new Color(0,102,204));  
         }  
       }  
     });  

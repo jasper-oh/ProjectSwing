@@ -50,7 +50,7 @@ public class DBAction {
 		
 		String select = "SELECT t.no, p.name, t.name, t.project_git_address ";
 		String from = "FROM joining j, team t, do d, project p ";
-		String where = "WHERE j.student_id = '" + loginedId + "' AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no AND j.secession";
+		String where = "WHERE j.student_id = '" + loginedId + "' AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no and secession is null";
 		String orderBy = "ORDER BY t.no ASC";
 		
 		try {
@@ -139,6 +139,7 @@ public class DBAction {
             ps.setString(2, sender);
             ps.setString(3, content);
             ps.setString(4, getDate());
+            //*팀넘버 받아오도록 수정해야
             ps.setInt(5, selectedTeamNo);
             
             ps.executeUpdate();
@@ -153,6 +154,7 @@ public class DBAction {
 	}
 	
 	//코멘트 수정
+    //*팀넘버 받아오도록 수정해야
 	public boolean commentUpdate(int selectedTeamNo, String target, String sender, String content) {
 		Connection conn_mysql = mysqlConnect();
 		Statement stmt_myslq = null; 

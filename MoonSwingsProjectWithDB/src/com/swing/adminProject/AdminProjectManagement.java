@@ -356,6 +356,7 @@ public class AdminProjectManagement extends JPanel {
 		}
 	}
 	//인서트 버튼 클릭시
+	//*팝업창을 띄워서 해당 값으로 대체되게 수정해야 
 	public void insertProject() {
 		JOptionPane projectNameInputPane =new JOptionPane();
 		String name = projectNameInputPane.showInputDialog("추가할 프로젝트 이름을 입력하세요.");
@@ -371,6 +372,7 @@ public class AdminProjectManagement extends JPanel {
 	}
 	
 	//업데이트 버튼 클릭시
+	//*팝업창을 띄워서 해당 값으로 대체되게 수정해야 
 	public void updateProject(){
 		int row = tableManageProject.getSelectedRow();
 		//테이블에 선택된 아이템이 없을 
