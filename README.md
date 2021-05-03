@@ -2,11 +2,6 @@
 
 Java GUI Swing project with Git Collaboration
 
-### 👉  Personal Info
-### 👉  Recommendation
-### 👉  Personal Info Detail 
-
-
 ##### 🛠 Tool Eclipse
 > 2021.03 version
 
@@ -21,6 +16,13 @@ Java GUI Swing project with Git Collaboration
 
 ##### 🌉 mysql-connector-java
 > 8.0.23
+
+
+### 👉  Personal Info
+  -> User can put the brief info to login the mainpage 
+### 👉  My Pick
+  -> User can choose the teammate with click the 'Team with me' button
+... And More
 
 
 <hr>
