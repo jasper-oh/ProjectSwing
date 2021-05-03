@@ -102,7 +102,7 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.sender, sender.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.sender = j.student_id "
-						+ "AND j.team_no = t.no and j.secession is null) as team_name, d.no "
+						+ "AND j.team_no = t.no AND t.project_no = (SELECT MAX(no) FROM project) and j.secession is null) as team_name, d.no "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "
@@ -143,7 +143,7 @@ public class DbAction2 {
 		String query1 = "SELECT DISTINCT d.target, target.name, ";
 		String query2 = "(SELECT t.name FROM team t, joining j "
 						+ "WHERE d.target = j.student_id "
-						+ "AND j.team_no = t.no and j.secession is null) as team_name , d.no "
+						+ "AND j.team_no = t.no AND t.project_no = (SELECT MAX(no) FROM project) AND j.secession is null) as team_name , d.no "
 						+ "FROM dip d, ";
 		String query3 = "(SELECT st.id as id, d.target, st.name "
 						+ "FROM student st, dip d "
@@ -277,8 +277,8 @@ public class DbAction2 {
 	        Connection conn_mysql = DriverManager.getConnection(url_mysql,id_mysql,pw_mysql);
 	        Statement stmt_mysql = conn_mysql.createStatement();
 	        String selectDefault = "select p.name, t.name, t.project_git_address "
-	        		+ "from joining j, team t, do d, project p "
-	        		+ "where j.student_id = ? AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no and secession is null";
+	        		+ "from joining j, team t, project p "
+	        		+ "where j.student_id = ? AND j.team_no = t.no AND t.project_no = p.no and secession is null";
 
 	        ps = conn_mysql.prepareStatement(selectDefault);
 	        ps.setString(1, id);

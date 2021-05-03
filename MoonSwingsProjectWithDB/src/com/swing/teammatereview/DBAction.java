@@ -49,8 +49,8 @@ public class DBAction {
 		ArrayList<String[]> rsSet = new ArrayList<String[]>();
 		
 		String select = "SELECT t.no, p.name, t.name, t.project_git_address ";
-		String from = "FROM joining j, team t, do d, project p ";
-		String where = "WHERE j.student_id = '" + loginedId + "' AND j.team_no = t.no AND t.no = d.team_no AND d.project_no = p.no and secession is null";
+		String from = "FROM joining j, team t, project p ";
+		String where = "WHERE j.student_id = '" + loginedId + "' AND j.team_no = t.no AND t.project_no = p.no and j.secession is null";
 		String orderBy = "ORDER BY t.no ASC";
 		
 		try {

@@ -219,8 +219,8 @@ public class DBAction {
 		//헤당 프로젝트의 팀 출력
 		public ArrayList<String[]> selectTeamOnProject(int projectNo) {
 			String select = "SELECT t.no, t.name, t.project_git_address ";
-			String from = "FROM do d, team t ";
-			String where = "WHERE d.project_no = "+ projectNo +" AND d.team_no = t.no";
+			String from = "FROM project p, team t ";
+			String where = "WHERE p.no = "+ projectNo +" AND t.project_no = p.no";
 			
 			ArrayList<String[]> beans = new ArrayList<String[]>();
 			

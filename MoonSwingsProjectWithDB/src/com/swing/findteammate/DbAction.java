@@ -45,7 +45,7 @@ public class DbAction {
 		ArrayList <Bean> beanFTList = new ArrayList<Bean>();
 
 		String query1 = "SELECT s.id, s.name, ";
-		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no and j.secession is null, ";
+		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no AND t.project_no = (SELECT MAX(no) FROM project) AND j.secession is null), ";
 		String query3 = "s.mbti, count(d.target) FROM student s LEFT JOIN dip d on s.id = d.target ";
 		String query4 =	"WHERE " + ConditionQueryColumn + " like '%"+ selection +"%' GROUP BY s.id";
 		
@@ -84,7 +84,7 @@ public class DbAction {
 		ArrayList<Bean> beanFTList = new ArrayList<Bean>();
 		ArrayList<Bean> beanUnteamed = new ArrayList<Bean>();
 		String query1 = "SELECT s.id, s.name, ";
-		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no AND j.secession is null, ";
+		String query2 = "(SELECT t.name FROM joining j, team t WHERE s.id = j.student_id and j.team_no = t.no AND t.project_no = (SELECT MAX(no) FROM project) AND j.secession is null, ";
 		String query3 = "s.mbti, count(d.target) FROM student s ";
 		String query4 =	"LEFT JOIN dip d on s.id = d.target GROUP BY s.id";
 		

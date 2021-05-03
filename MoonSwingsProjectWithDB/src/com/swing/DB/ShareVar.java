@@ -2,7 +2,7 @@
 package com.swing.DB;
 
 public class ShareVar {
-	 	public static final String url_mysql = "jdbc:mysql://172.30.1.8/makeavengers?serverTimezone=UTC&characterEncoding=utf8&useSSL=FALSE";
+	 	public static final String url_mysql = "jdbc:mysql://192.168.2.8/makeavengers?serverTimezone=UTC&characterEncoding=utf8&useSSL=FALSE";
 	    public static final  String id_mysql = "root";
 	    public static final String pw_mysql = "1q2w3e4r";
 }
