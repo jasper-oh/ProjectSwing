@@ -25,9 +25,11 @@ Java GUI Swing project with Git Collaboration
 ... And More
 
 
-<hr>
+---
 
 git ignore => gitignore.io 🏷 eclipse, java, macOS
 
+
+---
 
 ❗️this project is protected by MIT LICENSE
