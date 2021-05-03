@@ -30,4 +30,4 @@ Java GUI Swing project with Git Collaboration
 git ignore => gitignore.io 🏷 eclipse, java, macOS
 
 
-
+❗️this project is protected by MIT LICENSE
