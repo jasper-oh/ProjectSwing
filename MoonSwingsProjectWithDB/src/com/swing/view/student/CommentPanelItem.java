@@ -141,17 +141,24 @@ public class CommentPanelItem extends JPanel {
 		System.out.println("taget : " + taget + ", comment = " + input);
 		
 		if (content == null) {
-			System.out.println("run insert");
-			gi.commentInsert(selectedTeamNo, taget, sender, input.trim());
-			content = input.trim();
-			tfContent.setText(input.trim());
+			System.out.println("[run insert]");
+			if (gi.commentInsert(selectedTeamNo, taget, sender, input.trim())) {
+				content = input.trim();
+				tfContent.setText(input.trim());
+				JOptionPane.showMessageDialog(null, "코멘트 등록 성공");
+			} else {
+				JOptionPane.showMessageDialog(null, "코멘트 등록 실패");
+			}
+
 			
 		} else {
 			System.out.println("[run update]");
-			gi.commentUpdate(selectedTeamNo, taget, sender, input.trim());
-			content = input.trim();
-			tfContent.setText(input.trim());
-			
+			if(gi.commentUpdate(selectedTeamNo, taget, sender, input.trim())) {
+				content = input.trim();
+				tfContent.setText(input.trim());
+				JOptionPane.showMessageDialog(null, "코멘트 등록 성공");
+			}
+			JOptionPane.showMessageDialog(null, "코멘트 등록 실패");
 		}
 	}
 }
