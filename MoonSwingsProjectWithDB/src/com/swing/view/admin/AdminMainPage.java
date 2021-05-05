@@ -105,7 +105,7 @@ public class AdminMainPage {
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowActivated(WindowEvent e) {
+			public void windowOpened(WindowEvent e) {
 				adminAnnouncement.AdminAnnouncementTable();
 				adminAnnouncement.searchAction();
 				adminAnnouncement.setVisible(true);
