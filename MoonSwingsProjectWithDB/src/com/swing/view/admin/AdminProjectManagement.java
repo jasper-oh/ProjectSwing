@@ -370,6 +370,7 @@ public class AdminProjectManagement extends JPanel {
 			JOptionPane.showMessageDialog(null, "프로젝트 생성에 실패했습니다.");
 		}
 		projectTableSetItem();
+		ProjectDetailsTableClean();
 	}
 	
 	//업데이트 버튼 클릭시
@@ -407,6 +408,8 @@ public class AdminProjectManagement extends JPanel {
 		}else {
 			JOptionPane.showMessageDialog(null, "수정에 실패했습니다.");
 		}
+		projectTableSetItem();
+		ProjectDetailsTableClean();
 	}
 	
 	//델리트 버튼 클릭시
@@ -433,5 +436,7 @@ public class AdminProjectManagement extends JPanel {
 		}else {
 			JOptionPane.showMessageDialog(null, "삭제에 실패했습니다.");
 		}
+		projectTableSetItem();
+		ProjectDetailsTableClean();
 	}
 }
